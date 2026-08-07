@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LITIS — Singapore Self-Filing Litigation Navigator (Framework v0.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EFE6;
+    --paper-2:#EBE4D6;
+    --ink:#1C1A16;
+    --ink-soft:#4A463E;
+    --ink-faint:#807A6E;
+    --line:rgba(28,26,22,0.14);
+    --line-soft:rgba(28,26,22,0.08);
+    --seal:#9C2B22;        /* oxblood / court stamp */
+    --seal-deep:#6E1C16;
+    --bronze:#9A7B3F;      /* restrained gold */
+    --navy:#1B3A4B;
+    --green:#3C6E47;
+    --amber:#B5781F;
+    --card:#FBF8F1;
+    --shadow:0 1px 0 rgba(28,26,22,0.05), 0 18px 40px -28px rgba(28,26,22,0.45);
+  }
+  *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"IBM Plex Sans",sans-serif;font-weight:400;line-height:1.55;
+    font-size:16px;
+    background-image:
+      radial-gradient(circle at 12% -10%, rgba(156,43,34,0.05), transparent 40%),
+      radial-gradient(circle at 90% 4%, rgba(27,58,75,0.05), transparent 38%);
+  }
+  .mono{font-family:"IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--seal);font-weight:500;}
+  h1,h2,h3,h4{font-family:"Fraunces",serif;font-weight:500;line-height:1.1;letter-spacing:-0.01em;margin:0;}
+  a{color:var(--seal);text-decoration:none;border-bottom:1px solid rgba(156,43,34,0.3);}
+  a:hover{border-bottom-color:var(--seal);}
+
+  /* ---- shell ---- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 26px;}
+  header.top{position:sticky;top:0;z-index:50;background:rgba(244,239,230,0.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .topbar{display:flex;align-items:center;gap:18px;padding:14px 26px;max-width:1180px;margin:0 auto;}
+  .brand{display:flex;align-items:baseline;gap:12px;}
+  .seal-badge{font-family:"Fraunces",serif;font-weight:600;font-size:22px;color:var(--seal);letter-spacing:.02em;}
+  .brand small{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);}
+  nav.jump{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;}
+  nav.jump a{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding:6px 10px;border:1px solid transparent;border-radius:2px;}
+  nav.jump a:hover{border-color:var(--line);background:var(--card);}
+
+  /* ---- hero ---- */
+  .hero{padding:64px 0 38px;border-bottom:1px solid var(--line);}
+  .hero h1{font-size:clamp(38px,6vw,68px);max-width:14ch;}
+  .hero h1 em{font-style:italic;color:var(--seal);}
+  .hero .lede{max-width:62ch;margin-top:22px;font-size:18px;color:var(--ink-soft);}
+  .stamp{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;}
+  .stamp .ring{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--seal);display:grid;place-items:center;color:var(--seal);font-family:"Fraunces",serif;font-weight:600;font-size:18px;transform:rotate(-6deg);}
+  .stamp .meta{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);line-height:1.5;}
+
+  .disclaimer{margin-top:30px;border-left:3px solid var(--amber);background:rgba(181,120,31,0.07);padding:14px 18px;font-size:14px;color:var(--ink-soft);max-width:80ch;border-radius:0 4px 4px 0;}
+  .disclaimer b{color:var(--ink);}
+
+  section{padding:54px 0;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;align-items:flex-end;gap:18px;margin-bottom:30px;flex-wrap:wrap;}
+  .sec-head .num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--seal);letter-spacing:.1em;}
+  .sec-head h2{font-size:clamp(26px,3.4vw,38px);}
+  .sec-head p{margin:6px 0 0;color:var(--ink-soft);max-width:64ch;font-size:15px;}
+
+  /* ---- triage wizard ---- */
+  .wizard{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);overflow:hidden;}
+  .wizard .panel{display:none;padding:30px 30px 34px;}
+  .wizard .panel.active{display:block;animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .progress{display:flex;gap:0;border-bottom:1px solid var(--line);}
+  .progress div{flex:1;padding:11px 8px;text-align:center;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);border-right:1px solid var(--line-soft);}
+  .progress div.on{color:var(--seal);background:rgba(156,43,34,0.06);}
+  .progress div:last-child{border-right:none;}
+  .q{font-family:"Fraunces",serif;font-size:22px;margin-bottom:6px;}
+  .q-sub{color:var(--ink-faint);font-size:14px;margin-bottom:20px;}
+  .opts{display:grid;gap:10px;grid-template-columns:1fr 1fr;}
+  @media(max-width:640px){.opts{grid-template-columns:1fr;}}
+  .opt{text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:4px;padding:14px 16px;cursor:pointer;font-family:inherit;font-size:15px;color:var(--ink);transition:.18s;display:flex;flex-direction:column;gap:3px;}
+  .opt:hover{border-color:var(--seal);background:#fff;transform:translateY(-1px);}
+  .opt b{font-weight:600;}
+  .opt span{font-size:12.5px;color:var(--ink-faint);}
+  .wiz-nav{margin-top:22px;display:flex;gap:10px;align-items:center;}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;transition:.18s;}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .btn:hover{background:var(--seal);border-color:var(--seal);color:#fff;}
+  .btn.ghost:hover{color:#fff;}
+
+  .result{border:1px solid var(--seal);border-radius:6px;background:linear-gradient(180deg,#fff,#FBF6F0);padding:26px 28px;}
+  .result .tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--seal);padding:4px 10px;border-radius:2px;margin-bottom:14px;}
+  .result h3{font-size:27px;margin-bottom:4px;}
+  .result .sys{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;color:var(--navy);text-transform:uppercase;margin-bottom:14px;}
+  .result ul{margin:12px 0 0;padding-left:18px;color:var(--ink-soft);font-size:14.5px;}
+  .result li{margin-bottom:6px;}
+  .result .jumpbtn{margin-top:18px;}
+
+  /* ---- forum matrix ---- */
+  .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  @media(max-width:820px){.matrix{grid-template-columns:1fr;}}
+  .fcard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px 22px 20px;position:relative;overflow:hidden;}
+  .fcard::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--accent,var(--seal));}
+  .fcard h4{font-size:20px;margin-bottom:3px;}
+  .fcard .lim{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--navy);letter-spacing:.04em;margin-bottom:10px;}
+  .fcard p{font-size:13.5px;color:var(--ink-soft);margin:0 0 12px;}
+  .pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;border:1px solid var(--line);color:var(--ink-soft);margin:0 4px 4px 0;}
+  .pill.cjts{border-color:var(--green);color:var(--green);}
+  .pill.elit{border-color:var(--seal);color:var(--seal);}
+
+  /* ---- tracks ---- */
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:2px;}
+  .tab{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;cursor:pointer;color:var(--ink-soft);border:1px solid transparent;border-bottom:2px solid transparent;background:none;transition:.18s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{color:var(--seal);border-bottom-color:var(--seal);}
+  .track{display:none;}
+  .track.active{display:block;animation:fade .3s ease;}
+  .track-intro{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;margin-bottom:26px;}
+  .track-intro .blurb{flex:1 1 380px;}
+  .track-intro h3{font-size:24px;margin-bottom:8px;}
+  .track-intro p{color:var(--ink-soft);font-size:15px;margin:0 0 8px;}
+  .factbox{flex:0 0 240px;border:1px solid var(--line);border-radius:5px;background:var(--card);padding:16px 18px;font-size:13px;}
+  .factbox dt{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-top:10px;}
+  .factbox dt:first-child{margin-top:0;}
+  .factbox dd{margin:1px 0 0;color:var(--ink);font-weight:500;font-size:13.5px;}
+
+  /* steps */
+  ol.flow{list-style:none;counter-reset:s;margin:0;padding:0;}
+  ol.flow > li{counter-increment:s;position:relative;padding:0 0 8px 56px;margin-bottom:16px;}
+  ol.flow > li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:-2px;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--seal);color:var(--seal);font-family:"IBM Plex Mono",monospace;font-size:13px;display:grid;place-items:center;background:var(--paper);}
+  ol.flow > li::after{content:"";position:absolute;left:18.5px;top:38px;bottom:-16px;width:1.5px;background:var(--line);}
+  ol.flow > li:last-child::after{display:none;}
+  ol.flow .st-title{font-family:"Fraunces",serif;font-size:18px;font-weight:500;margin-bottom:3px;}
+  ol.flow .st-body{font-size:14px;color:var(--ink-soft);}
+  ol.flow .st-meta{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:4px 8px;border-radius:2px;background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line-soft);}
+  .chip.form{background:rgba(27,58,75,0.08);color:var(--navy);border-color:rgba(27,58,75,0.2);}
+  .chip.time{background:rgba(60,110,71,0.09);color:var(--green);border-color:rgba(60,110,71,0.22);}
+  .chip.fee{background:rgba(154,123,63,0.1);color:var(--bronze);border-color:rgba(154,123,63,0.25);}
+  .chip.warn{background:rgba(156,43,34,0.08);color:var(--seal);border-color:rgba(156,43,34,0.25);}
+
+  .branch{border:1px dashed var(--line);border-radius:5px;padding:14px 16px;margin:6px 0 16px 56px;background:rgba(28,26,22,0.02);font-size:13.5px;}
+  .branch b{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);display:block;margin-bottom:4px;}
+
+  /* reality check */
+  .reality{border-left:3px solid var(--navy);background:rgba(27,58,75,0.05);padding:13px 16px;margin:18px 0 0 56px;font-size:13.5px;color:var(--ink-soft);border-radius:0 4px 4px 0;}
+  .reality b{color:var(--navy);font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px;}
+
+  /* scenarios bbb */
+  .bbb{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;}
+  @media(max-width:760px){.bbb{grid-template-columns:1fr;}}
+  .scen{border:1px solid var(--line);border-radius:6px;padding:16px 18px;background:var(--card);}
+  .scen h5{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px;display:flex;align-items:center;gap:7px;}
+  .scen.bull h5{color:var(--green);}
+  .scen.base h5{color:var(--bronze);}
+  .scen.bear h5{color:var(--seal);}
+  .scen .dot{width:9px;height:9px;border-radius:50%;}
+  .scen.bull .dot{background:var(--green);}
+  .scen.base .dot{background:var(--bronze);}
+  .scen.bear .dot{background:var(--seal);}
+  .scen p{font-size:13px;color:var(--ink-soft);margin:0 0 8px;}
+  .scen .kpi{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink);letter-spacing:.04em;}
+  .scen .kpi span{color:var(--ink-faint);}
+
+  /* forms table */
+  table.forms{width:100%;border-collapse:collapse;font-size:13.5px;}
+  table.forms th{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--ink-faint);padding:10px 12px;border-bottom:1.5px solid var(--line);}
+  table.forms td{padding:11px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top;}
+  table.forms tr:hover td{background:var(--card);}
+  table.forms .fcode{font-family:"IBM Plex Mono",monospace;color:var(--navy);font-weight:500;white-space:nowrap;}
+  .verified{color:var(--green);font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;}
+  .checkform{color:var(--amber);font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;}
+
+  /* cross-cutting accordions */
+  .acc{border:1px solid var(--line);border-radius:5px;margin-bottom:8px;background:var(--card);overflow:hidden;}
+  .acc summary{cursor:pointer;padding:15px 18px;font-family:"Fraunces",serif;font-size:17px;list-style:none;display:flex;align-items:center;gap:12px;}
+  .acc summary::-webkit-details-marker{display:none;}
+  .acc summary::before{content:"+";font-family:"IBM Plex Mono",monospace;color:var(--seal);font-size:18px;width:16px;}
+  .acc[open] summary::before{content:"–";}
+  .acc .body{padding:0 18px 18px 46px;font-size:14px;color:var(--ink-soft);}
+  .acc .body .st-meta{margin-top:10px;}
+
+  /* sources */
+  .srcs{columns:2;column-gap:34px;font-size:13px;}
+  @media(max-width:680px){.srcs{columns:1;}}
+  .srcs div{break-inside:avoid;margin-bottom:11px;padding-left:16px;position:relative;}
+  .srcs div::before{content:"§";position:absolute;left:0;color:var(--seal);font-family:"Fraunces",serif;}
+  .srcs a{font-size:13px;}
+  .srcs small{display:block;color:var(--ink-faint);font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.05em;margin-top:1px;}
+
+  footer{padding:40px 0 60px;color:var(--ink-faint);font-size:12.5px;}
+  footer .mono{font-size:11px;}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{width:18px;height:8px;border-radius:2px;display:inline-block;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <div class="brand">
+      <span class="seal-badge">LITIS</span>
+      <small>SG Self-Filing Navigator</small>
+    </div>
+    <nav class="jump">
+      <a href="#triage">Triage</a>
+      <a href="#forums">Forums</a>
+      <a href="#tracks">Workflows</a>
+      <a href="#enforce">Enforcement</a>
+      <a href="#cross">Procedures</a>
+      <a href="#forms">Forms</a>
+      <a href="#sources">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero" id="top">
+    <div class="stamp">
+      <div class="ring">§</div>
+      <div class="meta">Framework v0.1 &nbsp;·&nbsp; Rules of Court 2021<br>Litigant-in-person · Civil · Singapore</div>
+    </div>
+    <h1>File a civil suit <em>yourself</em>, without getting lost.</h1>
+    <p class="lede">An end-to-end map of self-representation in the Singapore civil courts: from working out which forum can hear you, through filing and serving, contesting, trial, and finally getting paid. Built as the product spine for a guided self-filing app.</p>
+    <div class="disclaimer">
+      <b>Reality check, not legal advice.</b> This framework explains <i>court procedure</i> so a person can navigate the mechanics. It is not legal advice and does not tell you whether your case is strong, what to argue, or how to draft your pleadings. The Service Bureau and the courts cannot give legal advice either. For the merits of a dispute, free options exist (Community Justice Centre, Legal Aid Bureau, CLAS, Law Society Pro Bono). Procedure changes; figures and form numbers must be re-verified against the live court sources listed at the end before any build ships.
+    </div>
+  </div>
+
+  <!-- TRIAGE -->
+  <section id="triage">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <div>
+        <h2>Triage: which door do I walk through?</h2>
+        <p>The forum is decided mostly by what you are claiming and how much. Answer three questions; the navigator routes you to the right forum and the right filing system. This is the app's front door.</p>
+      </div>
+    </div>
+
+    <div class="wizard" id="wizard">
+      <div class="progress">
+        <div id="p0" class="on">1 · Nature</div>
+        <div id="p1">2 · Value</div>
+        <div id="p2">3 · Parties</div>
+        <div id="p3">Result</div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="panel active" data-step="0">
+        <div class="q">What is the dispute fundamentally about?</div>
+        <div class="q-sub">Pick the closest fit. This separates the fast tribunal tracks from the general courts.</div>
+        <div class="opts">
+          <button class="opt" data-nature="money"><b>Money owed / a contract / damages</b><span>Unpaid invoice, loan, breach of contract, negligence, property damage</span></button>
+          <button class="opt" data-nature="consumer"><b>Consumer / tenancy (small)</b><span>Faulty goods, bad service, residential tenancy ≤ 2 years, unfair practice</span></button>
+          <button class="opt" data-nature="salary"><b>Unpaid salary / employment</b><span>Salary, wrongful dismissal, employment-related payments</span></button>
+          <button class="opt" data-nature="neighbour"><b>A neighbour's behaviour</b><span>Noise, smell, obstruction, repeated nuisance from a neighbour</span></button>
+          <button class="opt" data-nature="harass"><b>Harassment</b><span>Threats, stalking, abusive communications, falsehoods about you</span></button>
+          <button class="opt" data-nature="declaration"><b>A right, status or interpretation</b><span>Construe a document, declare an entitlement, statutory application, mostly no factual dispute</span></button>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="panel" data-step="1">
+        <div class="q">Roughly how much is the claim worth?</div>
+        <div class="q-sub">Use the sum of money, or your honest estimate of the value of what you want. For non-money claims pick the closest band.</div>
+        <div class="opts">
+          <button class="opt" data-val="a"><b>Up to S$20,000</b><span>Small-value money or consumer dispute</span></button>
+          <button class="opt" data-val="b"><b>S$20,001 – S$60,000</b><span>Mid-value</span></button>
+          <button class="opt" data-val="c"><b>S$60,001 – S$250,000</b><span>Substantial</span></button>
+          <button class="opt" data-val="d"><b>Above S$250,000</b><span>High value</span></button>
+          <button class="opt" data-val="x"><b>Not about money / can't value it</b><span>Injunction, declaration, possession, status</span></button>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="panel" data-step="2">
+        <div class="q">Where is the person you are suing?</div>
+        <div class="q-sub">Service out of Singapore needs the court's approval and changes the timelines. Tribunals generally cannot serve a respondent overseas.</div>
+        <div class="opts">
+          <button class="opt" data-party="sg"><b>In Singapore</b><span>Resident, local company, or has a local address</span></button>
+          <button class="opt" data-party="out"><b>Outside Singapore</b><span>Overseas individual or foreign entity</span></button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="panel" data-step="3">
+        <div class="result" id="resultBox">
+          <span class="tag" id="rTag">Recommended forum</span>
+          <h3 id="rForum">—</h3>
+          <div class="sys" id="rSys"></div>
+          <p id="rWhy" style="color:var(--ink-soft);font-size:14.5px;margin:0;"></p>
+          <ul id="rNotes"></ul>
+          <button class="btn jumpbtn" id="rJump">Open this workflow ↓</button>
+        </div>
+        <div class="wiz-nav">
+          <button class="btn ghost" id="restart">↺ Start over</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wiz-nav" style="margin-top:16px;">
+      <button class="btn ghost" id="back" style="visibility:hidden;">← Back</button>
+    </div>
+  </section>
+
+  <!-- FORUMS -->
+  <section id="forums">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <div>
+        <h2>The forums, and the two filing systems</h2>
+        <p>Two completely different online systems sit behind self-filing. Tribunals use CJTS, which a self-represented person logs into directly. The civil courts use eLitigation, which only law firms can access online; a self-represented person must file through a physical Service Bureau.</p>
+      </div>
+    </div>
+
+    <div class="matrix">
+      <div class="fcard" style="--accent:var(--green)">
+        <h4>Small Claims Tribunals (SCT)</h4>
+        <div class="lim">≤ S$20,000 (≤ S$30,000 by mutual consent)</div>
+        <p>Consumer-supplier disputes: sale of goods, provision of services, residential tenancy ≤ 2 years, certain property damage, unfair practices under the CPFTA. No lawyers allowed. Two-year limitation.</p>
+        <span class="pill cjts">Files via CJTS</span><span class="pill">No lawyers</span><span class="pill">Self-serve online</span>
+      </div>
+      <div class="fcard" style="--accent:var(--green)">
+        <h4>Employment Claims Tribunals (ECT)</h4>
+        <div class="lim">≤ S$20,000 (≤ S$30,000 if union/TADM mediated)</div>
+        <p>Statutory salary and employment-related money claims. Mandatory mediation at TADM first, which produces the certificate you need to file.</p>
+        <span class="pill cjts">Files via CJTS</span><span class="pill">TADM first</span>
+      </div>
+      <div class="fcard" style="--accent:var(--green)">
+        <h4>Community Disputes Resolution Tribunals (CDRT)</h4>
+        <div class="lim">Neighbour disputes</div>
+        <p>Disputes between neighbours over unreasonable interference (noise, smell, obstruction). Pre-filing requirements and a strong steer toward mediation apply.</p>
+        <span class="pill cjts">Files via CJTS</span><span class="pill">Mediation steer</span>
+      </div>
+      <div class="fcard" style="--accent:var(--green)">
+        <h4>Protection from Harassment Court (PHC)</h4>
+        <div class="lim">Harassment / false statements</div>
+        <p>Protection orders and related relief under POHA. Simplified proceedings are filed through CJTS; other PHC matters route differently.</p>
+        <span class="pill cjts">Files via CJTS</span>
+      </div>
+      <div class="fcard" style="--accent:var(--bronze)">
+        <h4>Magistrate's Court (MC)</h4>
+        <div class="lim">≤ S$60,000</div>
+        <p>General civil claims at the lower band. The simplified civil process (Order 65) applies by default: upfront document production, limited interlocutory applications, simplified case conferences.</p>
+        <span class="pill elit">Files via eLitigation</span><span class="pill">Service Bureau</span><span class="pill">Order 65 default</span>
+      </div>
+      <div class="fcard" style="--accent:var(--seal)">
+        <h4>District Court (DC)</h4>
+        <div class="lim">S$60,001 – S$250,000 (PI/road-traffic to S$500,000)</div>
+        <p>The workhorse civil court. Above the limit only by the parties' consent. Simplified process applies if all parties consent.</p>
+        <span class="pill elit">Files via eLitigation</span><span class="pill">Service Bureau</span>
+      </div>
+      <div class="fcard" style="--accent:var(--navy)">
+        <h4>General Division, High Court</h4>
+        <div class="lim">Above S$250,000 · unlimited</div>
+        <p>High-value and complex matters, and appeals from the State Courts. Self-representation is permitted but the procedural and evidential demands are heaviest here.</p>
+        <span class="pill elit">Files via eLitigation</span><span class="pill">Service Bureau</span>
+      </div>
+      <div class="fcard" style="--accent:var(--ink-faint)">
+        <h4>Specialist branches <span class="pill">scope stub</span></h4>
+        <div class="lim">Out of scope for v0.1</div>
+        <p>Probate, insolvency and bankruptcy, family, admiralty, judicial review, IP, SICC, and company-law applications follow their own rules and forms. Flagged here so the app routes users out to the correct specialist track rather than mis-filing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKS / WORKFLOWS -->
+  <section id="tracks">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <div>
+        <h2>The workflows, step by step</h2>
+        <p>Pick a track. Each shows the sequence, the form at each step, the statutory clock, the decision branches, and the honest friction points. Every track closes with three outcome scenarios: best, likely, and worst case.</p>
+      </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-track="sct">Small Claims (SCT)</button>
+      <button class="tab" data-track="ect">Employment (ECT)</button>
+      <button class="tab" data-track="cdrt">Neighbour (CDRT)</button>
+      <button class="tab" data-track="phc">Harassment (PHC)</button>
+      <button class="tab" data-track="oc">Originating Claim (MC/DC/HC)</button>
+      <button class="tab" data-track="oa">Originating Application</button>
+    </div>
+
+    <!-- ===== SCT ===== -->
+    <div class="track active" id="track-sct">
+      <div class="track-intro">
+        <div class="blurb">
+          <h3>Small Claims Tribunals</h3>
+          <p>The cheapest, fastest civil route for the right kind of dispute. You file and manage everything yourself in CJTS, no lawyer permitted, and the process is built around a consultation (mediation) before any hearing.</p>
+          <p><b>Gate first:</b> only specific subject matter qualifies. Run the CJTS pre-filing assessment; if it fails, the dispute belongs in a normal court instead.</p>
+        </div>
+        <dl class="factbox">
+          <dt>System</dt><dd>CJTS (self-login)</dd>
+          <dt>Limit</dt><dd>S$20k, or S$30k by consent</dd>
+          <dt>Time bar</dt><dd>2 years from cause of action</dd>
+          <dt>Lawyers</dt><dd>Not allowed</dd>
+          <dt>Service</dt><dd>Within Singapore only</dd>
+        </dl>
+      </div>
+
+      <ol class="flow">
+        <li>
+          <div class="st-title">Confirm eligibility</div>
+          <div class="st-body">Check the subject matter qualifies (goods, services, residential tenancy ≤ 2 years, non-vehicle property damage, CPFTA unfair practice) and that you are within 2 years of the cause of action.</div>
+          <div class="st-meta"><span class="chip">CJTS pre-filing assessment</span><span class="chip warn">Fail → use a normal court</span></div>
+        </li>
+        <li>
+          <div class="st-title">Try eNegotiation / eMediation (optional)</div>
+          <div class="st-body">CJTS lets you attempt online resolution with the other side before committing to a claim. Cheap and often faster than a hearing.</div>
+          <div class="st-meta"><span class="chip">CJTS eNegotiation</span></div>
+        </li>
+        <li>
+          <div class="st-title">File the Claim</div>
+          <div class="st-body">Log in to CJTS, open the Claim Form, enter your pre-filing assessment ID and the facts, attach evidence, choose a consultation date, and pay. The claim is only processed once paid.</div>
+          <div class="st-meta"><span class="chip form">Claim Form (CJTS)</span><span class="chip fee">Filing fee (value-scaled)</span></div>
+        </li>
+        <li>
+          <div class="st-title">Serve the claim and Notice of Consultation</div>
+          <div class="st-body">Print the claim and the Notice of Consultation and serve the respondent within 7 days, by an allowed method. Then file a Declaration of Service with proof.</div>
+          <div class="st-meta"><span class="chip time">Serve within 7 days</span><span class="chip form">Declaration of Service (CJTS)</span></div>
+          <div class="reality"><b>Friction point</b>Serving correctly is where most self-litigants slip. If you cannot serve, attend the consultation anyway; the registrar can direct substituted service (for example, by email).</div>
+        </li>
+        <li>
+          <div class="st-title">Attend the consultation (mediation)</div>
+          <div class="st-body">A registrar mediates. Many cases settle here and end with a consent order. Bring all evidence and a clear number.</div>
+          <div class="st-meta"><span class="chip">Registrar-led</span></div>
+          <div class="branch"><b>Branch</b>Settle → consent order, matter closes. No settlement → proceeds to a tribunal hearing.</div>
+        </li>
+        <li>
+          <div class="st-title">Hearing before a tribunal magistrate</div>
+          <div class="st-body">Private hearing, both sides present case and evidence in turn. The magistrate decides on the merits and the law and issues an Order of Tribunal.</div>
+          <div class="st-meta"><span class="chip form">Order of Tribunal</span></div>
+        </li>
+        <li>
+          <div class="st-title">If unpaid: enforce</div>
+          <div class="st-body">An SCT money order is enforced through the normal court enforcement machinery (see the Enforcement module), not by the tribunal itself.</div>
+          <div class="st-meta"><span class="chip">→ Enforcement module</span></div>
+        </li>
+      </ol>
+
+      <div class="bbb">
+        <div class="scen bull"><h5><span class="dot"></span>Bull · best case</h5><p>Eligible claim, clean documents, respondent settles at consultation with a consent order paid on the spot.</p><div class="kpi"><span>Time:</span> 4–8 weeks &nbsp; <span>Cost:</span> filing fee only</div></div>
+        <div class="scen base"><h5><span class="dot"></span>Base · likely</h5><p>No settlement at consultation, a short hearing follows, you obtain an order, respondent pays within the deadline.</p><div class="kpi"><span>Time:</span> 2–4 months &nbsp; <span>Cost:</span> low</div></div>
+        <div class="scen bear"><h5><span class="dot"></span>Bear · worst case</h5><p>Respondent ignores the order. You must open separate enforcement proceedings, locate assets, and may still recover little if there is nothing to seize.</p><div class="kpi"><span>Time:</span> 6+ months &nbsp; <span>Cost:</span> fees, low recovery</div></div>
+      </div>
+    </div>
+
+    <!-- ===== ECT ===== -->
+    <div class="track" id="track-ect">
+      <div class="track-intro">
+        <div class="blurb">
+          <h3>Employment Claims Tribunals</h3>
+          <p>For statutory salary and employment money claims. The defining feature is the mandatory front door: you must go through mediation at the Tripartite Alliance for Dispute Management (TADM) first, and the relevant certificate is what unlocks filing at the ECT.</p>
+        </div>
+        <dl class="factbox">
+          <dt>System</dt><dd>CJTS (self-login)</dd>
+          <dt>Limit</dt><dd>S$20k, or S$30k if union/TADM-mediated</dd>
+          <dt>Pre-step</dt><dd>TADM mediation (mandatory)</dd>
+          <dt>Lawyers</dt><dd>Not allowed</dd>
+        </dl>
+      </div>
+      <ol class="flow">
+        <li><div class="st-title">Lodge a claim at TADM</div><div class="st-body">Register the employment dispute with TADM and attend mediation. This is a precondition, not optional.</div><div class="st-meta"><span class="chip">TADM portal</span><span class="chip warn">Mandatory</span></div></li>
+        <li><div class="st-title">Get the claim referral certificate</div><div class="st-body">If mediation does not resolve it, TADM issues a certificate allowing you to bring the claim to the ECT. Note its validity window.</div><div class="st-meta"><span class="chip form">TADM Claim Referral Certificate</span></div></li>
+        <li><div class="st-title">File at the ECT via CJTS</div><div class="st-body">Lodge the claim in CJTS, attaching the certificate, within the time allowed after the certificate is issued. Pay the filing fee.</div><div class="st-meta"><span class="chip form">ECT claim (CJTS)</span><span class="chip fee">Filing fee</span></div></li>
+        <li><div class="st-title">Serve the respondent and file proof</div><div class="st-body">Serve the employer/employee respondent and file the Declaration of Service in CJTS.</div><div class="st-meta"><span class="chip form">Declaration of Service</span></div></li>
+        <li><div class="st-title">Hearing before the ECT</div><div class="st-body">A tribunal magistrate hears both sides and makes an order. Appeals are limited.</div><div class="st-meta"><span class="chip form">ECT Order</span></div></li>
+        <li><div class="st-title">If unpaid: enforce</div><div class="st-body">Enforced through the normal court machinery (Enforcement module).</div><div class="st-meta"><span class="chip">→ Enforcement module</span></div></li>
+      </ol>
+      <div class="bbb">
+        <div class="scen bull"><h5><span class="dot"></span>Bull</h5><p>TADM mediation settles it; no ECT filing needed at all.</p><div class="kpi"><span>Time:</span> weeks</div></div>
+        <div class="scen base"><h5><span class="dot"></span>Base</h5><p>Mediation fails, certificate issued, ECT hears it and orders payment.</p><div class="kpi"><span>Time:</span> 2–4 months</div></div>
+        <div class="scen bear"><h5><span class="dot"></span>Bear</h5><p>Employer is insolvent or has dissolved; an order is worth little and enforcement yields nothing.</p><div class="kpi"><span>Recovery:</span> uncertain</div></div>
+      </div>
+    </div>
+
+    <!-- ===== CDRT ===== -->
+    <div class="track" id="track-cdrt">
+      <div class="track-intro">
+        <div class="blurb">
+          <h3>Community Disputes Resolution Tribunals</h3>
+          <p>A purpose-built forum for neighbour-versus-neighbour disputes about unreasonable interference with enjoyment of a residence. The system pushes hard toward mediation first, and a court order here is a last resort.</p>
+        </div>
+        <dl class="factbox">
+          <dt>System</dt><dd>CJTS (self-login)</dd>
+          <dt>Scope</dt><dd>Neighbour interference</dd>
+          <dt>Pre-step</dt><dd>Mediation strongly expected</dd>
+        </dl>
+      </div>
+      <ol class="flow">
+        <li><div class="st-title">Attempt community mediation</div><div class="st-body">The Community Mediation Centre route is expected before tribunal action and the tribunal can require it. Keep records of attempts.</div><div class="st-meta"><span class="chip">CMC mediation</span></div></li>
+        <li><div class="st-title">File the neighbour-dispute claim</div><div class="st-body">Lodge in CJTS, setting out the interference, dates, and the order you seek (stop order, damages, apology).</div><div class="st-meta"><span class="chip form">CDRT claim (CJTS)</span></div></li>
+        <li><div class="st-title">Serve and file proof of service</div><div class="st-body">Serve the respondent within the required window and file the Declaration of Service.</div><div class="st-meta"><span class="chip form">Declaration of Service</span></div></li>
+        <li><div class="st-title">Pre-trial / mediation, then hearing</div><div class="st-body">The tribunal may direct mediation again before hearing and deciding. Orders can include stopping the conduct, damages, or compliance measures.</div><div class="st-meta"><span class="chip form">CDRT Order</span></div></li>
+        <li><div class="st-title">Breach of order</div><div class="st-body">A breached order can escalate (including special directions and, ultimately, sanctions). Enforcement of monetary parts uses the normal machinery.</div><div class="st-meta"><span class="chip warn">Escalation on breach</span></div></li>
+      </ol>
+      <div class="bbb">
+        <div class="scen bull"><h5><span class="dot"></span>Bull</h5><p>Mediation produces a workable agreement and the conduct stops.</p></div>
+        <div class="scen base"><h5><span class="dot"></span>Base</h5><p>Tribunal issues an order; behaviour improves under threat of escalation.</p></div>
+        <div class="scen bear"><h5><span class="dot"></span>Bear</h5><p>Relations deteriorate further, repeated breach, repeated returns to the tribunal; emotionally costly with limited practical change.</p></div>
+      </div>
+    </div>
+
+    <!-- ===== PHC ===== -->
+    <div class="track" id="track-phc">
+      <div class="track-intro">
+        <div class="blurb">
+          <h3>Protection from Harassment Court</h3>
+          <p>For protection orders and related relief under the Protection from Harassment Act. Simplified proceedings (the common self-filed route) go through CJTS. Where the matter is urgent or involves serious threats, expedited orders may be sought.</p>
+        </div>
+        <dl class="factbox">
+          <dt>System</dt><dd>CJTS (simplified)</dd>
+          <dt>Relief</dt><dd>Protection order, expedited order</dd>
+          <dt>Urgency</dt><dd>Expedited track exists</dd>
+        </dl>
+      </div>
+      <ol class="flow">
+        <li><div class="st-title">Identify the relief</div><div class="st-body">Protection Order (PO), Expedited Protection Order (EPO) where there is urgency/risk, or relief for false statements. Gather evidence of the conduct (messages, recordings, dates).</div><div class="st-meta"><span class="chip">PO / EPO / false-statement relief</span></div></li>
+        <li><div class="st-title">File in CJTS (simplified proceedings)</div><div class="st-body">Complete the application setting out the harassing conduct and the order sought. Pay any fee.</div><div class="st-meta"><span class="chip form">PHC application (CJTS)</span></div></li>
+        <li><div class="st-title">Serve the respondent</div><div class="st-body">Serve as directed and file proof. For an EPO the court may act before full service given urgency.</div><div class="st-meta"><span class="chip form">Declaration of Service</span></div></li>
+        <li><div class="st-title">Hearing and order</div><div class="st-body">The court hears the matter and may grant the protection order with conditions. Breach of a PO carries consequences.</div><div class="st-meta"><span class="chip form">Protection Order</span></div></li>
+      </ol>
+      <div class="bbb">
+        <div class="scen bull"><h5><span class="dot"></span>Bull</h5><p>Strong evidence, EPO granted quickly, conduct stops.</p></div>
+        <div class="scen base"><h5><span class="dot"></span>Base</h5><p>PO granted after a hearing; respondent complies.</p></div>
+        <div class="scen bear"><h5><span class="dot"></span>Bear</h5><p>Evidence thin or respondent contests hard; order refused or repeatedly breached, requiring further action.</p></div>
+      </div>
+    </div>
+
+    <!-- ===== OC ===== -->
+    <div class="track" id="track-oc">
+      <div class="track-intro">
+        <div class="blurb">
+          <h3>Originating Claim · the general civil lawsuit</h3>
+          <p>This is the main event: the route when the material facts are in dispute (formerly the "Writ of Summons"). It runs in the Magistrate's Court, District Court, or General Division of the High Court depending on value. A self-represented person must file every document through eLitigation at a LawNet &amp; CrimsonLogic Service Bureau, in person.</p>
+          <p>The Magistrate's Court applies the simplified process (Order 65) by default; the District Court can too, by consent. The simplified process front-loads document production and limits interlocutory skirmishing.</p>
+        </div>
+        <dl class="factbox">
+          <dt>System</dt><dd>eLitigation via Service Bureau</dd>
+          <dt>Use when</dt><dd>Facts are disputed</dd>
+          <dt>OC validity</dt><dd>3 months from issue</dd>
+          <dt>Serve (in SG)</dt><dd>Reasonable steps ≤ 14 days</dd>
+          <dt>Serve (out)</dt><dd>Reasonable steps ≤ 28 days (court approval)</dd>
+        </dl>
+      </div>
+
+      <ol class="flow">
+        <li>
+          <div class="st-title">Pre-action: demand, ADR, limitation, protocol</div>
+          <div class="st-body">Send a letter of demand. The Rules require parties to genuinely consider amicable resolution before and during proceedings. Check the limitation period (6 years for most contract and tort claims). Some claim types (personal injury, medical negligence, non-injury motor accident) have a mandatory pre-action protocol.</div>
+          <div class="st-meta"><span class="chip">Letter of demand</span><span class="chip warn">Limitation Act</span><span class="chip">Pre-action protocol (some claims)</span></div>
+        </li>
+        <li>
+          <div class="st-title">Pick the right court</div>
+          <div class="st-body">By value: ≤ S$60k Magistrate's; S$60k–S$250k District; above S$250k High Court. Filing in the wrong court risks transfer or costs penalties.</div>
+          <div class="st-meta"><span class="chip">Forum = nature + value</span></div>
+        </li>
+        <li>
+          <div class="st-title">Draft the Originating Claim and Statement of Claim</div>
+          <div class="st-body">The OC is the formal originating process; it is normally served together with a Statement of Claim setting out the facts and the relief sought. If the OC is only generally endorsed, the Statement of Claim must still follow within 14 days of service.</div>
+          <div class="st-meta"><span class="chip form">Originating Claim (Appendix A2 form)</span><span class="chip form">Statement of Claim · Form 9</span></div>
+          <div class="reality"><b>Friction point</b>The Service Bureau will key in and file your documents, but cannot draft them or advise on content. The quality of your pleadings is entirely on you; a defective Statement of Claim can be struck out.</div>
+        </li>
+        <li>
+          <div class="st-title">File at the Service Bureau</div>
+          <div class="st-body">Bring completed hardcopy forms to a LawNet &amp; CrimsonLogic Service Bureau. They file through eLitigation on your behalf and notify you of acceptance by SMS/email. Pay court fees plus a Service Bureau fee. Same-day urgent filing is available for a premium.</div>
+          <div class="st-meta"><span class="chip">Service Bureau (in person)</span><span class="chip fee">Court fee + bureau fee</span></div>
+        </li>
+        <li>
+          <div class="st-title">Collect the sealed OC</div>
+          <div class="st-body">If accepted, the court issues a sealed OC bearing the court seal and registrar's signature. Collect it from the Service Bureau. It is valid for 3 months.</div>
+          <div class="st-meta"><span class="chip">Sealed OC issued</span><span class="chip time">Valid 3 months</span></div>
+        </li>
+        <li>
+          <div class="st-title">Serve the defendant personally</div>
+          <div class="st-body">Personal service is required; you (or your employee) may serve it, or a lawyer, or in special cases a court process server. Take reasonable steps within 14 days (in Singapore) or 28 days (overseas, which first needs court approval to serve out). Then file a Memorandum of Service.</div>
+          <div class="st-meta"><span class="chip warn">Personal service</span><span class="chip form">Memorandum of Service</span></div>
+          <div class="branch"><b>Branch · cannot serve</b>After ≥ 2 reasonable attempts, apply for substituted service (summons + affidavit) proposing an effective method (posting on the door, email, etc.). Service out needs approval and a supporting affidavit on jurisdiction/nexus.</div>
+        </li>
+        <li>
+          <div class="st-title">Defendant's first move: Notice of Intention to Contest</div>
+          <div class="st-body">The defendant files a Notice of Intention to Contest or Not Contest within 14 days of Statement of Claim service (in SG) or 21 days (out of SG).</div>
+          <div class="st-meta"><span class="chip form">Notice of Intention to Contest / Not Contest</span><span class="chip time">14 / 21 days</span></div>
+          <div class="branch"><b>Branch A · no response, or says "not contesting"</b>You may apply for <b>default judgment</b>. The court treats the claim as effectively succeeding and ordinarily grants the relief. → go to step 11.</div>
+          <div class="branch"><b>Branch B · intends to contest</b>The defence clock starts. → continue.</div>
+        </li>
+        <li>
+          <div class="st-title">Defence (and possible counterclaim)</div>
+          <div class="st-body">The defendant files a Defence within 21 days of Statement of Claim service (in SG) or 5 weeks (out of SG). If they sue you back, it is a Defence and Counterclaim, to which you file a Reply/Defence to Counterclaim.</div>
+          <div class="st-meta"><span class="chip form">Defence</span><span class="chip form">Reply / Defence to Counterclaim</span><span class="chip time">21 days / 5 weeks</span></div>
+          <div class="branch"><b>Branch · no Defence filed in time</b>Apply for <b>default judgment</b> on that basis. → step 11.</div>
+        </li>
+        <li>
+          <div class="st-title">Case conference(s) and document production</div>
+          <div class="st-body">The court actively manages the case at case conferences (simplified case conferences in the MC). Parties exchange documents; the court may order affidavits of evidence-in-chief. Interlocutory applications are made by summons with a supporting affidavit, and are deliberately limited under the simplified process.</div>
+          <div class="st-meta"><span class="chip">Case conference</span><span class="chip form">Summons + affidavit (interlocutory)</span></div>
+        </li>
+        <li>
+          <div class="st-title">Trial</div>
+          <div class="st-body">Witnesses give evidence (often by affidavit of evidence-in-chief) and are cross-examined. You make submissions. The court delivers judgment. You then draw up and file the order.</div>
+          <div class="st-meta"><span class="chip form">Affidavit of Evidence-in-Chief</span><span class="chip form">Subpoena · Form 67</span><span class="chip form">Drawn-up Order</span></div>
+          <div class="reality"><b>Friction point</b>Running a trial alone is the hardest part of self-representation: rules of evidence, examination technique, and the burden of proof all bite. Many self-litigants who reach trial would have settled earlier with advice.</div>
+        </li>
+        <li>
+          <div class="st-title">Judgment obtained (default or after trial)</div>
+          <div class="st-body">Whether by default or on the merits, you now hold a judgment. If it is not honoured, proceed to enforcement.</div>
+          <div class="st-meta"><span class="chip">→ Enforcement module</span></div>
+          <div class="branch"><b>Branch · default judgment can be set aside</b>A defendant may apply to set aside a default judgment (regular default judgments are usually set aside on showing a defence with merits, sometimes on terms). Be ready for this.</div>
+        </li>
+      </ol>
+
+      <div class="bbb">
+        <div class="scen bull"><h5><span class="dot"></span>Bull · best case</h5><p>Defendant does not respond. You file a memorandum of service, obtain default judgment, and the defendant pays without enforcement.</p><div class="kpi"><span>Time:</span> ~6–10 weeks &nbsp; <span>Cost:</span> filing + service</div></div>
+        <div class="scen base"><h5><span class="dot"></span>Base · likely</h5><p>Defendant contests; after pleadings and a case conference, the matter settles (often via an offer to settle) before trial.</p><div class="kpi"><span>Time:</span> 6–14 months &nbsp; <span>Cost:</span> moderate, adverse-cost risk</div></div>
+        <div class="scen bear"><h5><span class="dot"></span>Bear · worst case</h5><p>Fully contested through trial, you lose or win less than claimed, face an adverse costs order, the loser appeals, and even a win needs hard enforcement.</p><div class="kpi"><span>Time:</span> 1–3 years &nbsp; <span>Cost:</span> high + costs exposure</div></div>
+      </div>
+    </div>
+
+    <!-- ===== OA ===== -->
+    <div class="track" id="track-oa">
+      <div class="track-intro">
+        <div class="blurb">
+          <h3>Originating Application · when the facts are not really in dispute</h3>
+          <p>Used when you want the court to decide a point of law, construe a document, grant a statutory remedy, or make a declaration, and the material facts are largely undisputed (formerly the "Originating Summons"). It runs on affidavit evidence rather than a full trial, so it is usually faster.</p>
+          <p>Either side can apply to convert an OA into an OC at any stage if it turns out the facts are genuinely contested.</p>
+        </div>
+        <dl class="factbox">
+          <dt>System</dt><dd>eLitigation via Service Bureau</dd>
+          <dt>Use when</dt><dd>Facts mostly undisputed</dd>
+          <dt>Evidence</dt><dd>Affidavits, not trial</dd>
+          <dt>Serve (in SG)</dt><dd>≤ 14 days after issue</dd>
+        </dl>
+      </div>
+      <ol class="flow">
+        <li><div class="st-title">Confirm the OA is the right vehicle</div><div class="st-body">Check the governing statute/rule. Where legislation prescribes no specific form, use the general Originating Application form (with notice) or the without-notice version.</div><div class="st-meta"><span class="chip form">OA · Form 15</span><span class="chip form">OA (without notice) · Form 16</span></div></li>
+        <li><div class="st-title">Draft the OA and supporting affidavit</div><div class="st-body">The OA states the orders (prayers) sought; it must be supported by an affidavit setting out the facts and exhibits relied on.</div><div class="st-meta"><span class="chip form">Supporting Affidavit</span></div></li>
+        <li><div class="st-title">File at the Service Bureau</div><div class="st-body">File through eLitigation at the Service Bureau, pay fees, and collect the sealed OA on acceptance.</div><div class="st-meta"><span class="chip fee">Court + bureau fees</span></div></li>
+        <li><div class="st-title">Serve the sealed OA + affidavit</div><div class="st-body">Serve within 14 days (in SG) or 28 days (out of SG, with approval). File proof of service.</div><div class="st-meta"><span class="chip time">14 / 28 days</span></div></li>
+        <li><div class="st-title">Defendant's affidavit</div><div class="st-body">A defendant wanting to introduce evidence files an affidavit within 21 days (in SG) or 5 weeks (out of SG). A jurisdiction challenge is raised by an affidavit on that ground only. If no affidavit is filed, the court hears the OA on your evidence and the submissions.</div><div class="st-meta"><span class="chip form">Defendant's Affidavit</span><span class="chip time">21 days / 5 weeks</span></div></li>
+        <li><div class="st-title">OA hearing</div><div class="st-body">Attend at the stated date/time. The court may grant your order, dismiss it, adjourn, call for cross-examination, or send it to trial (effectively converting toward an OC).</div><div class="st-meta"><span class="chip warn">Attend or risk an order against you</span></div></li>
+      </ol>
+      <div class="bbb">
+        <div class="scen bull"><h5><span class="dot"></span>Bull</h5><p>Undisputed facts, clean affidavit, order granted at the first hearing.</p><div class="kpi"><span>Time:</span> ~2–4 months</div></div>
+        <div class="scen base"><h5><span class="dot"></span>Base</h5><p>Opposing affidavits exchanged, one or two hearings, order granted or partly granted.</p><div class="kpi"><span>Time:</span> 4–8 months</div></div>
+        <div class="scen bear"><h5><span class="dot"></span>Bear</h5><p>Facts turn out to be genuinely disputed; the matter is converted to an OC and you restart on the full trial track.</p><div class="kpi"><span>Outcome:</span> → OC workflow</div></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ENFORCEMENT -->
+  <section id="enforce">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <div>
+        <h2>Enforcement: a judgment is not the same as getting paid</h2>
+        <p>Winning is step one. If the other side will not comply, you enforce. Under the Rules of Court 2021 the language changed (you are the <b>enforcement applicant</b>, they are the <b>enforcement respondent</b>, the old "writ of execution" is an <b>Enforcement Order</b>, and the old "garnishee order" is an <b>attachment of a debt</b>), and crucially a single application can now seek several enforcement methods at once.</p>
+      </div>
+    </div>
+
+    <ol class="flow">
+      <li>
+        <div class="st-title">Decide if enforcement is worth it</div>
+        <div class="st-body">Enforcement costs time and non-refundable fees with no guaranteed recovery. If the respondent has no assets, an Enforcement Order changes nothing. Assess willingness and ability to pay, and where assets sit, before spending more.</div>
+        <div class="st-meta"><span class="chip warn">No assets = no recovery</span></div>
+      </li>
+      <li>
+        <div class="st-title">Find the assets: Examination of the Enforcement Respondent</div>
+        <div class="st-body">If you do not know what the respondent owns, apply (summons without notice + affidavit) to examine them under oath about their assets and to produce documents. Searches at ACRA and property records help too.</div>
+        <div class="st-meta"><span class="chip form">Application to examine (without notice) + affidavit</span></div>
+      </li>
+      <li>
+        <div class="st-title">Apply for the Enforcement Order</div>
+        <div class="st-body">File a single application (Form 38, Enforcement Order) selecting one or more methods. For a seizure-and-sale, the application can be made 3 days after the order is served on the respondent. The EO is valid for 12 months and can be extended.</div>
+        <div class="st-meta"><span class="chip form">Enforcement Order · Form 38</span><span class="chip time">EO valid 12 months</span><span class="chip">Single app, multiple methods</span></div>
+      </li>
+    </ol>
+
+    <div class="matrix" style="margin-top:8px;">
+      <div class="fcard" style="--accent:var(--seal)">
+        <h4>Seizure &amp; Sale of property</h4>
+        <p>The Sheriff/Bailiff seizes the respondent's movable (or immovable) property and sells it to satisfy the debt. After seizure the respondent has 7 days to pay before sale. Property valued over S$20,000, or any immovable property, is sold by public auction. Some essentials are exempt; an HDB flat needs HDB approval.</p>
+        <span class="pill elit">Form 38 + Notice of Seizure (Form 40)</span>
+      </div>
+      <div class="fcard" style="--accent:var(--navy)">
+        <h4>Attachment of a debt (ex-garnishee)</h4>
+        <p>Redirects money a third party owes the respondent (classically, the respondent's bank balance) to you. You must identify and prove the account/debt. Reaches bank deposits regardless of maturity.</p>
+        <span class="pill elit">Form 38 (attachment) + Notice of Attachment</span>
+      </div>
+      <div class="fcard" style="--accent:var(--bronze)">
+        <h4>Delivery / Possession of property</h4>
+        <p>Delivery: Sheriff seizes a specific movable item and delivers it to you. Possession: used to recover land/premises (for example, a landlord repossessing from a tenant), evicting an occupier who will not leave.</p>
+        <span class="pill elit">Form 38 (delivery / possession)</span>
+      </div>
+      <div class="fcard" style="--accent:var(--green)">
+        <h4>Committal (for breach of a court order)</h4>
+        <p>Where someone disobeys an order to do or stop doing an act, committal proceedings can lead to a fine or imprisonment. Procedurally heavy and a last resort; you must give an indemnity undertaking to the Sheriff/Police for costs.</p>
+        <span class="pill elit">Committal application + statement + affidavit</span>
+      </div>
+      <div class="fcard" style="--accent:var(--ink-faint)">
+        <h4>Sheriff attendance</h4>
+        <p>Requests for the Sheriff/Bailiff to attend at the place of execution are filed in the prescribed request form and carry scheduled fees.</p>
+        <span class="pill elit">Request for Attendance of the Sheriff · Form B35</span>
+      </div>
+      <div class="fcard" style="--accent:var(--navy)">
+        <h4>Foreign judgments &amp; enforcing abroad</h4>
+        <p>A foreign judgment may be registered here under the Reciprocal Enforcement of Foreign Judgments Act (gazetted jurisdictions) or sued on afresh at common law. If the respondent's assets are overseas, you may need to enforce a Singapore judgment in that country instead.</p>
+        <span class="pill elit">REFJA registration / fresh action</span>
+      </div>
+    </div>
+
+    <div class="bbb">
+      <div class="scen bull"><h5><span class="dot"></span>Bull</h5><p>Respondent has a known local bank account; attachment of debt recovers the full sum quickly.</p></div>
+      <div class="scen base"><h5><span class="dot"></span>Base</h5><p>Mix of methods needed; partial recovery over several months after locating assets.</p></div>
+      <div class="scen bear"><h5><span class="dot"></span>Bear</h5><p>Assets hidden, dissipated, overseas, or non-existent; fees spent with little or nothing recovered.</p></div>
+    </div>
+  </section>
+
+  <!-- CROSS-CUTTING -->
+  <section id="cross">
+    <div class="sec-head">
+      <span class="num">05</span>
+      <div>
+        <h2>Cross-cutting procedures (the situations that interrupt any track)</h2>
+        <p>These can arise inside almost any workflow above. In the app they live as reusable modules a user can be routed into mid-flow.</p>
+      </div>
+    </div>
+
+    <details class="acc"><summary>Substituted service (you cannot serve in person)</summary><div class="body">After at least two reasonable attempts at personal service, apply by summons supported by an affidavit. State the failed attempts, why personal service is impracticable, your proposed method, and why it will effectively bring the document to the defendant's notice. Methods include posting on the door/gate, email, or messaging where appropriate. Subject to court approval.<div class="st-meta"><span class="chip form">Summons + affidavit</span></div></div></details>
+
+    <details class="acc"><summary>Service out of Singapore</summary><div class="body">Serving a defendant abroad needs the court's approval. File a supporting affidavit showing the court has jurisdiction or is the appropriate court (a good arguable case of sufficient nexus to Singapore), and the basis for service out. Timelines extend (for example, 5 weeks for a defence). Consider combining with an application to extend the originating process validity.<div class="st-meta"><span class="chip form">Application for approval to serve out + affidavit</span></div></div></details>
+
+    <details class="acc"><summary>Extending the validity of the originating process</summary><div class="body">An OC is valid for 3 months. If you cannot serve in time (common with overseas or evasive defendants), apply before expiry to extend validity, seeking a period matched to how long service is realistically expected to take.<div class="st-meta"><span class="chip form">Summons for extension of validity</span></div></div></details>
+
+    <details class="acc"><summary>Amending a document already filed</summary><div class="body">Amended pleadings must be endorsed showing they were amended, the date, and the authority (a court order or the specific Rule relied on). Electronic forms carry a standard amendment endorsement in the title (for example, "Amendment No. 2"). Some amendments need the court's permission.<div class="st-meta"><span class="chip">Endorsement required</span></div></details></div>
+
+    <details class="acc"><summary>Compelling a witness (subpoena / summons to a witness)</summary><div class="body">If a witness will not attend voluntarily, file a subpoena (Form 67, Rules of Court) via eLitigation; a self-represented person submits it at the Service Bureau. Collect the issued subpoena and serve it personally within the validity window. Urgent issuance close to trial costs more.<div class="st-meta"><span class="chip form">Subpoena · Form 67</span></div></div></details>
+
+    <details class="acc"><summary>Offer of amicable resolution / offer to settle</summary><div class="body">The Rules require parties to genuinely consider amicable resolution throughout. A formal offer to settle carries costs consequences: refusing a reasonable offer and then doing worse at trial can flip costs against the refusing party. A powerful, cheap tool for a self-litigant to apply pressure.<div class="st-meta"><span class="chip">Offer to settle</span><span class="chip warn">Costs consequences</span></div></div></details>
+
+    <details class="acc"><summary>Setting aside a default judgment (if you are the defendant)</summary><div class="body">A defendant served with a default judgment can apply to set it aside. A "regular" default judgment is usually set aside where the defendant shows a defence with real prospects of success, sometimes on conditions (such as paying money into court). An "irregular" one can be set aside as of right.<div class="st-meta"><span class="chip form">Summons + affidavit (+ draft defence)</span></div></div></details>
+
+    <details class="acc"><summary>Discontinuing or withdrawing</summary><div class="body">You can discontinue a claim, but timing affects costs: discontinue late and you may pay the other side's costs to date. In the SCT you file a Withdrawal Request in CJTS, subject to approval, and filing fees are not refunded.<div class="st-meta"><span class="chip form">Notice of discontinuance / Withdrawal Request</span></div></div></details>
+
+    <details class="acc"><summary>Transfer between courts</summary><div class="body">A case filed in the wrong court (or that outgrows it) can be transferred. Parties can also consent for the District Court to hear a claim above its normal limit, or to cap a claim to fit a lower court. Filing in the wrong forum can attract costs penalties.<div class="st-meta"><span class="chip">Application / consent to transfer</span></div></div></details>
+
+    <details class="acc"><summary>Appeals</summary><div class="body">From the State Courts, appeals generally go to the General Division of the High Court. From the SCT, an appeal lies to a District Judge (and onward only with permission). From the High Court, appeals lie to the Appellate Division or, for prescribed categories, the Court of Appeal. A right of appeal is not automatic; some need permission. Strict deadlines apply, so check them immediately after judgment.<div class="st-meta"><span class="chip warn">Tight deadlines</span><span class="chip">Permission may be required</span></div></div></details>
+  </section>
+
+  <!-- FORMS -->
+  <section id="forms">
+    <div class="sec-head">
+      <span class="num">06</span>
+      <div>
+        <h2>Forms index</h2>
+        <p>The forms a self-litigant touches most, mapped to where they are used. Tribunal forms live inside CJTS; court forms are in Appendix A/A2 of the Practice Directions and Appendix B (Sheriff/enforcement requests). <b>Build note:</b> form numbers and the exact form set change with Practice Direction updates, so the app must pull the live list from the official Appendices rather than hard-coding it. Items marked "verify" should be confirmed against the current Appendix before shipping.</p>
+      </div>
+    </div>
+
+    <table class="forms">
+      <thead><tr><th>Form</th><th>What it is</th><th>Used in</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="fcode">Claim Form (CJTS)</td><td>The SCT small claim itself</td><td>SCT</td><td class="verified">in-system</td></tr>
+        <tr><td class="fcode">Notice of Consultation</td><td>Served with the claim, sets the consultation date</td><td>SCT</td><td class="verified">in-system</td></tr>
+        <tr><td class="fcode">Declaration of Service (DOS)</td><td>Proof you served the other side</td><td>SCT / ECT / CDRT / PHC</td><td class="verified">in-system</td></tr>
+        <tr><td class="fcode">Memorandum of Consent</td><td>Raises SCT limit to S$30,000 by agreement</td><td>SCT</td><td class="verified">verified</td></tr>
+        <tr><td class="fcode">Withdrawal Request</td><td>Withdraw an SCT claim (approval needed)</td><td>SCT</td><td class="verified">in-system</td></tr>
+        <tr><td class="fcode">TADM Referral Certificate</td><td>Unlocks filing at the ECT after mediation</td><td>ECT</td><td class="verified">verified</td></tr>
+        <tr><td class="fcode">Originating Claim</td><td>The originating process when facts are disputed</td><td>MC / DC / HC</td><td class="checkform">verify form no. (App. A2)</td></tr>
+        <tr><td class="fcode">Form 9</td><td>Statement of Claim (served with the OC)</td><td>MC / DC / HC</td><td class="checkform">verify against App.</td></tr>
+        <tr><td class="fcode">Notice of Intention to Contest / Not Contest</td><td>Defendant's first response to an OC</td><td>MC / DC / HC</td><td class="checkform">verify form no.</td></tr>
+        <tr><td class="fcode">Defence / Defence &amp; Counterclaim</td><td>Defendant's pleaded answer</td><td>MC / DC / HC</td><td class="verified">pleading</td></tr>
+        <tr><td class="fcode">Memorandum of Service</td><td>Proof of personal service of the OC</td><td>MC / DC / HC</td><td class="checkform">verify form no.</td></tr>
+        <tr><td class="fcode">Form 15</td><td>Originating Application (with notice)</td><td>MC / DC / HC</td><td class="verified">verified</td></tr>
+        <tr><td class="fcode">Form 16</td><td>Originating Application (without notice)</td><td>MC / DC / HC</td><td class="verified">verified</td></tr>
+        <tr><td class="fcode">Supporting / Defendant's Affidavit</td><td>Evidence in an OA and in many applications</td><td>All courts</td><td class="verified">standard</td></tr>
+        <tr><td class="fcode">Summons</td><td>Interlocutory applications within a case</td><td>All courts</td><td class="verified">standard</td></tr>
+        <tr><td class="fcode">Affidavit of Evidence-in-Chief</td><td>A witness's written evidence for trial</td><td>OC trials</td><td class="verified">standard</td></tr>
+        <tr><td class="fcode">Form 67</td><td>Subpoena (summons to a witness)</td><td>All courts</td><td class="checkform">verify against App.</td></tr>
+        <tr><td class="fcode">Form 38</td><td>Enforcement Order (one or more methods)</td><td>Enforcement</td><td class="verified">verified</td></tr>
+        <tr><td class="fcode">Form 40</td><td>Notice of Seizure</td><td>Enforcement</td><td class="verified">verified</td></tr>
+        <tr><td class="fcode">Form B35</td><td>Request for Attendance of the Sheriff</td><td>Enforcement</td><td class="verified">verified</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources">
+    <div class="sec-head">
+      <span class="num">07</span>
+      <div>
+        <h2>Primary sources</h2>
+        <p>Everything above is grounded in these official and reference sources. Treat the judiciary.gov.sg, elitigation.sg, cjts.judiciary.gov.sg, and Practice Direction sites as canonical; re-verify figures and forms against them at build time.</p>
+      </div>
+    </div>
+    <div class="srcs">
+      <div><a href="https://www.judiciary.gov.sg/civil/start-a-civil-claim-by-originating-claim-(from-1-apr-2022)">Start a civil claim by Originating Claim</a><small>judiciary.gov.sg · OC process, default judgment</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/civil-claims-(from-1-april-2022)/start-a-civil-claim-(from-1-april-2022)/file-and-serve-an-originating-claim-(from-1-april-2022)">File &amp; serve an Originating Claim</a><small>judiciary.gov.sg · service, sealed OC, 3-month validity</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/civil-claims-(from-1-april-2022)/start-a-civil-claim-(from-1-april-2022)/start-a-civil-claim-(originating-application)-(from-1-april-2022)">Start a civil claim (Originating Application)</a><small>judiciary.gov.sg · OA process &amp; conversion</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/new-rules-of-court-2021/digest-1">ROC 2021 Digest 1</a><small>judiciary.gov.sg · timelines, NITC, defence, affidavits</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/new-rules-of-court-2021/digest-5">ROC 2021 Digest 5</a><small>judiciary.gov.sg · enforcement, objections, seizure</small></div>
+      <div><a href="https://www.judiciary.gov.sg/services/elitigation">eLitigation (litigants-in-person)</a><small>judiciary.gov.sg · LIP cannot file online, use Service Bureau</small></div>
+      <div><a href="https://www.elitigation.sg/_layouts/iels/homepage/pages/aboutsb.aspx">About the Service Bureau</a><small>elitigation.sg · LIP filing, no legal advice</small></div>
+      <div><a href="https://www.judiciary.gov.sg/services/cjts">Community Justice &amp; Tribunals System (CJTS)</a><small>judiciary.gov.sg · SCT/ECT/CDRT/PHC online filing</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/file-small-claim">File a small claim</a><small>judiciary.gov.sg · SCT limits S$20k/S$30k, 2-yr bar</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/how-to-file-serve-small-claim">How to file &amp; serve a small claim</a><small>judiciary.gov.sg · claim form, 7-day service, DOS</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/cases-eligible-small-claim">Cases eligible for a small claim</a><small>judiciary.gov.sg · SCT subject-matter gate</small></div>
+      <div><a href="https://www.judiciary.gov.sg/civil/enforce-order-judgment">Enforce an order or judgment</a><small>judiciary.gov.sg · enforcement overview</small></div>
+      <div><a href="https://epd2021-statecourts.judiciary.gov.sg/part-xiii-enforcement-matters">State Courts PD Part XIII — Enforcement</a><small>single EO, multiple methods, auction &gt; S$20k</small></div>
+      <div><a href="https://epd2021-supremecourt.judiciary.gov.sg/part-16-enforcement-of-judgments-and-orders">Supreme Court PD Part 16 — Enforcement</a><small>Form 38, Form 40, Form B35</small></div>
+      <div><a href="https://epd2021-statecourts.judiciary.gov.sg/part-iii-originating-processes-and-documents">State Courts PD Part III — Originating Processes</a><small>Form 15 / Form 16 OA</small></div>
+      <div><a href="https://epd2021-supremecourt.judiciary.gov.sg/part-8-originating-processes-documents-and-service-in-or-out-of-singapore">Supreme Court PD Part 8 — Service in/out of SG</a><small>service out, nexus, extension of validity</small></div>
+      <div><a href="https://sso.agc.gov.sg/SL/scja1969-s914-2021">Rules of Court 2021 (full text)</a><small>sso.agc.gov.sg · the rules themselves</small></div>
+      <div><a href="https://cacj-ajp.org/singapore/judiciary/description-of-the-singapore-courts/state-courts/jurisdiction/">State Courts jurisdiction</a><small>cacj-ajp.org · MC S$60k, DC S$250k, SCT/ECT limits</small></div>
+      <div><a href="https://www.judiciary.gov.sg/services/summon-witness">Apply to summon a witness</a><small>judiciary.gov.sg · subpoena Form 67, LIP via Service Bureau</small></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="mono">LITIS · SINGAPORE SELF-FILING NAVIGATOR · FRAMEWORK v0.1</div>
+    <p style="max-width:78ch;margin-top:10px;">Scope of v0.1: pre-action, forum triage, the four CJTS tribunal tracks, the Originating Claim and Originating Application court tracks, enforcement, and cross-cutting procedures. Out of scope (flagged for later routing): probate, insolvency/bankruptcy, family, admiralty, judicial review, IP, defamation specifics, third-party and interpleader proceedings, SICC, and company-law applications. Built for product scaffolding only; not legal advice. Verify all figures, timelines, fees, and form numbers against the official sources above before any release.</p>
+    <div class="legend">
+      <span><i style="background:var(--green)"></i> CJTS · self-serve</span>
+      <span><i style="background:var(--seal)"></i> eLitigation · via Service Bureau</span>
+      <span><i style="background:var(--navy)"></i> court-managed</span>
+      <span><i style="background:var(--bronze)"></i> decision / scenario</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  /* ---------- TRIAGE WIZARD ---------- */
+  const state = {nature:null, val:null, party:null, step:0};
+  const panels = [...document.querySelectorAll('.wizard .panel')];
+  const pdots = ['p0','p1','p2','p3'].map(id=>document.getElementById(id));
+  const backBtn = document.getElementById('back');
+
+  function show(step){
+    state.step = step;
+    panels.forEach(p=>p.classList.toggle('active', +p.dataset.step===step));
+    pdots.forEach((d,i)=>d.classList.toggle('on', i===step));
+    backBtn.style.visibility = step>0 && step<3 ? 'visible' : 'hidden';
+  }
+
+  document.querySelectorAll('[data-nature]').forEach(b=>b.onclick=()=>{state.nature=b.dataset.nature; show(1);});
+  document.querySelectorAll('[data-val]').forEach(b=>b.onclick=()=>{state.val=b.dataset.val; show(2);});
+  document.querySelectorAll('[data-party]').forEach(b=>b.onclick=()=>{state.party=b.dataset.party; decide(); show(3);});
+
+  backBtn.onclick=()=>{ if(state.step>0) show(state.step-1); };
+  document.getElementById('restart').onclick=()=>{state.nature=state.val=state.party=null; show(0);};
+
+  function decide(){
+    const {nature,val,party} = state;
+    let forum, sys, why, notes=[], track='oc';
+
+    // tribunal-first routing by nature
+    if(nature==='salary'){
+      forum='Employment Claims Tribunals (ECT)'; sys='Files via CJTS · TADM mediation first'; track='ect';
+      why='Employment money claims must start with mandatory TADM mediation; the certificate then lets you file at the ECT.';
+      notes=['Limit S$20k (S$30k if union/TADM-mediated).','You cannot skip TADM.','No lawyers at the ECT.'];
+    } else if(nature==='neighbour'){
+      forum='Community Disputes Resolution Tribunals (CDRT)'; sys='Files via CJTS · mediation expected'; track='cdrt';
+      why='Disputes about a neighbour\u2019s unreasonable interference are the CDRT\u2019s purpose; community mediation is expected first.';
+      notes=['Keep records of mediation attempts.','Orders can stop conduct or award damages.'];
+    } else if(nature==='harass'){
+      forum='Protection from Harassment Court (PHC)'; sys='Files via CJTS (simplified)'; track='phc';
+      why='Harassment, threats and false statements fall under POHA; simplified proceedings are filed in CJTS.';
+      notes=['Expedited orders exist where there is urgency/risk.','Gather message/recording evidence with dates.'];
+    } else if(nature==='consumer' && (val==='a')){
+      forum='Small Claims Tribunals (SCT)'; sys='Files via CJTS · self-serve'; track='sct';
+      why='Consumer/tenancy disputes up to S$20k (S$30k by consent) are the SCT\u2019s core business: cheap, fast, no lawyers.';
+      notes=['Run the CJTS pre-filing eligibility check.','2-year limitation from the cause of action.','Respondent must be served in Singapore.'];
+    } else if(nature==='declaration'){
+      forum='Originating Application'; sys='Files via eLitigation at a Service Bureau'; track='oa';
+      why='When you want a declaration, a document construed, or a statutory order and the facts are not really disputed, the OA runs on affidavits, not a full trial.';
+      notes=['Use Form 15 (with notice) or Form 16 (without notice) where no specific form is prescribed.','Either side can convert it to an Originating Claim if facts turn out disputed.'];
+      forum = pickCourtName(val) + ' \u00b7 by Originating Application';
+    } else {
+      // money / contract / damages / consumer above SCT band -> court by value
+      track = 'oc';
+      sys='Files via eLitigation at a Service Bureau';
+      why='With material facts in dispute, you start an Originating Claim. The court is fixed by the value of the claim.';
+      if(val==='a'){ forum='Magistrate\u2019s Court \u00b7 by Originating Claim';
+        notes.push('A small money claim could also fit the SCT if it is a consumer/tenancy matter \u2014 check that track, it is far cheaper.');
+        notes.push('Simplified process (Order 65) applies by default in the MC.');
+      } else if(val==='b'){ forum='Magistrate\u2019s Court \u00b7 by Originating Claim'; notes.push('\u2264 S$60k sits in the Magistrate\u2019s Court.'); notes.push('Simplified process (Order 65) applies by default.'); }
+      else if(val==='c'){ forum='District Court \u00b7 by Originating Claim'; notes.push('S$60k\u2013S$250k sits in the District Court.'); notes.push('Simplified process available if all parties consent.'); }
+      else if(val==='d'){ forum='General Division, High Court \u00b7 by Originating Claim'; notes.push('Above S$250k goes to the High Court.'); notes.push('Heaviest procedural load \u2014 self-representation is allowed but hard here.'); }
+      else { forum='Court by Originating Claim (value to be assessed)'; notes.push('For non-money relief, value is estimated to set the forum; injunctions/possession often sit in the District Court or High Court.'); }
+    }
+
+    if(party==='out'){
+      notes.push('Serving overseas needs the court\u2019s approval and an affidavit on jurisdiction/nexus; timelines extend.');
+      if(track==='sct'||track==='ect'||track==='cdrt'){
+        notes.unshift('\u26a0 Tribunals generally cannot serve a respondent outside Singapore \u2014 you may need a normal court instead.');
+      }
+    }
+
+    document.getElementById('rForum').textContent = forum;
+    document.getElementById('rSys').textContent = sys;
+    document.getElementById('rWhy').textContent = why;
+    const ul = document.getElementById('rNotes'); ul.innerHTML='';
+    notes.forEach(n=>{const li=document.createElement('li'); li.textContent=n; ul.appendChild(li);});
+    document.getElementById('rJump').onclick=()=>{ openTrack(track); document.getElementById('tracks').scrollIntoView({behavior:'smooth'}); };
+  }
+
+  function pickCourtName(val){
+    if(val==='c') return 'District Court';
+    if(val==='d') return 'General Division, High Court';
+    return 'Magistrate\u2019s Court';
+  }
+
+  /* ---------- TRACK TABS ---------- */
+  const tabs=[...document.querySelectorAll('.tab')];
+  function openTrack(id){
+    tabs.forEach(t=>t.classList.toggle('active', t.dataset.track===id));
+    document.querySelectorAll('.track').forEach(tr=>tr.classList.toggle('active', tr.id==='track-'+id));
+  }
+  tabs.forEach(t=>t.onclick=()=>openTrack(t.dataset.track));
+
+  show(0);
+</script>
+</body>
+</html>

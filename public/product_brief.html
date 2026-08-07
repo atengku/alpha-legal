@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Seeking Alpha Legal — Product Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A25C; --golddim:rgba(196,162,92,0.18);
+    --void:#050608; --panel:#0A0C10;
+    --ink:#15171C; --ink2:#3A3D44; --muted:#6A6E76;
+    --line:#E2E0DA; --paper:#FFFFFF; --paper2:#FAF8F4;
+    --pos:#2F8F63; --neg:#C0392B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{ size:Letter; margin:0; }
+  html,body{background:#54565B;}
+  body{font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important; }
+  h1,h2,h3,.brand{font-family:Calibri,'Segoe UI',Inter,sans-serif;}
+  .lab{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.12em;}
+
+  .sheet{width:8.5in;min-height:11in;margin:0 auto;background:var(--paper);position:relative;
+    display:flex;flex-direction:column;overflow:hidden;}
+  @media screen{ .sheet{margin:18px auto;box-shadow:0 10px 40px rgba(0,0,0,0.45);} }
+
+  /* masthead */
+  .masthead{background:var(--void);color:#fff;padding:0.26in 0.7in 0.20in;position:relative;overflow:hidden;}
+  .masthead::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);
+    background-size:26px 26px;pointer-events:none;}
+  .mh-row{display:flex;justify-content:space-between;align-items:flex-end;position:relative;}
+  .eyebrow{font-size:9.5pt;color:var(--gold);}
+  .brand{font-size:23pt;font-weight:600;letter-spacing:0.01em;line-height:1.0;margin-top:6px;}
+  .brand .g{color:var(--gold);font-style:italic;}
+  .mh-sub{font-size:11pt;color:#C8CACE;margin-top:5px;font-weight:300;}
+  .mh-right{text-align:right;}
+  .mh-tag{font-size:8.5pt;color:#9A9DA3;line-height:1.7;}
+  .mh-tag b{color:var(--gold);font-weight:500;}
+  .goldrule{height:2px;background:var(--gold);position:relative;}
+
+  /* body */
+  .body{padding:0.20in 0.7in 0.08in;flex:1;}
+  .lede{font-size:11pt;line-height:1.36;color:var(--ink);font-weight:400;}
+  .lede b{color:var(--ink);font-weight:600;}
+
+  .sech{font-size:9pt;color:var(--gold);margin:7px 0 4px;display:flex;align-items:center;gap:8px;}
+  .sech::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--line);}
+  .stat{padding:7px 10px;border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat .n{font-family:'IBM Plex Mono',monospace;font-size:16pt;color:var(--ink);font-weight:500;line-height:1;}
+  .stat .n small{font-size:9pt;color:var(--gold);}
+  .stat .k{font-size:7.2pt;color:var(--muted);margin-top:5px;letter-spacing:0.08em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;line-height:1.3;}
+
+  /* modules */
+  .mods{display:grid;grid-template-columns:1fr 1fr;gap:3px 18px;}
+  .mod{display:grid;grid-template-columns:84px 1fr;gap:10px;padding:3px 0;border-bottom:1px solid var(--line);}
+  .mod .mname{font-size:8.5pt;color:var(--ink);font-weight:600;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.04em;padding-top:1px;}
+  .mod .mdesc{font-size:9pt;color:var(--ink2);line-height:1.34;}
+
+  /* two-column lower */
+  .cols{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;margin-top:2px;}
+  .diff{font-size:9.2pt;line-height:1.45;color:var(--ink2);}
+  .diff .d{margin-bottom:5px;padding-left:14px;position:relative;}
+  .diff .d::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;background:var(--gold);}
+  .diff .d b{color:var(--ink);font-weight:600;}
+
+  .meta-card{background:var(--paper2);border:1px solid var(--line);padding:9px 12px;}
+  .meta-card .mc-h{font-size:8pt;color:var(--gold);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;}
+  .meta-card p{font-size:8.8pt;line-height:1.5;color:var(--ink2);}
+  .meta-card p + .mc-h{margin-top:10px;}
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:7.6pt;letter-spacing:0.06em;text-transform:uppercase;
+    border:1px solid var(--gold);color:#8A6E32;background:var(--golddim);padding:4px 8px;}
+
+  /* footer */
+  .footer{background:var(--void);color:#fff;padding:7px 0.7in;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  .footer .l{font-size:8.5pt;color:#C8CACE;}
+  .footer .l b{color:var(--gold);font-family:'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;font-size:8pt;}
+  .footer .contact{font-family:'IBM Plex Mono',monospace;font-size:7.4pt;color:#9A9DA3;margin-top:3px;letter-spacing:0.04em;}
+  .footer .r{font-size:7pt;color:#7C7F86;text-align:right;max-width:2.9in;line-height:1.5;}
+  .disc{padding:5px 0.7in 6px;font-size:6.8pt;color:var(--muted);line-height:1.5;font-family:'IBM Plex Mono',monospace;letter-spacing:0.02em;}
+</style></head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <div class="mh-row">
+      <div>
+        <div class="eyebrow lab">Product Brief</div>
+        <div class="brand">Seeking Alpha <span class="g">Legal</span></div>
+        <div class="mh-sub">Judicial and Counsel Analytics for the Singapore Courts</div>
+      </div>
+      <div class="mh-right">
+        <div class="mh-tag lab"><b>Seeking Alpha Advisors</b><br>Research, Advisory &amp; Execution<br><br>Version 1.0 &nbsp;|&nbsp; June 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="goldrule"></div>
+
+  <div class="body">
+
+    <p class="lede"><b>Seeking Alpha Legal turns the published record of the Singapore International Commercial Court and the Singapore Supreme Court into a searchable intelligence layer over judges, law firms, and individual counsel.</b> It reads primary-source Grounds of Decision so litigators and firm leaders can find parallel cases, benchmark counsel by sector, and study the court's accepted reasoning before they file, brief, or hire.</p>
+
+    <div class="sech lab">By the numbers</div>
+    <div class="stats">
+      <div class="stat"><div class="n">2,034</div><div class="k">Judgments<br>analysed</div></div>
+      <div class="stat"><div class="n">245</div><div class="k">SICC, complete<br>since 2016</div></div>
+      <div class="stat"><div class="n">48</div><div class="k">Judges<br>profiled</div></div>
+      <div class="stat"><div class="n">26</div><div class="k">Firms<br>benchmarked</div></div>
+      <div class="stat"><div class="n">658</div><div class="k">Counsel<br>mapped</div></div>
+      <div class="stat"><div class="n">2016<small>→</small>26</div><div class="k">Coverage<br>window</div></div>
+    </div>
+
+    <div class="sech lab">Capabilities</div>
+    <div class="mods">
+      <div class="mod"><div class="mname">Case Finder</div><div class="mdesc">Match parallel cases across dispute type, industry, claim and relief, law firm, outcome, and court.</div></div>
+      <div class="mod"><div class="mname">Judges</div><div class="mdesc">Caseload, who prevails and reversal rate, an outcome-lean baseball card by sector and issue, framing and persona signals, and a sourced professional profile.</div></div>
+      <div class="mod"><div class="mname">Firms</div><div class="mdesc">Win record stratified by dispute category and industry, with a winning playbook drawn from each firm's victories.</div></div>
+      <div class="mod"><div class="mname">Talent</div><div class="mdesc">Individual lawyers ranked by cases won and mapped to the sectors they win in, with a sector scouting board.</div></div>
+      <div class="mod"><div class="mname">Awards</div><div class="mdesc">MVP Counsel of the Year and Best Counsel by Industry, per year and all-time, on a normalized value index.</div></div>
+      <div class="mod"><div class="mname">Delivery</div><div class="mdesc">Self-contained web dashboard, deployable to any static host, on your brand and behind your access controls.</div></div>
+    </div>
+
+    <div class="sech lab">Built for</div>
+    <div class="tags">
+      <span class="tag">Litigation strategy</span>
+      <span class="tag">Competitive intelligence</span>
+      <span class="tag">Lateral hiring &amp; recruiting</span>
+      <span class="tag">Counsel selection</span>
+      <span class="tag">Business development</span>
+      <span class="tag">Investor &amp; risk diligence</span>
+    </div>
+
+    <div class="cols">
+      <div>
+        <div class="sech lab">Why it is different</div>
+        <div class="diff">
+          <div class="d"><b>Singapore-native.</b> Global platforms such as Lex Machina, Lexis, and Westlaw are built on United States dockets and do not cover Singapore. This is built on the Singapore record.</div>
+          <div class="d"><b>Primary-source.</b> Every figure traces to a published Grounds of Decision on eLitigation, not a third-party summary.</div>
+          <div class="d"><b>Beyond win rates.</b> Records are stratified by sector and issue to surface real streaks, with the winning arguments extracted, not just a headline percentage.</div>
+          <div class="d"><b>Talent-aware.</b> The only view that maps the individual counsel behind the wins, for scouting and lateral strategy.</div>
+        </div>
+      </div>
+      <div>
+        <div class="sech lab">Methodology &amp; delivery</div>
+        <div class="meta-card">
+          <div class="mc-h">How it is built</div>
+          <p>Judgments are parsed from public eLitigation Grounds of Decision. Outcomes are read from the disposition and case summary, counsel and firms from the judgment header, and reasoning from a framing engine that tags interpretive registers, authorities, and accepted arguments. Figures are descriptive and rest on the cited record.</p>
+          <div class="mc-h">Access</div>
+          <p>Web dashboard with a quarterly data refresh. API access and bespoke investigative research are available through Seeking Alpha Advisors.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="goldrule"></div>
+  <div class="footer">
+    <div class="l">
+      <b>Seeking Alpha Advisors</b><br>
+      Research, Advisory &amp; Execution
+      <div class="contact">e azan.tengku@gmail.com &nbsp;·&nbsp; w seekingalpha.netlify.app &nbsp;·&nbsp; m +65 8986 5978</div>
+    </div>
+    <div class="r">A primary-source analytics platform for Southeast Asian capital markets and the courts that govern them.</div>
+  </div>
+  <div class="disc">Descriptive statistics compiled from public records. Not legal advice and not a prediction of outcomes. Win rates and award indices reflect case selection and case strength, and rest on small samples in some segments.</div>
+
+</div>
+</body></html>

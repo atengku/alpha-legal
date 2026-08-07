@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charlie Legal — Teaser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F3E9;--paper-alt:#EFE9DA;--panel:#FBF8F0;
+    --ink:#16150F;--ink-soft:#494538;--ink-mut:#847E6B;
+    --void:#100F0B;--void-ink:#ECE6D5;--void-mut:#9A9382;
+    --gold:#B0862B;--gold-lt:#CBA451;--gold-dim:rgba(176,134,43,0.12);
+    --line:rgba(22,21,15,0.16);--line-soft:rgba(22,21,15,0.09);
+    --pos:#3C6B41;--neg:#9A3627;
+    --canvas:#C9C3B4;
+  }
+  *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{margin:0;background:var(--canvas);color:var(--ink);
+    font-family:"IBM Plex Sans",sans-serif;font-size:13px;line-height:1.5;
+    padding:34px 16px;
+    background-image:radial-gradient(circle at 50% 0,rgba(0,0,0,0.06),transparent 60%);}
+  .mono{font-family:"IBM Plex Mono",monospace;letter-spacing:.06em;}
+  h1,h2,h3{font-family:"Spectral",serif;font-weight:500;line-height:1.1;margin:0;letter-spacing:-0.01em;}
+  a{color:var(--gold);text-decoration:none;}
+
+  /* SHEET */
+  .sheet{width:816px;max-width:100%;margin:0 auto;background:var(--paper);
+    box-shadow:0 40px 90px -40px rgba(0,0,0,0.7),0 2px 0 rgba(0,0,0,0.1);
+    position:relative;overflow:hidden;}
+
+  /* MASTHEAD */
+  .mast{background:var(--void);color:var(--void-ink);padding:20px 40px 18px;position:relative;}
+  .mast::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-lt) 60%,transparent);}
+  .mast-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;}
+  .wm{display:flex;align-items:center;gap:12px;}
+  .wm .mark{width:30px;height:30px;border:1.4px solid var(--gold);border-radius:3px;display:grid;place-items:center;}
+  .wm .mark i{width:9px;height:9px;background:var(--gold);border-radius:50%;display:block;}
+  .wm .name{font-family:"Spectral",serif;font-weight:600;font-size:21px;letter-spacing:.01em;color:#fff;}
+  .wm .name span{color:var(--gold-lt);}
+  .wm .div{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--void-mut);margin-top:2px;}
+  .mast-meta{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--void-mut);line-height:1.85;}
+  .mast-meta b{color:var(--gold-lt);font-weight:500;}
+
+  .pad{padding:26px 40px;}
+
+  /* TITLE */
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);}
+  h1.title{font-size:33px;margin:12px 0 0;max-width:20ch;}
+  h1.title .mute{color:var(--ink-mut);}
+  h1.title em{font-style:italic;color:var(--gold);}
+  .standfirst{margin-top:14px;font-size:14px;color:var(--ink-soft);max-width:76ch;}
+  .standfirst b{color:var(--ink);font-weight:600;}
+
+  .rule{height:1px;background:var(--line);margin:22px 0;}
+  .rule.gold{height:2px;background:var(--gold);opacity:.55;}
+  .kicker{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mut);display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .kicker::before{content:"";width:16px;height:2px;background:var(--gold);}
+
+  /* WEDGE */
+  .wedge{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);}
+  .wedge .c{padding:16px 18px;}
+  .wedge .them{background:var(--paper-alt);border-right:1px solid var(--line);}
+  .wedge h3{font-size:12px;font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
+  .wedge .them h3{color:var(--ink-mut);}
+  .wedge .us h3{color:var(--gold);}
+  .wedge .big{font-family:"Spectral",serif;font-weight:600;font-size:22px;margin:6px 0 8px;}
+  .wedge .us .big{color:var(--gold);}
+  .wedge ul{margin:0;padding-left:15px;font-size:12px;color:var(--ink-soft);}
+  .wedge li{margin-bottom:4px;}
+  .wedge li::marker{color:var(--gold);}
+
+  /* EXHIBITS */
+  .exs{display:grid;grid-template-columns:1.06fr 1fr;gap:14px;}
+  .ex{border:1px solid var(--line);background:var(--panel);}
+  .ex .lbl{background:var(--void);color:var(--void-ink);font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;display:flex;justify-content:space-between;}
+  .ex .lbl b{color:var(--gold-lt);font-weight:500;}
+  .ex .in{padding:14px 15px;}
+
+  /* bench profile */
+  .jp{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+  .jp .av{width:38px;height:38px;border:1px solid var(--line);background:var(--paper-alt);display:grid;place-items:center;font-family:"Spectral",serif;font-weight:600;font-size:16px;color:var(--gold);}
+  .jp .n{font-family:"Spectral",serif;font-weight:600;font-size:15px;}
+  .jp .m{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mut);}
+  .bar{margin-bottom:9px;}
+  .bar .l{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-mut);margin-bottom:3px;}
+  .bar .tr{height:5px;background:var(--paper-alt);border:1px solid var(--line-soft);position:relative;}
+  .bar .fl{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg,var(--gold-lt),var(--gold));}
+  .bar .e{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:8px;color:var(--ink-mut);letter-spacing:.03em;text-transform:uppercase;margin-top:2px;}
+  .grounded{margin-top:11px;padding-top:9px;border-top:1px solid var(--line);display:flex;gap:14px;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mut);}
+  .grounded b{color:var(--gold);font-weight:600;}
+
+  /* league */
+  .lg{width:100%;border-collapse:collapse;}
+  .lg td{padding:6.5px 0;border-bottom:1px solid var(--line-soft);font-size:12px;vertical-align:middle;}
+  .lg tr:last-child td{border-bottom:none;}
+  .lg .rk{font-family:"IBM Plex Mono",monospace;color:var(--gold);width:24px;font-size:11px;}
+  .lg .nm{font-weight:600;}
+  .lg .nm span{display:block;font-family:"IBM Plex Mono",monospace;font-size:8.5px;color:var(--ink-mut);letter-spacing:.04em;text-transform:uppercase;font-weight:400;}
+  .lg .sc{font-family:"IBM Plex Mono",monospace;font-size:8.5px;color:var(--ink-mut);text-transform:uppercase;letter-spacing:.05em;text-align:right;}
+  .lg .nv{font-family:"Spectral",serif;font-weight:600;color:var(--gold);text-align:right;font-size:14px;}
+  .lg .tag{font-family:"IBM Plex Mono",monospace;font-size:8px;color:var(--pos);letter-spacing:.05em;}
+
+  /* 4k */
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .qq{border:1px solid var(--line);padding:9px 10px;background:var(--paper);}
+  .qq .h{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-mut);margin-bottom:4px;}
+  .qq .v{font-size:11px;color:var(--ink-soft);line-height:1.35;}
+  .qq.alpha{border-color:var(--gold);background:var(--gold-dim);}
+  .qq.alpha .h{color:var(--gold);}
+  .vector{margin-top:9px;border-left:2px solid var(--gold);padding:7px 11px;font-size:11px;color:var(--ink-soft);background:var(--gold-dim);}
+  .vector b{color:var(--gold);}
+  .cap{font-size:11px;color:var(--ink-mut);margin-top:9px;}
+  .cap b{color:var(--gold);font-weight:600;}
+
+  /* legal do/dont */
+  .legal{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .lc{border:1px solid var(--line);padding:14px 16px;background:var(--panel);}
+  .lc.ok{border-top:2px solid var(--pos);}
+  .lc.no{border-top:2px solid var(--neg);}
+  .lc h3{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;}
+  .lc.ok h3{color:var(--pos);}
+  .lc.no h3{color:var(--neg);}
+  .lc ul{margin:0;padding-left:15px;font-size:11.5px;color:var(--ink-soft);}
+  .lc li{margin-bottom:5px;}
+
+  /* valuation */
+  .anchor{border:1px solid var(--line);background:var(--paper-alt);padding:13px 16px;font-size:12px;color:var(--ink-soft);}
+  .anchor b{color:var(--ink);}
+  .bbb{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;}
+  .sc{border:1px solid var(--line);padding:13px 15px;background:var(--panel);}
+  .sc .h{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+  .sc .d{width:7px;height:7px;border-radius:50%;}
+  .sc.bull .h{color:var(--pos);}.sc.bull .d{background:var(--pos);}
+  .sc.base .h{color:var(--gold);}.sc.base .d{background:var(--gold);}
+  .sc.bear .h{color:var(--neg);}.sc.bear .d{background:var(--neg);}
+  .sc .n{font-family:"Spectral",serif;font-weight:600;font-size:17px;margin-bottom:6px;}
+  .sc p{font-size:11px;color:var(--ink-soft);margin:0;}
+
+  .pull{text-align:center;font-family:"Spectral",serif;font-weight:500;font-size:22px;line-height:1.3;letter-spacing:-0.01em;margin:22px auto 4px;max-width:30ch;}
+  .pull em{font-style:italic;color:var(--gold);}
+
+  /* FOOTER */
+  .foot{background:var(--void);color:var(--void-mut);padding:16px 40px 20px;position:relative;margin-top:26px;}
+  .foot::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-lt) 40%,var(--gold));}
+  .foot .row{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;}
+  .foot .src{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.05em;line-height:1.9;max-width:78%;}
+  .foot .src a{color:var(--void-ink);}
+  .foot .pg{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.12em;color:var(--gold-lt);}
+  .foot .disc{font-size:9px;color:var(--void-mut);margin-top:10px;line-height:1.6;max-width:92%;}
+
+  @media print{@page{size:Letter;margin:0;} body{background:#fff;padding:0;} .sheet{box-shadow:none;width:100%;}}
+</style>
+</head>
+<body>
+  <div class="sheet">
+
+    <!-- MASTHEAD -->
+    <div class="mast">
+      <div class="mast-top">
+        <div class="wm">
+          <span class="mark"><i></i></span>
+          <div>
+            <div class="name">Charlie<span>.</span>Legal</div>
+            <div class="div">Litigation Intelligence</div>
+          </div>
+        </div>
+        <div class="mast-meta">
+          <div><b>Confidential Teaser</b></div>
+          <div>Product Brief · v0.1</div>
+          <div>Prepared for discussion</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pad">
+      <!-- TITLE -->
+      <div class="eyebrow">The qualitative layer of litigation</div>
+      <h1 class="title">Harvey automates the <span class="mute">paperwork.</span> Charlie Legal decodes the <em>verdict.</em></h1>
+      <p class="standfirst">The legal AI race is a race to do the work faster. We are not in it. <b>Charlie Legal is the transparent intelligence layer that instruments what SICC litigators have always read by instinct:</b> how a tribunal reasons, which counsel actually wins where, and where the unspoken edge sits. Built on public record, grounded in published judgments, engineered to be defensible.</p>
+
+      <div class="rule gold"></div>
+
+      <!-- WEDGE -->
+      <div class="kicker">01 · The wedge</div>
+      <div class="wedge">
+        <div class="c them">
+          <h3>The category today</h3>
+          <div class="big">$11B · workflow</div>
+          <ul>
+            <li>Harvey is the operating system for legal work: contract analysis, due diligence, drafting, review, 25,000+ agents that execute tasks.</li>
+            <li>Horizontal productivity, jurisdiction-agnostic.</li>
+            <li>Black-box agent output; the reasoning is not the product.</li>
+            <li>No judicial-disposition intelligence, no counsel-market map. A customized enterprise build cannot retrofit a substrate it was never architected to hold.</li>
+          </ul>
+        </div>
+        <div class="c us">
+          <h3>The layer no one built</h3>
+          <div class="big">The Alpha</div>
+          <ul>
+            <li>The qualitative substrate: a transparent, source-grounded read of the decision-makers and the advocates.</li>
+            <li>One jurisdiction done to the bone, starting with the SICC.</li>
+            <li>Every inference traceable to a published judgment.</li>
+            <li>The edge early adopters hold while the market is still asymmetric.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <!-- EXHIBITS -->
+      <div class="kicker">02 · The substrate, made visible</div>
+      <div class="exs">
+        <div class="ex">
+          <div class="lbl"><span>Exhibit 01 — Bench Profile</span><b>grounded</b></div>
+          <div class="in">
+            <div class="jp">
+              <div class="av">A</div>
+              <div><div class="n">Judge A</div><div class="m">SICC · Commercial · 84 reported judgments</div></div>
+            </div>
+            <div class="bar"><div class="l">Reasoning</div><div class="tr"><div class="fl" style="width:72%"></div></div><div class="e"><span>Textual</span><span>Purposive</span></div></div>
+            <div class="bar"><div class="l">Disposition</div><div class="tr"><div class="fl" style="width:58%"></div></div><div class="e"><span>Precedent-anchored</span><span>First-principles</span></div></div>
+            <div class="bar"><div class="l">Evidence weighting</div><div class="tr"><div class="fl" style="width:81%"></div></div><div class="e"><span>Document-led</span><span>Witness-led</span></div></div>
+            <div class="grounded"><span><b>0</b> private data</span><span>cited to <b>84/84</b> rulings</span><span>linguistic model v3</span></div>
+          </div>
+        </div>
+
+        <div class="ex">
+          <div class="lbl"><span>Exhibit 02 — Counsel League</span><b>by sector</b></div>
+          <div class="in">
+            <table class="lg">
+              <tr><td class="rk">01</td><td class="nm">Counsel A<span>Firm · tier 2</span></td><td class="sc">Construction</td><td class="nv">94.2</td></tr>
+              <tr><td class="rk">02</td><td class="nm">Counsel B<span>Boutique</span></td><td class="sc">Shareholder</td><td class="nv">91.7</td></tr>
+              <tr><td class="rk">03</td><td class="nm">Counsel C<span>Independent · <span class="tag">hidden</span></span></td><td class="sc">Energy</td><td class="nv">88.0</td></tr>
+              <tr><td class="rk">04</td><td class="nm">Counsel D<span>Big law</span></td><td class="sc">Banking</td><td class="nv">85.3</td></tr>
+              <tr><td class="rk">05</td><td class="nm">Counsel E<span>Boutique</span></td><td class="sc">Trust</td><td class="nv">83.9</td></tr>
+            </table>
+            <div class="cap"><b>Market equilibrium:</b> NAV-weighted win quality surfaces the under-priced talent a firm can hire into a practice it is losing in.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exs" style="margin-top:14px;">
+        <div class="ex">
+          <div class="lbl"><span>Exhibit 03 — Construct the Unknowns</span><b>4-Knowledge engine</b></div>
+          <div class="in">
+            <div class="quad">
+              <div class="qq"><div class="h">Known knowns</div><div class="v">Holdings and outcomes already on record for this bench and matter type.</div></div>
+              <div class="qq"><div class="h">Known unknowns</div><div class="v">Adjacent doctrines the corpus flags but has not resolved.</div></div>
+              <div class="qq"><div class="h">Unknown knowns</div><div class="v">Latent reasoning habits the judge applies without naming.</div></div>
+              <div class="qq alpha"><div class="h">Unknown unknowns · Alpha</div><div class="v">A framing that fits this judge yet no counsel has run before them.</div></div>
+            </div>
+            <div class="vector"><b>Narrative vector:</b> states whether your theory of the case aligns with the bench, shifts it, or exposes a contradiction worth re-framing.</div>
+          </div>
+        </div>
+
+        <div class="ex">
+          <div class="lbl"><span>Exhibit 04 — Why it compounds</span><b>defensibility</b></div>
+          <div class="in">
+            <div style="border-bottom:1px solid var(--line-soft);padding-bottom:9px;margin-bottom:9px;">
+              <div class="mono" style="font-size:9px;color:var(--gold);letter-spacing:.09em;text-transform:uppercase;">Data lock-in</div>
+              <div style="font-size:11.5px;color:var(--ink-soft);margin-top:3px;">Every new judgment deepens the substrate. The corpus is the defensibility, and it is jurisdiction-specific in a way a horizontal model cannot copy.</div>
+            </div>
+            <div style="border-bottom:1px solid var(--line-soft);padding-bottom:9px;margin-bottom:9px;">
+              <div class="mono" style="font-size:9px;color:var(--gold);letter-spacing:.09em;text-transform:uppercase;">Transparency as a feature</div>
+              <div style="font-size:11.5px;color:var(--ink-soft);margin-top:3px;">Where rivals ship a black box, every claim cites the ruling it came from. Auditability is the product.</div>
+            </div>
+            <div>
+              <div class="mono" style="font-size:9px;color:var(--gold);letter-spacing:.09em;text-transform:uppercase;">First-mover asymmetry</div>
+              <div style="font-size:11.5px;color:var(--ink-soft);margin-top:3px;">Never built, Harvey or otherwise, and never contemplated in Singapore's context. While the read is held by few, it is worth the most.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <!-- LEGAL -->
+      <div class="kicker">03 · Provocative, and inside the line</div>
+      <p class="standfirst" style="margin-top:0;margin-bottom:14px;">Judicial analytics is legitimate use of public data almost everywhere. France is the one jurisdiction that criminalised profiling named judges, up to five years in prison, precisely because firms began modelling individual judges. Singapore has no such ban, judgments are public, and the publicly-available-data position under the PDPA applies. Charlie Legal is engineered to sit on the right side of that line by design.</p>
+      <div class="legal">
+        <div class="lc ok">
+          <h3>✓ What we do</h3>
+          <ul>
+            <li>Infer disposition only from a judge's own published judgments and reasoning.</li>
+            <li>Cite every inference to the ruling it came from, neutral and non-evaluative.</li>
+            <li>Rank counsel on their public litigation track record, as any market ranks performance.</li>
+            <li>Keep the methodology transparent and auditable end to end.</li>
+          </ul>
+        </div>
+        <div class="lc no">
+          <h3>✗ The line we do not cross</h3>
+          <ul>
+            <li>No scrape of a judge's private or social footprint. That is the French outcome and a PDPA and contempt risk.</li>
+            <li>No claim to predict a named verdict, nothing that could read as scandalising the court.</li>
+            <li>No black-box assertion a user cannot trace to source.</li>
+            <li>The boundary is a design constraint that makes the asset investable, not a limitation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <!-- VALUATION -->
+      <div class="kicker">04 · The valuation question</div>
+      <div class="anchor"><b>Comparable anchor.</b> Harvey: $11B valuation on roughly $190M ARR (about 58x), workflow automation. Legora: $5.55B. The legal AI software market sits near $5.6B in 2026, projected to about $10.8B by 2030 at roughly 28% CAGR. The category clears multi-billion outcomes on doing the work faster. The transparent intelligence layer beneath it is unbuilt.</div>
+      <div class="bbb">
+        <div class="sc bull"><div class="h"><span class="d"></span>Bull</div><div class="n">Category multiple</div><p>Becomes the system of record for litigation intelligence in Asian commercial courts. Data lock-in and transparency command a premium on a focused ARR base, valued on the multiples the category already pays.</p></div>
+        <div class="sc base"><div class="h"><span class="d"></span>Base</div><div class="n">Defensible niche</div><p>A high-margin intelligence layer with durable SICC depth and a live counsel market. Acquired by, or sold alongside, a workflow platform that cannot build the substrate itself.</p></div>
+        <div class="sc bear"><div class="h"><span class="d"></span>Bear</div><div class="n">Compression risk</div><p>A horizontal player ships a thin judicial-analytics feature, or a regulator imports the French position. Defensibility then rests on jurisdiction depth and the transparency edge.</p></div>
+      </div>
+
+      <div class="pull">The race is to automate the work.<br>The <em>alpha</em> is in knowing how it will be judged.</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="foot">
+      <div class="row">
+        <div class="src">
+          Sources ·
+          <a href="https://www.cnbc.com/2026/03/25/legal-ai-startup-harvey-raises-200-million-at-11-billion-valuation.html">Harvey $11B, CNBC Mar 2026</a> ·
+          <a href="https://www.harvey.ai/blog/harvey-raises-at-dollar11-billion-valuation-to-scale-agents-across-law-firms-and-enterprises">Harvey positioning</a> ·
+          <a href="https://blog.platinumids.com/blog/legal-ai-billion-dollar-arms-race-2026">Legora $5.55B and market size</a> ·
+          <a href="https://www.artificiallawyer.com/2019/06/04/france-bans-judge-analytics-5-years-in-prison-for-rule-breakers/">France Art. 33 ban</a>
+        </div>
+        <div class="pg">1 / 1</div>
+      </div>
+      <div class="disc">Confidential teaser prepared for discussion. Not legal advice and not an offer of securities. All exhibits are illustrative and use anonymized sample data; no inference about any real, named judge or counsel is made or implied. Figures current to early 2026 and to be re-verified before external circulation. The judicial-intelligence methodology is grounded exclusively in published judicial decisions and public litigation records.</div>
+    </div>
+
+  </div>
+</body>
+</html>

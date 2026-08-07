@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Seeking Alpha Legal — Technical Definitions Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A25C; --void:#050608;
+    --ink:#15171C; --ink2:#3A3D44; --muted:#6A6E76;
+    --line:#E4E2DC; --paper:#FFFFFF; --paper2:#FAF8F4;
+    --real:#3B5B7A; --agg:#2F7D5B; --inf:#B7791F; --ana:#A6822E; --cnt:#7A4E8C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{ size:Letter; margin:1.0in 0 0.8in 0; }
+  body{font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;font-size:9pt;}
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important; }
+  h1,h2,h3{font-family:Calibri,'Segoe UI',Inter,sans-serif;}
+  .lab{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.12em;}
+  .wrap{padding:0 0.6in;}
+
+  /* page-1 title and legend */
+  .doc-title{font-size:20pt;font-weight:600;margin-top:2px;}
+  .doc-title .g{color:var(--gold);font-style:italic;}
+  .doc-sub{font-size:10.5pt;color:var(--ink2);margin:3px 0 2px;font-weight:300;}
+  .stdref{font-family:'IBM Plex Mono',monospace;font-size:7.6pt;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-top:4px;}
+  .lede{font-size:9.4pt;line-height:1.5;color:var(--ink2);margin:12px 0 4px;max-width:7in;}
+  .lede b{color:var(--ink);font-weight:600;}
+
+  .sech{font-size:8.5pt;color:var(--gold);margin:14px 0 7px;display:flex;align-items:center;gap:8px;}
+  .sech::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .legend{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .lg{border:1px solid var(--line);border-top:3px solid var(--c);padding:8px 9px;background:var(--paper2);}
+  .lg .lgh{font-family:'IBM Plex Mono',monospace;font-size:7.6pt;letter-spacing:0.06em;text-transform:uppercase;color:var(--c);font-weight:500;}
+  .lg .lgn{font-family:'IBM Plex Mono',monospace;font-size:13pt;color:var(--ink);margin:3px 0;}
+  .lg .lgn small{font-size:7pt;color:var(--muted);}
+  .lg .lgd{font-size:7.6pt;color:var(--ink2);line-height:1.4;}
+  .lg.real{--c:var(--real)} .lg.agg{--c:var(--agg)} .lg.inf{--c:var(--inf)} .lg.ana{--c:var(--ana)} .lg.cnt{--c:var(--cnt)}
+
+  /* dictionary table */
+  table.dict{width:100%;border-collapse:collapse;margin-top:2px;}
+  table.dict thead th{background:var(--void);color:#fff;font-family:'IBM Plex Mono',monospace;
+    font-size:7pt;letter-spacing:0.08em;text-transform:uppercase;text-align:left;padding:7px 8px;font-weight:500;
+    border-right:1px solid rgba(255,255,255,0.12);}
+  table.dict thead th:last-child{border-right:none;}
+  table.dict tbody tr{border-bottom:1px solid var(--line);page-break-inside:avoid;}
+  table.dict tbody tr:nth-child(even){background:var(--paper2);}
+  table.dict td{padding:6px 8px;vertical-align:top;font-size:8.2pt;line-height:1.36;border-right:1px solid var(--line);}
+  table.dict td:last-child{border-right:none;}
+  .c-el{width:1.55in;font-weight:600;color:var(--ink);}
+  .c-lyr{width:1.15in;}
+  .c-def{width:2.5in;color:var(--ink2);}
+  .c-der{color:var(--muted);}
+  .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:6.6pt;letter-spacing:0.04em;text-transform:uppercase;
+    padding:2px 6px;border-left:3px solid var(--c);background:var(--bg);color:var(--c);white-space:nowrap;font-weight:500;}
+  .t-real{--c:var(--real);--bg:rgba(59,91,122,0.10)}
+  .t-agg{--c:var(--agg);--bg:rgba(47,125,91,0.10)}
+  .t-inf{--c:var(--inf);--bg:rgba(183,121,31,0.12)}
+  .t-ana{--c:#8A6E32;--bg:rgba(196,162,92,0.16)}
+  .t-cnt{--c:var(--cnt);--bg:rgba(122,78,140,0.10)}
+
+  .stdnote{margin-top:12px;border:1px solid var(--line);border-left:3px solid var(--gold);background:var(--paper2);padding:9px 12px;}
+  .stdnote .h{font-family:'IBM Plex Mono',monospace;font-size:7.6pt;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+  .stdnote p{font-size:8.2pt;line-height:1.5;color:var(--ink2);}
+</style></head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow lab" style="font-size:8.5pt;color:var(--gold);">Technical Definitions Framework</div>
+  <div class="doc-title">Seeking Alpha <span class="g">Legal</span></div>
+  <div class="doc-sub">Data Dictionary and Provenance Standard</div>
+  <div class="stdref">Standard SAL-DDF v1.0 &nbsp;&middot;&nbsp; Effective June 2026 &nbsp;&middot;&nbsp; Companion to the Product Brief</div>
+
+  <p class="lede"><b>Every value the platform publishes is classified by how it is produced, from primary-source fact to standardized analytic.</b> The point of this framework is transparency of provenance: a buyer can see exactly which fields are republished verbatim from the court record, which are counts, which are interpreted, and which are the proprietary analytics that have been defined to a fixed standard. The layer of an element sets its evidentiary weight and its licensing terms.</p>
+
+  <div class="sech lab">The five data layers</div>
+  <div class="legend">
+    <div class="lg real"><div class="lgh">Real, republished</div><div class="lgn">14 <small>fields</small></div><div class="lgd">Lifted verbatim from the judgment or its public record. Highest evidentiary weight.</div></div>
+    <div class="lg agg"><div class="lgh">Aggregated</div><div class="lgn">7 <small>fields</small></div><div class="lgd">Counts and rollups computed by grouping real data. Deterministic.</div></div>
+    <div class="lg inf"><div class="lgh">Inferred</div><div class="lgn">9 <small>fields</small></div><div class="lgd">Classified by heuristic from the text. Interpretive, with stated rules.</div></div>
+    <div class="lg ana"><div class="lgh">Analytics &amp; correlation</div><div class="lgn">10 <small>fields</small></div><div class="lgd">Standardized proprietary metrics and indices. The sought-after layer.</div></div>
+    <div class="lg cnt"><div class="lgh">Counts &amp; wins</div><div class="lgn">5 <small>fields</small></div><div class="lgd">The litigation tally primitives that feed every win metric.</div></div>
+  </div>
+
+  <div class="sech lab">Data dictionary <span class="hint" style="font-family:Inter;font-size:7.6pt;text-transform:none;letter-spacing:0;color:var(--muted)">(alphabetical, 45 published elements)</span></div>
+  <table class="dict">
+    <thead><tr>
+      <th class="c-el">Data element</th><th class="c-lyr">Layer</th><th class="c-def">Definition</th><th class="c-der">Derivation and source</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="c-el">Appeal reversal rate</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">Share of a judge's appealable decisions later reversed on appeal.</td><td class="c-der">Computed from outcome class across linked appeal records.</td></tr>
+      <tr><td class="c-el">Appearances</td><td class="c-lyr"><span class="tag t-cnt">Counts &amp; wins</span></td><td class="c-def">Number of times a firm or named counsel appears on one side of a case.</td><td class="c-der">Tally of header counsel records.</td></tr>
+      <tr><td class="c-el">Areas of law</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The catchword subject areas assigned to a judgment.</td><td class="c-der">Republished from the judgment headnote.</td></tr>
+      <tr><td class="c-el">Authorities cited</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The cases and statutes a judgment relies on.</td><td class="c-der">Extracted verbatim from the judgment body.</td></tr>
+      <tr><td class="c-el">Authority origin</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">Jurisdiction of a cited authority (Singapore, English, Commonwealth, other).</td><td class="c-der">Classified from citation pattern and reporter.</td></tr>
+      <tr><td class="c-el">Award figure (quantum)</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The monetary sum stated in the judgment, with currency.</td><td class="c-der">Extracted verbatim from the disposition.</td></tr>
+      <tr><td class="c-el">Award range</td><td class="c-lyr"><span class="tag t-agg">Aggregated</span></td><td class="c-def">The span of award figures across a judge or corpus.</td><td class="c-der">Minimum to maximum of per-case quantum, by currency.</td></tr>
+      <tr><td class="c-el">Best Counsel by Industry</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">Ranking of winning-side counsel by wins within a sector, per year and all-time.</td><td class="c-der">Aggregation of counsel wins by industry tag.</td></tr>
+      <tr><td class="c-el">Case name</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The parties to the matter.</td><td class="c-der">Republished from the judgment title.</td></tr>
+      <tr><td class="c-el">Caseload</td><td class="c-lyr"><span class="tag t-agg">Aggregated</span></td><td class="c-def">Count of judgments associated with a judge.</td><td class="c-der">Count over coram records.</td></tr>
+      <tr><td class="c-el">Catchwords</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">Structured subject tags in the judgment.</td><td class="c-der">Republished from the headnote.</td></tr>
+      <tr><td class="c-el">Citation</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The neutral citation of the judgment.</td><td class="c-der">Republished verbatim.</td></tr>
+      <tr><td class="c-el">Claimant win share</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">Share of a judge's clean outcomes resolving for the claimant side, by sector and dispute (the outcome lean).</td><td class="c-der">Win direction grouped by segment, rate where clean n is at least 4.</td></tr>
+      <tr><td class="c-el">Clean-outcome count</td><td class="c-lyr"><span class="tag t-cnt">Counts &amp; wins</span></td><td class="c-def">Cases with an unambiguous claimant or respondent result.</td><td class="c-der">Count excluding mixed and unclear dispositions.</td></tr>
+      <tr><td class="c-el">Coram</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The judge or panel that decided the matter.</td><td class="c-der">Republished from the judgment.</td></tr>
+      <tr><td class="c-el">Coram role</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">Whether a judge authored, sat as a panel member, or sat alone.</td><td class="c-der">Inferred from authorship and panel cues in text.</td></tr>
+      <tr><td class="c-el">Counsel names</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The advocates named for each side.</td><td class="c-der">Parsed verbatim from the header counsel block.</td></tr>
+      <tr><td class="c-el">Court / corpus</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The deciding court (SICC or Supreme Court general division).</td><td class="c-der">Republished from the citation and court field.</td></tr>
+      <tr><td class="c-el">Decision date</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The date the Grounds of Decision were issued.</td><td class="c-der">Republished verbatim.</td></tr>
+      <tr><td class="c-el">Dispute category</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">The dispute type (arbitration, contract, construction, insolvency, and so on).</td><td class="c-der">Classified from catchwords and relief.</td></tr>
+      <tr><td class="c-el">Dispute distribution</td><td class="c-lyr"><span class="tag t-agg">Aggregated</span></td><td class="c-def">Frequency of dispute categories for a judge or corpus.</td><td class="c-der">Count over inferred dispute tags.</td></tr>
+      <tr><td class="c-el">Firm names</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The law firms on record for each side.</td><td class="c-der">Parsed verbatim from the header.</td></tr>
+      <tr><td class="c-el">Firm win rate (overall)</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">A firm's share of clean outcomes won across all cases.</td><td class="c-der">Wins over clean outcomes, shown at n of at least 3.</td></tr>
+      <tr><td class="c-el">Firm win rate by dispute</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">A firm's win rate within each dispute category.</td><td class="c-der">Stratified wins over clean outcomes per segment.</td></tr>
+      <tr><td class="c-el">Firm win rate by industry</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">A firm's win rate within each sector.</td><td class="c-der">Stratified wins over clean outcomes per sector.</td></tr>
+      <tr><td class="c-el">Framing registers</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">Interpretive registers a judgment leans on (party autonomy, minimal curial intervention, and so on).</td><td class="c-der">Tagged by the framing engine from text markers.</td></tr>
+      <tr><td class="c-el">Grounds of Decision URL</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The source link to the published judgment on eLitigation.</td><td class="c-der">Republished verbatim.</td></tr>
+      <tr><td class="c-el">Industry / sector</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">The commercial sector a case touches (maritime, banking, construction, and so on).</td><td class="c-der">Classified from case name and catchword text.</td></tr>
+      <tr><td class="c-el">Industry exposure</td><td class="c-lyr"><span class="tag t-agg">Aggregated</span></td><td class="c-def">Frequency of sectors for a judge or corpus.</td><td class="c-der">Count over inferred sector tags.</td></tr>
+      <tr><td class="c-el">Lawyer sector expertise</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">Mapping of a lawyer to the sectors they win in, ranked by wins.</td><td class="c-der">Wins grouped by sector per named counsel.</td></tr>
+      <tr><td class="c-el">Losses</td><td class="c-lyr"><span class="tag t-cnt">Counts &amp; wins</span></td><td class="c-def">Cases where a firm or counsel's side did not prevail on a clean outcome.</td><td class="c-der">Tally against win direction.</td></tr>
+      <tr><td class="c-el">MVP Counsel of the Year</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">A normalized annual value index of counsel contribution.</td><td class="c-der">Win credit weighted by significance, split by winning-team size, as a share of the year pool.</td></tr>
+      <tr><td class="c-el">Outcome class</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">The disposition type (application granted, dismissed, appeal allowed, and so on).</td><td class="c-der">Classified from the disposition text.</td></tr>
+      <tr><td class="c-el">Outcome direction</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">Whether the claimant or the respondent side prevailed (who prevails).</td><td class="c-der">Inferred from disposition and case summary.</td></tr>
+      <tr><td class="c-el">Output by year</td><td class="c-lyr"><span class="tag t-agg">Aggregated</span></td><td class="c-def">A judge's judgment count per calendar year, split by corpus.</td><td class="c-der">Count over coram records by year.</td></tr>
+      <tr><td class="c-el">Panel composition</td><td class="c-lyr"><span class="tag t-agg">Aggregated</span></td><td class="c-def">The judges a given judge most often sits with (co-judges).</td><td class="c-der">Count over shared coram records.</td></tr>
+      <tr><td class="c-el">Persona</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">A writing-style read mapped to DISC, colours, and an MBTI lean. Indicative only.</td><td class="c-der">Heuristic from expression signals in authored judgments.</td></tr>
+      <tr><td class="c-el">Persona coherence</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">A signed correlation and confidence that the persona signals are internally consistent.</td><td class="c-der">Correlation of expression versus substance signals per judgment.</td></tr>
+      <tr><td class="c-el">Playbook (winning)</td><td class="c-lyr"><span class="tag t-ana">Analytics</span></td><td class="c-def">The registers, authority posture, and accepted arguments recurring in a firm's wins.</td><td class="c-der">Aggregated framing of winning cases.</td></tr>
+      <tr><td class="c-el">Professional profile</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">A judge's public career, education, and distinctions.</td><td class="c-der">Republished from public professional sources with citations.</td></tr>
+      <tr><td class="c-el">Relief / remedy type</td><td class="c-lyr"><span class="tag t-inf">Inferred</span></td><td class="c-def">The relief granted (damages, declaration, set-aside, costs, and so on).</td><td class="c-der">Classified from the disposition text.</td></tr>
+      <tr><td class="c-el">Relief mix</td><td class="c-lyr"><span class="tag t-agg">Aggregated</span></td><td class="c-def">Frequency of relief types for a judge or corpus.</td><td class="c-der">Count over inferred relief tags.</td></tr>
+      <tr><td class="c-el">Representation (side)</td><td class="c-lyr"><span class="tag t-real">Real</span></td><td class="c-def">The party a counsel or firm acted for.</td><td class="c-der">Republished from the header counsel block.</td></tr>
+      <tr><td class="c-el">Wins</td><td class="c-lyr"><span class="tag t-cnt">Counts &amp; wins</span></td><td class="c-def">Cases where a firm or counsel's side prevailed on a clean outcome.</td><td class="c-der">Tally against win direction.</td></tr>
+      <tr><td class="c-el">Wins by sector</td><td class="c-lyr"><span class="tag t-cnt">Counts &amp; wins</span></td><td class="c-def">A lawyer's win count within a given sector.</td><td class="c-der">Tally of wins grouped by sector tag.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="stdnote">
+    <div class="h">Why the standard matters</div>
+    <p>The analytics layer is where the value sits, and its worth depends on the definitions being fixed. Each metric here is computed the same way for every judge, firm, and lawyer, on the same clean-outcome rule, the same minimum sample thresholds, and the same significance weights. That is what makes a win rate or an MVP index comparable across the corpus rather than an anecdote. Real and aggregated layers carry the highest evidentiary weight; inferred and analytic layers are standardized but interpretive, and are licensed and cited accordingly. Win rates and indices reflect case selection and case strength, not skill or judicial favour, and some segments rest on small samples.</p>
+  </div>
+
+</div>
+</body></html>

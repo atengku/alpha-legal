@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seeking Alpha Legal — Intake Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#C4A25C;--void:#050608;--panel:#0A0C10;--bd:rgba(255,255,255,0.10);
+    --txt:#EAEAEA;--mut:#8B8D91;--pos:#4AD295;--neg:#D24A4A;--amber:#E0A33A;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--void);color:var(--txt);font-family:Inter,system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+  .lab{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;}
+  h1,h2,h3{font-family:Calibri,'Segoe UI',Inter,sans-serif;}
+  a{color:var(--gold);}
+  /* masthead */
+  .mast{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;border-bottom:1px solid var(--bd);background:var(--void);position:sticky;top:0;z-index:5;}
+  .brand{font-size:15px;font-weight:600;letter-spacing:0.08em;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;}
+  .brand .g{color:var(--gold);}
+  .mtag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:0.1em;}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 26px 60px;}
+  h1.title{font-size:24px;font-weight:600;}
+  .sub{color:var(--mut);font-size:13px;margin:5px 0 20px;line-height:1.55;max-width:60rem;}
+  /* pipeline */
+  .pipe{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:22px;}
+  .pst{display:flex;align-items:center;gap:9px;border:1px solid var(--bd);padding:8px 13px;background:var(--panel);}
+  .pst .n{width:21px;height:21px;border:1px solid var(--gold);color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center;}
+  .pst b{font-size:12px;display:block;} .pst span{font-size:10px;color:var(--mut);font-family:'IBM Plex Mono',monospace;}
+  .arr{color:var(--gold);}
+  /* layout */
+  .grid{display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:start;}
+  @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+  .card{border:1px solid var(--bd);background:var(--panel);padding:16px;}
+  .ch{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .seg{display:flex;border:1px solid var(--bd);margin-bottom:12px;}
+  .seg button{flex:1;background:transparent;border:none;color:var(--mut);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:8px;cursor:pointer;border-right:1px solid var(--bd);}
+  .seg button:last-child{border-right:none;}
+  .seg button.on{background:var(--gold);color:#0A0C10;}
+  textarea{width:100%;min-height:230px;background:var(--void);border:1px solid var(--bd);color:var(--txt);font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.55;padding:11px;resize:vertical;}
+  textarea:focus{outline:none;border-color:var(--gold);}
+  .drop{border:1px dashed var(--bd);padding:30px 16px;text-align:center;color:var(--mut);font-size:13px;cursor:pointer;}
+  .drop.over{border-color:var(--gold);background:rgba(196,162,92,.06);color:var(--txt);}
+  .samples{display:flex;flex-direction:column;gap:8px;}
+  .samp{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--bd);padding:10px 12px;cursor:pointer;font-size:12.5px;}
+  .samp:hover{border-color:var(--gold);background:rgba(196,162,92,.05);}
+  .samp .k{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--mut);text-transform:uppercase;border:1px solid var(--bd);padding:1px 6px;}
+  .row{display:flex;gap:10px;align-items:center;margin-top:12px;}
+  .btn{background:var(--gold);color:#0A0C10;border:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:11px 16px;cursor:pointer;font-weight:600;}
+  .btn:disabled{opacity:.4;cursor:not-allowed;}
+  .btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--bd);}
+  .hint{font-size:11px;color:var(--mut);margin-top:10px;line-height:1.5;}
+  /* live PII */
+  .piilive{margin-top:12px;border:1px solid var(--bd);padding:10px 12px;font-size:11px;color:var(--mut);}
+  .piilive.has{border-color:rgba(210,74,74,.4);background:rgba(210,74,74,.05);}
+  .piilive .ph{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--neg);display:block;margin-bottom:6px;}
+  .piicat{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--neg);border:1px solid rgba(210,74,74,.4);padding:2px 7px;margin:2px 4px 2px 0;}
+  /* results */
+  .empty{color:var(--mut);font-size:13px;border:1px dashed var(--bd);padding:40px;text-align:center;}
+  .res>.ch.main{border-bottom:1px solid var(--gold);padding-bottom:7px;}
+  .pii{border:1px solid rgba(210,74,74,.35);background:rgba(210,74,74,.05);padding:9px 12px;margin:10px 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;}
+  .pii .ph{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--neg);}
+  .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);margin-bottom:16px;}
+  @media(max-width:760px){.meta{grid-template-columns:1fr 1fr;}}
+  .meta>div{background:var(--panel);padding:9px 11px;font-size:12.5px;}
+  .ml{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:3px;}
+  .flag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--amber);border:1px solid rgba(224,163,58,.45);padding:1px 6px;}
+  .blk{margin:14px 0;}
+  .blkh{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+  .fact{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12.5px;line-height:1.45;}
+  .ts{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);border:1px solid var(--bd);padding:1px 6px;height:fit-content;white-space:nowrap;}
+  .taq{padding:7px 0;border-bottom:1px solid var(--bd);}
+  .tat{font-size:12.5px;} .tam{display:flex;gap:8px;margin-top:3px;font-size:11px;color:var(--mut);}
+  .tad{font-family:'IBM Plex Mono',monospace;color:var(--gold);border:1px solid var(--bd);padding:0 6px;} .tad.none{color:var(--mut);}
+  .ff{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--bd);font-size:12px;}
+  .ffk{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--mut);}
+  .trev{padding:6px 0;border-bottom:1px solid rgba(224,163,58,.25);}
+  .trf{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);} .trr{font-size:11.5px;color:var(--mut);margin-top:2px;line-height:1.4;}
+  .fills{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;}
+  @media(max-width:760px){.fills{grid-template-columns:1fr;}}
+  .fill{border:1px solid var(--bd);padding:11px 13px;}
+  .fillh{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);padding-bottom:7px;margin-bottom:8px;}
+  .fillh span:first-child{font-size:13px;font-weight:600;}
+  .pct{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);}
+  .bar{width:54px;height:5px;background:var(--bd);} .bar span{display:block;height:100%;background:var(--gold);}
+  .fld{margin-bottom:6px;} .fl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);} .fv{font-size:12px;margin-top:1px;} .fv.empty{color:var(--amber);}
+  .dl{display:inline-block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gold);text-decoration:none;border:1px solid var(--bd);padding:5px 10px;}
+  .dl:hover{border-color:var(--gold);background:rgba(196,162,92,.08);}
+  .note{font-size:11px;color:var(--mut);line-height:1.55;border-top:1px solid var(--bd);margin-top:22px;padding-top:14px;}
+  .modeband{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:7px 11px;margin-bottom:14px;border:1px solid var(--bd);}
+  .modeband.demo{color:var(--gold);border-color:rgba(196,162,92,.4);background:rgba(196,162,92,.06);}
+  .modeband.live{color:var(--pos);border-color:rgba(74,210,149,.4);background:rgba(74,210,149,.06);}
+</style></head>
+<body>
+<div class="mast"><div class="brand">Seeking Alpha <span class="g">Legal</span></div><div class="mtag">Matter Intake Console</div></div>
+<div class="wrap">
+  <h1 class="title">Matter Intake Console</h1>
+  <div class="sub">Paste a meeting transcript, drop a file, or load the sample. The console redacts PII and pulls a structured, timestamped record in your browser. Full model extraction and audio transcription run through the intake backend when connected; everything here works offline in demo mode.</div>
+  <div class="pipe">
+    <div class="pst"><div class="n">1</div><div><b>Upload</b><span>audio, chat, pdf, txt</span></div></div><div class="arr">&#8594;</div>
+    <div class="pst"><div class="n">2</div><div><b>Extract</b><span>structured record</span></div></div><div class="arr">&#8594;</div>
+    <div class="pst"><div class="n">3</div><div><b>Map</b><span>auto-fill forms</span></div></div><div class="arr">&#8594;</div>
+    <div class="pst"><div class="n">4</div><div><b>Store</b><span>reusable database</span></div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="ch">Input</div>
+      <div class="seg">
+        <button id="t-paste" class="on" onclick="tab('paste')">Paste</button>
+        <button id="t-upload" onclick="tab('upload')">Upload</button>
+        <button id="t-sample" onclick="tab('sample')">Sample</button>
+      </div>
+      <div id="p-paste"><textarea id="ta" placeholder="Paste an attorney-client meeting transcript. Lines like [00:14] Speaker: text are read as timestamped facts." oninput="livePII()"></textarea></div>
+      <div id="p-upload" style="display:none">
+        <div class="drop" id="drop">Drop a file here, or click to choose<br><span style="font-size:11px">.txt and chat .json read in-browser; .pdf and audio are queued for the backend</span><input type="file" id="file" style="display:none" accept=".txt,.md,.json,.chat,.pdf,.mp3,.wav,.m4a"></div>
+        <div class="hint" id="fileinfo"></div>
+      </div>
+      <div id="p-sample" style="display:none">
+        <div class="samples">
+          <div class="samp" onclick="loadSample()"><span>Attorney-client intake call (with PII)</span><span class="k">transcript</span></div>
+        </div>
+        <div class="hint">The sample carries an NRIC, phone, email, address and bank account to demonstrate redaction, an ambiguous date to demonstrate the review queue, and timestamps for the audit trail.</div>
+      </div>
+      <div class="piilive" id="piilive"><span class="ph">Live PII scan</span><span id="piiout">Nothing detected yet.</span></div>
+      <div class="row">
+        <button class="btn" id="go" onclick="analyze()" disabled>Analyze</button>
+        <button class="btn ghost" onclick="clearAll()">Clear</button>
+      </div>
+      <div class="hint">Backend endpoint (optional, for live model extraction): <input id="ep" value="/api/extract" placeholder="https://your-intake-api/extract" style="width:100%;margin-top:5px;background:var(--void);border:1px solid var(--bd);color:var(--txt);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:7px"></div>
+    </div>
+
+    <div class="res" id="res"><div class="empty">No matter analyzed yet. Load the sample or paste a transcript, then press Analyze.</div></div>
+  </div>
+
+  <div class="note">PII redaction and timestamped-fact extraction run client-side and are real. For arbitrary pasted text the console uses a lightweight in-browser extractor; the curated, model-quality result is shown for the bundled sample. Connect a backend endpoint to run the production prompt and to transcribe audio. Output is a drafting aid for counsel review, not a filed document.</div>
+</div>
+
+<script>
+// ---------- embedded sample ----------
+const SAMPLE_TRANSCRIPT = `[00:00] Attorney (Ms Sarah Lim): Good morning. Could you confirm your full name and identification for our records?
+[00:14] Client (Mr Rajesh Kumar): Rajesh Kumar, director of Meridian Shipping Pte Ltd. My NRIC is S1234567A.
+[00:27] Attorney: A contact number and email?
+[00:33] Client: +65 9123 4567, and rajesh@meridian-shipping.com.
+[00:41] Attorney: Registered address?
+[00:45] Client: 12 Marina Boulevard, #18-01, Singapore 018980.
+[01:08] Client: We chartered the Northern Star to Crestwood Trading, a Dubai company, Singapore to Rotterdam. Freight was US$1.25 million, due within five banking days of loading.
+[01:36] Client: Loading completed 18 February 2025. They've not paid a cent.
+[01:48] Client: They claim the cargo was contaminated and want to set off US$400,000. But our cargo passed SGS inspection at the load port on the 17th.
+[02:10] Client: The fixture recap was early February, the 3rd maybe? I'd have to check.
+[02:28] Client: DBS account 003-901234-5 for your fees.
+[02:35] Attorney: The recap names the SICC and Singapore law, correct?  Client: Yes.
+[02:44] Attorney: I'll prepare the Originating Application and Claimant's Statement. Send the signed recap and the SGS certificate by 21 March?
+[03:01] Attorney: I'll have my associate Mr Tan draft the offshore case declaration by 25 March.`;
+
+const SAMPLE_EXTRACTION = {
+  case_metadata:{client_name:"Rajesh Kumar (Meridian Shipping Pte Ltd)",matter_type:"Commercial dispute, unpaid voyage freight under a charterparty",jurisdiction:"Singapore International Commercial Court (SICC)",date_of_meeting:null},
+  legal_facts:[
+    {fact:"Meridian chartered the vessel Northern Star to Crestwood Trading (Dubai) for a voyage from Singapore to Rotterdam.",source_timestamp:"01:08"},
+    {fact:"Freight was US$1,250,000, due within five banking days of completion of loading.",source_timestamp:"01:08"},
+    {fact:"Loading completed on 18 February 2025 and no freight has been paid.",source_timestamp:"01:36"},
+    {fact:"Crestwood alleges cargo contamination and asserts a set-off of US$400,000.",source_timestamp:"01:48"},
+    {fact:"The cargo passed SGS inspection at the load port on 17 February 2025.",source_timestamp:"01:48"},
+    {fact:"The fixture recap names the SICC as forum and Singapore law as the governing law.",source_timestamp:"02:35"}],
+  form_fields:{claimant:"Meridian Shipping Pte Ltd",defendant:"Crestwood Trading DMCC",relief_sought:"Unpaid freight of US$1,250,000 plus contractual interest and costs",freight_amount:"US$1,250,000",set_off_claimed:"US$400,000",governing_law:"Singapore",forum:"Singapore International Commercial Court",fixture_recap_date:null},
+  action_items:[
+    {task:"Prepare the Originating Application and Claimant's Statement",assigned_to:"Ms Sarah Lim (Attorney)",deadline:null},
+    {task:"Send the signed fixture recap and the SGS certificate",assigned_to:"Rajesh Kumar (Client)",deadline:"21 March"},
+    {task:"Draft the offshore case declaration",assigned_to:"Mr Tan (Associate)",deadline:"25 March"}],
+  privacy_notice:"Redacted PII categories identified: NRIC, telephone number, email address, residential or registered address, bank account number.",
+  review_needed:[
+    {field:"case_metadata.date_of_meeting",reason:"The date of the meeting was not stated anywhere in the transcript."},
+    {field:"form_fields.fixture_recap_date",reason:"The client was uncertain of the exact fixture recap date ('the 3rd maybe') and asked to verify it against the document."},
+    {field:"action_items[0].deadline",reason:"No deadline was stated for preparing the Originating Application and Claimant's Statement."}]
+};
+const FORM_URLS = {
+  "Originating Application":"https://www.judiciary.gov.sg/docs/default-source/sicc-docs/forms/form-of-originating-application_e9ee64fc-bf63-4459-ac9e-e2e9c64bb70d_343a853a-56bc-4377-80ff-0dbb299d80f5.docx",
+  "Claimant's Statement":"https://www.judiciary.gov.sg/docs/default-source/sicc-docs/forms/form-of-claimant-s-statement_b571694b-7316-4f84-8fec-4de200a816b3_34e9301d-9752-4d69-b6fa-cf5e41a35ac3.docx",
+  "Offshore case declaration":"https://www.judiciary.gov.sg/docs/default-source/sicc-docs/forms/form-of-offshore-case-declaration_a5b89b73-6651-4d0b-b7d3-da4027895e2b_142f0332-6c44-42d1-a067-7946e333f1dd.docx",
+  "List of issues":"https://www.judiciary.gov.sg/docs/default-source/sicc-docs/forms/form-of-list-of-issues_10ca97cc-77ca-4038-bf30-45b667af68c6_42ec7fc5-b3c8-43b4-b33c-1303af9d028b.docx",
+  "Notice of appointment of counsel":"https://www.judiciary.gov.sg/docs/default-source/sicc-docs/05-notice-of-appointment-of-counsel.docx?sfvrsn=515d1246_0"};
+
+// ---------- PII (client-side, real) ----------
+const PII=[
+  ["NRIC",/\b[STFGM]\d{7}[A-Z]\b/g],
+  ["passport number",/\b[A-Z]{1,2}\d{7}\b/g],
+  ["telephone number",/(?:\+?65[\s-]?)?\b[89]\d{3}[\s-]?\d{4}\b/g],
+  ["email address",/\b[\w.+-]+@[\w-]+\.[\w.-]+\b/g],
+  ["bank account number",/\b\d{3}-\d{6}-\d\b/g],
+  ["address",/(?:Singapore\s\d{6})|(?:#\d{2}-\d{2,3})/g]];
+function redactPII(text){
+  let red=text, cats=[];
+  PII.forEach(([label,pat])=>{ if(pat.test(red)){ cats.push(label); red=red.replace(pat,'[REDACTED: '+label+']'); } pat.lastIndex=0; });
+  return {redacted:red, categories:[...new Set(cats)]};
+}
+function esc(s){return (s==null?'':String(s)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function livePII(){
+  const t=document.getElementById('ta').value;
+  const box=document.getElementById('piilive'), out=document.getElementById('piiout');
+  document.getElementById('go').disabled = t.trim().length<10;
+  if(!t.trim()){box.className='piilive';out.textContent='Nothing detected yet.';return;}
+  const {categories}=redactPII(t);
+  if(categories.length){box.className='piilive has';out.innerHTML=categories.map(c=>`<span class="piicat">${c}</span>`).join('');}
+  else{box.className='piilive';out.textContent='No structured PII detected in this text.';}
+}
+
+// ---------- client-side heuristic extraction (arbitrary transcripts) ----------
+function heuristicExtract(text){
+  const facts=[];
+  const re=/\[(\d{1,2}:\d{2})\]\s*([^\n]*)/g; let m;
+  while((m=re.exec(text))){
+    let seg=m[2].replace(/^(Attorney|Client)[^:]*:\s*/i,'').trim();
+    if(seg && seg.length>25 && !/^(good morning|a contact|registered address|could you)/i.test(seg)) facts.push({fact:seg,source_timestamp:m[1]});
+  }
+  const ff={};
+  const money=text.match(/(US\$|S\$|USD|SGD)\s?[\d,]+(?:\.\d+)?(?:\s?(?:million|m|bn))?/g)||[];
+  if(money[0]) ff.amount_1=money[0];
+  if(money[1]) ff.amount_2=money[1];
+  const dates=text.match(/\b\d{1,2}\s+[A-Z][a-z]+\s+20\d{2}\b/g)||[];
+  if(dates[0]) ff.key_date=dates[0];
+  let client=null; const cm=text.match(/Client\s*\(([^)]+)\)/); if(cm) client=cm[1].trim();
+  const {categories}=redactPII(text);
+  const review=[];
+  if(!client) review.push({field:"case_metadata.client_name",reason:"Client name not clearly identified in the transcript."});
+  review.push({field:"case_metadata.date_of_meeting",reason:"Meeting date not detected; confirm manually."});
+  return {
+    case_metadata:{client_name:client,matter_type:null,jurisdiction:(/SICC|Singapore International Commercial/.test(text)?"SICC (mentioned)":null),date_of_meeting:null},
+    legal_facts:facts,
+    form_fields:ff,
+    action_items:[],
+    privacy_notice: categories.length?("Redacted PII categories identified: "+categories.join(", ")+"."):"No structured PII detected.",
+    review_needed:review,
+    _heuristic:true
+  };
+}
+
+// ---------- form mapping ----------
+function buildForms(e){
+  const ff=e.form_fields||{}; const facts=(e.legal_facts||[]).map(f=>f.fact).join(' ');
+  const pkt=(name,fields)=>{const filled=fields.filter(([_,v])=>v).length;return{name,url:FORM_URLS[name],fields,pct:Math.round(100*filled/Math.max(1,fields.length))};};
+  return [
+    pkt("Originating Application",[["Claimant",ff.claimant],["Defendant",ff.defendant],["Relief sought",ff.relief_sought],["Forum",ff.forum]]),
+    pkt("Claimant's Statement",[["Material facts",facts||null],["Relief, with quantification",ff.relief_sought]]),
+    pkt("Offshore case declaration",[["Offshore basis","Parties incorporated outside Singapore (from facts)"],["Verify",null]]),
+    pkt("List of issues",[["Issue (claim)",ff.freight_amount?("Whether freight of "+ff.freight_amount+" is due and unpaid"):null],["Issue (set-off)",ff.set_off_claimed?("Whether a set-off of "+ff.set_off_claimed+" is available"):null]]),
+    pkt("Notice of appointment of counsel",[["Counsel",(e.action_items||[]).some(a=>/attorney/i.test(a.assigned_to||''))?"From action items":null]])
+  ];
+}
+
+// ---------- render ----------
+function render(e, mode){
+  const flag=v=>(v==null||v==='')?'<span class="flag">Review needed</span>':esc(v);
+  const cm=e.case_metadata||{};
+  const cats=(e.privacy_notice||'').replace(/^.*?:\s*/,'').replace(/\.$/,'').split(',').map(s=>s.trim()).filter(Boolean);
+  const piiHtml = /no structured pii|no.*detected/i.test(e.privacy_notice||'')
+     ? `<div class="pii" style="border-color:var(--bd);background:transparent"><span class="ph" style="color:var(--mut)">Privacy scan</span> No structured PII detected.</div>`
+     : `<div class="pii"><span class="ph">Privacy notice &mdash; PII detected and redacted</span>${cats.map(c=>`<span class="piicat">${esc(c)}</span>`).join('')}</div>`;
+  const facts=(e.legal_facts||[]).map(f=>`<div class="fact"><span class="ts">${esc(f.source_timestamp||'--:--')}</span><span>${esc(f.fact)}</span></div>`).join('')||'<div class="hint">No timestamped facts found.</div>';
+  const acts=(e.action_items||[]).map(a=>`<div class="taq"><div class="tat">${esc(a.task)}</div><div class="tam"><span>${esc(a.assigned_to||'')}</span>${a.deadline?`<span class="tad">${esc(a.deadline)}</span>`:'<span class="tad none">no deadline</span>'}</div></div>`).join('')||'<div class="hint">None detected.</div>';
+  const ff=Object.entries(e.form_fields||{}).map(([k,v])=>`<div class="ff"><span class="ffk">${esc(k)}</span><span class="${v==null?'flag':''}">${v==null?'Review needed':esc(v)}</span></div>`).join('')||'<div class="hint">None.</div>';
+  const rev=(e.review_needed||[]).map(r=>`<div class="trev"><div class="trf">${esc(r.field)}</div><div class="trr">${esc(r.reason)}</div></div>`).join('')||'<div class="hint">Nothing flagged.</div>';
+  const fills=buildForms(e).map(f=>{
+    const flds=f.fields.map(([k,v])=>`<div class="fld"><div class="fl">${esc(k)}</div><div class="fv ${v?'':'empty'}">${v?esc(v):'&mdash;'}</div></div>`).join('');
+    const dl=f.url?`<a class="dl" href="${f.url}" target="_blank" rel="noopener">${esc(f.name)} &#8595;</a>`:`<span class="dl">${esc(f.name)}</span>`;
+    return `<div class="fill"><div class="fillh"><span>${esc(f.name)}</span><span class="pct"><span class="bar"><span style="width:${f.pct}%"></span></span>${f.pct}%</span></div>${flds}<div>${dl}</div></div>`;
+  }).join('');
+  const band = mode==='sample'
+    ? `<div class="modeband demo">Demo mode &middot; curated model-quality extraction for the bundled sample</div>`
+    : mode==='live'
+    ? `<div class="modeband live">Live mode &middot; extraction returned by the connected backend</div>`
+    : `<div class="modeband demo">In-browser extraction &middot; lightweight heuristic; connect a backend for full model extraction</div>`;
+  document.getElementById('res').innerHTML = `${band}
+    <div class="ch main">Extracted matter record</div>
+    ${piiHtml}
+    <div class="meta">
+      <div><span class="ml">Client</span>${flag(cm.client_name)}</div>
+      <div><span class="ml">Matter type</span>${flag(cm.matter_type)}</div>
+      <div><span class="ml">Jurisdiction</span>${flag(cm.jurisdiction)}</div>
+      <div><span class="ml">Date of meeting</span>${flag(cm.date_of_meeting)}</div>
+    </div>
+    <div class="blk"><div class="blkh">Legal facts (with source timestamp)</div>${facts}</div>
+    <div class="blk"><div class="blkh">Action items</div>${acts}</div>
+    <div class="blk"><div class="blkh">Form fields</div>${ff}</div>
+    <div class="blk"><div class="blkh">Review needed</div>${rev}</div>
+    <div class="ch main" style="margin-top:20px">Auto-mapped SICC forms</div>
+    <div class="fills">${fills}</div>`;
+  window.scrollTo({top:document.querySelector('.res').offsetTop-70,behavior:'smooth'});
+}
+
+// ---------- input handling ----------
+let mode='paste';
+function tab(t){mode=t;['paste','upload','sample'].forEach(x=>{document.getElementById('t-'+x).classList.toggle('on',x===t);document.getElementById('p-'+x).style.display=x===t?'':'none';});}
+function loadSample(){tab('paste');document.getElementById('ta').value=SAMPLE_TRANSCRIPT;livePII();window._sample=true;analyzeSample();}
+function analyzeSample(){render(SAMPLE_EXTRACTION,'sample');}
+function clearAll(){document.getElementById('ta').value='';document.getElementById('fileinfo').textContent='';livePII();document.getElementById('res').innerHTML='<div class="empty">No matter analyzed yet. Load the sample or paste a transcript, then press Analyze.</div>';window._sample=false;window._pendingFile=null;}
+async function analyze(){
+  const ep=document.getElementById('ep').value.trim();
+  const resEl=document.getElementById('res');
+  if(window._pendingFile){
+    if(!ep){resEl.innerHTML='<div class="empty">This file type (PDF or audio) is processed by the backend. Set the endpoint, then Analyze.</div>';return;}
+    const fd=new FormData(); fd.append('file', window._pendingFile);
+    resEl.innerHTML='<div class="empty">Uploading to backend and processing…</div>';
+    try{const r=await fetch(ep,{method:'POST',body:fd}); const data=await r.json(); render(data,'live');}
+    catch(err){resEl.innerHTML=`<div class="empty">Backend call failed (${esc(err.message)}).</div>`;}
+    return;
+  }
+  const text=document.getElementById('ta').value.trim();
+  if(text===SAMPLE_TRANSCRIPT.trim()){render(SAMPLE_EXTRACTION,'sample');return;}
+  if(ep){
+    document.getElementById('res').innerHTML='<div class="empty">Contacting backend…</div>';
+    try{
+      const r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({transcript:text})});
+      const data=await r.json(); render(data,'live'); return;
+    }catch(err){ resEl.innerHTML=`<div class="empty">Backend call failed (${esc(err.message)}). Showing in-browser extraction instead.</div>`; }
+  }
+  render(heuristicExtract(text),'heuristic');
+}
+// file upload
+const drop=document.getElementById('drop'), file=document.getElementById('file');
+drop.onclick=()=>file.click();
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>handleFile(e.dataTransfer.files[0]));
+file.addEventListener('change',e=>handleFile(e.target.files[0]));
+function handleFile(f){
+  if(!f)return;
+  const info=document.getElementById('fileinfo'); const ext=f.name.split('.').pop().toLowerCase();
+  if(['txt','md','json','chat'].includes(ext)){
+    const rd=new FileReader();
+    rd.onload=()=>{let t=rd.result; if(ext==='json'){try{const d=JSON.parse(t);const ms=Array.isArray(d)?d:(d.messages||[]);if(ms.length)t=ms.map(m=>`${m.from||m.sender||'?'}: ${m.text||m.message||''}`).join('\n');}catch(e){}}
+      window._pendingFile=null; document.getElementById('ta').value=t; tab('paste'); livePII(); info.textContent=f.name+' loaded into the editor.';};
+    rd.readAsText(f);
+  } else {
+    window._pendingFile=f;
+    document.getElementById('go').disabled=false;
+    info.innerHTML=`<b>${esc(f.name)}</b> (${ext}) ready. ${ext==='pdf'?'PDF text is extracted by the backend.':'Audio is transcribed by the backend (ASR) before extraction.'} Set an endpoint, then press Analyze.`;
+  }
+}
+</script>
+</body></html>

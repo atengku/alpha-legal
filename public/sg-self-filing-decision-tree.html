@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LITIS — Self-Filing Decision Tree Spec (v0.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<style>
+  :root{
+    --paper:#F4EFE6;--paper-2:#EBE4D6;--ink:#1C1A16;--ink-soft:#4A463E;--ink-faint:#807A6E;
+    --line:rgba(28,26,22,0.14);--line-soft:rgba(28,26,22,0.08);
+    --seal:#9C2B22;--seal-deep:#6E1C16;--bronze:#9A7B3F;--navy:#1B3A4B;--green:#3C6E47;--amber:#B5781F;
+    --card:#FBF8F1;--shadow:0 1px 0 rgba(28,26,22,0.05),0 18px 40px -28px rgba(28,26,22,0.45);
+  }
+  *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",sans-serif;line-height:1.55;font-size:16px;
+    background-image:radial-gradient(circle at 12% -8%,rgba(156,43,34,0.05),transparent 40%),radial-gradient(circle at 92% 3%,rgba(27,58,75,0.05),transparent 38%);}
+  .mono{font-family:"IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--seal);font-weight:500;}
+  h1,h2,h3,h4{font-family:"Fraunces",serif;font-weight:500;line-height:1.12;letter-spacing:-0.01em;margin:0;}
+  a{color:var(--seal);text-decoration:none;border-bottom:1px solid rgba(156,43,34,0.3);}
+  a:hover{border-bottom-color:var(--seal);}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 26px;}
+
+  header.top{position:sticky;top:0;z-index:50;background:rgba(244,239,230,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .topbar{display:flex;align-items:center;gap:18px;padding:13px 26px;max-width:1240px;margin:0 auto;}
+  .brand{display:flex;align-items:baseline;gap:11px;}
+  .seal-badge{font-family:"Fraunces",serif;font-weight:600;font-size:21px;color:var(--seal);}
+  .brand small{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);}
+  nav.jump{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;}
+  nav.jump a{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding:6px 9px;border:1px solid transparent;border-radius:2px;}
+  nav.jump a:hover{border-color:var(--line);background:var(--card);}
+
+  .hero{padding:56px 0 34px;border-bottom:1px solid var(--line);}
+  .hero h1{font-size:clamp(34px,5.4vw,58px);max-width:18ch;}
+  .hero h1 em{font-style:italic;color:var(--seal);}
+  .hero .lede{max-width:70ch;margin-top:20px;font-size:17px;color:var(--ink-soft);}
+  .stamp{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;}
+  .stamp .ring{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--seal);display:grid;place-items:center;color:var(--seal);font-family:"Fraunces",serif;font-weight:600;font-size:17px;transform:rotate(-6deg);}
+  .stamp .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);line-height:1.5;}
+
+  section{padding:48px 0;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;align-items:flex-end;gap:16px;margin-bottom:26px;flex-wrap:wrap;}
+  .sec-head .num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--seal);letter-spacing:.1em;}
+  .sec-head h2{font-size:clamp(24px,3.2vw,34px);}
+  .sec-head p{margin:6px 0 0;color:var(--ink-soft);max-width:74ch;font-size:14.5px;}
+
+  /* node-type legend */
+  .types{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:8px;}
+  .tcard{border:1px solid var(--line);border-radius:5px;background:var(--card);padding:12px 14px;}
+  .tcard .tt{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  .badge{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:2px;color:#fff;}
+  .b-question{background:var(--seal);}
+  .b-action{background:var(--navy);}
+  .b-branch{background:var(--bronze);}
+  .b-router{background:#5b3a86;}
+  .b-terminal{background:var(--ink);}
+  .b-subflow{background:var(--green);}
+  .b-info{background:var(--ink-faint);}
+  .tcard p{margin:0;font-size:12.5px;color:var(--ink-soft);}
+
+  .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr;}}
+  .panel{border:1px solid var(--line);border-radius:6px;background:var(--card);padding:18px 20px;}
+  .panel h4{font-size:17px;margin-bottom:8px;}
+  .panel ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);}
+  .panel li{margin-bottom:5px;}
+  code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--paper-2);padding:1px 5px;border-radius:3px;color:var(--seal-deep);}
+
+  /* mermaid container */
+  .diagram{border:1px solid var(--line);border-radius:6px;background:#FCFAF4;padding:14px;overflow-x:auto;box-shadow:var(--shadow);}
+  .diagram .cap{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;padding-left:4px;}
+  .mermaid{font-family:"IBM Plex Sans",sans-serif;}
+  .diagram + .diagram{margin-top:18px;}
+
+  .tabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:2px;}
+  .tab{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;padding:8px 12px;cursor:pointer;color:var(--ink-soft);border:none;border-bottom:2px solid transparent;background:none;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{color:var(--seal);border-bottom-color:var(--seal);}
+  .pane{display:none;}.pane.active{display:block;}
+
+  /* node registry */
+  #registry{margin-top:6px;}
+  .phase-block{margin-bottom:26px;}
+  .phase-title{font-family:"Fraunces",serif;font-size:20px;margin-bottom:3px;display:flex;align-items:baseline;gap:10px;}
+  .phase-title .pid{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--seal);letter-spacing:.1em;}
+  .phase-sub{font-size:13px;color:var(--ink-faint);margin-bottom:12px;}
+  .node{border:1px solid var(--line);border-radius:5px;background:var(--card);padding:13px 15px;margin-bottom:8px;}
+  .node .nh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .node .nid{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--navy);}
+  .node .nt{font-family:"Fraunces",serif;font-size:16px;}
+  .node .screen{font-size:13px;color:var(--ink-soft);margin:7px 0 0;}
+  .node .field{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-faint);margin-top:6px;}
+  .edges{margin-top:9px;display:flex;flex-direction:column;gap:4px;}
+  .edge{display:flex;align-items:center;gap:8px;font-size:12.5px;}
+  .edge .cond{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink);background:var(--paper-2);border:1px solid var(--line-soft);padding:2px 7px;border-radius:2px;min-width:90px;}
+  .edge .arrow{color:var(--seal);font-weight:700;}
+  .edge .target{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--seal-deep);}
+  .meta-row{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:2px;border:1px solid var(--line-soft);color:var(--ink-soft);background:var(--paper);}
+  .chip.form{color:var(--navy);border-color:rgba(27,58,75,0.25);background:rgba(27,58,75,0.06);}
+  .chip.sys{color:var(--green);border-color:rgba(60,110,71,0.3);}
+  .chip.sys.elit{color:var(--seal);border-color:rgba(156,43,34,0.3);}
+  .chip.out{color:#fff;border:none;}
+  .chip.out.bull{background:var(--green);}
+  .chip.out.base{background:var(--bronze);}
+  .chip.out.bear{background:var(--seal);}
+  .chip.out.neutral{background:var(--ink-faint);}
+  .node .notes{font-size:12.5px;color:var(--ink-faint);margin-top:8px;font-style:italic;}
+
+  /* json */
+  .jsonbar{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:8px 15px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;}
+  .btn:hover{background:var(--seal);border-color:var(--seal);}
+  pre.json{background:#15140f;color:#e8e2d2;border-radius:6px;padding:18px;overflow:auto;max-height:560px;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.5;border:1px solid var(--line);}
+  pre.json .k{color:#cda24a;}pre.json .s{color:#9fc08a;}pre.json .n{color:#d98b6e;}pre.json .b{color:#7fb0c4;}
+
+  .callout{border-left:3px solid var(--amber);background:rgba(181,120,31,0.07);padding:13px 16px;border-radius:0 4px 4px 0;font-size:14px;color:var(--ink-soft);max-width:84ch;}
+  .callout b{color:var(--ink);}
+  .impl{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:820px){.impl{grid-template-columns:1fr;}}
+
+  footer{padding:36px 0 60px;color:var(--ink-faint);font-size:12.5px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <div class="brand"><span class="seal-badge">LITIS</span><small>Decision-Tree Spec</small></div>
+    <nav class="jump">
+      <a href="#read">Read me</a>
+      <a href="#master">Master</a>
+      <a href="#diagrams">Diagrams</a>
+      <a href="#registry">Node registry</a>
+      <a href="#json">JSON model</a>
+      <a href="#impl">Build notes</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero" id="top">
+    <div class="stamp"><div class="ring">§</div><div class="meta">Decision-Tree Spec v0.1<br>Mermaid + canonical node model</div></div>
+    <h1>The whole flow, as a <em>directed graph</em> a UX programmer can build.</h1>
+    <p class="lede">One source of truth: every screen is a node with an ID, a type, its on-screen copy, and its outbound edges with conditions. The diagrams below are rendered from the same model that powers the node registry and the copy-ready JSON at the bottom. Node IDs are stable across all three so nothing drifts during handoff.</p>
+    <div class="callout" style="margin-top:24px;">
+      <b>What this is for engineering, said plainly.</b> Treat this as a guided-information state machine, not a legal engine. Nodes route a user and surface the right form and timeline; they never decide the merits. Two backends exist: tribunal nodes act on CJTS (the user self-logs in), court nodes act on eLitigation via a physical Service Bureau (the user cannot file online). Build the Service Bureau dependency in early; it is a hard constraint, not a detail. Re-verify every form number and statutory period against the live court sources before release.
+    </div>
+  </div>
+
+  <!-- READ ME -->
+  <section id="read">
+    <div class="sec-head"><span class="num">01</span><div><h2>How to read the model</h2><p>Seven node types, a small set of state variables, and a single edge convention. If you implement these primitives, the rest is data.</p></div></div>
+
+    <div class="eyebrow" style="margin-bottom:8px;">Node types</div>
+    <div class="types">
+      <div class="tcard"><div class="tt"><span class="badge b-question">question</span></div><p>Presents options to the user. Each option writes a value to a state variable and points to one target node.</p></div>
+      <div class="tcard"><div class="tt"><span class="badge b-router">router</span></div><p>No user input. Evaluates collected state against ordered rules and forwards to the first match.</p></div>
+      <div class="tcard"><div class="tt"><span class="badge b-action">action</span></div><p>User does something concrete (file, serve, pay). Usually carries a form reference and a system (CJTS or eLitigation).</p></div>
+      <div class="tcard"><div class="tt"><span class="badge b-branch">branch</span></div><p>Forks on an external event or deadline (the other party responds, a window lapses), not on user choice.</p></div>
+      <div class="tcard"><div class="tt"><span class="badge b-subflow">subflow</span></div><p>A reusable module callable from many nodes (substituted service, appeal, offer to settle). Returns to caller.</p></div>
+      <div class="tcard"><div class="tt"><span class="badge b-terminal">terminal</span></div><p>End state. Tagged with an outcome class (bull / base / bear) so the UI can frame expectations.</p></div>
+      <div class="tcard"><div class="tt"><span class="badge b-info">info</span></div><p>Guidance-only screen with a single continue edge. No decision, no write.</p></div>
+    </div>
+
+    <div class="grid2" style="margin-top:22px;">
+      <div class="panel">
+        <h4>State variables (collected in triage, read everywhere)</h4>
+        <ul>
+          <li><code>nature</code> — money | consumer | salary | neighbour | harass | declaration</li>
+          <li><code>valueBand</code> — le20k | b20_60k | b60_250k | gt250k | nonmoney</li>
+          <li><code>partyLocation</code> — sg | outside</li>
+          <li><code>track</code> — derived: SCT | ECT | CDRT | PHC | OC | OA</li>
+          <li><code>court</code> — derived for OC/OA: MC | DC | HC</li>
+          <li><code>sctEligible</code>, <code>withinLimitation</code>, <code>protocolApplies</code> — booleans</li>
+          <li><code>defendantResponded</code>, <code>defenceFiled</code>, <code>assetsKnown</code> — event flags</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Edge convention</h4>
+        <ul>
+          <li>Every node has <code>edges: [{ when, to }]</code>.</li>
+          <li><code>when:"always"</code> for single-exit nodes.</li>
+          <li><code>question</code> edges mirror <code>options[].value</code>.</li>
+          <li><code>router</code> rules are ordered; first true wins; include a default.</li>
+          <li><code>subflow</code> nodes have <code>returns:true</code> and resume the caller.</li>
+          <li>Targets prefixed <code>END_</code> are terminals; <code>SF_</code> are subflows; <code>X*</code> is enforcement.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASTER -->
+  <section id="master">
+    <div class="sec-head"><span class="num">02</span><div><h2>Master map</h2><p>The skeleton: entry, triage router, the six tracks, the shared enforcement spine, and terminal outcomes. Each track expands in the next section.</p></div></div>
+    <div class="diagram">
+      <div class="cap">Fig. 0 — End to end overview</div>
+      <pre class="mermaid">
+flowchart TD
+  START(["Start"]):::info --> T["Triage Q1 to Q3<br/>nature · value · party"]:::q
+  T --> TR{{"Router<br/>derive track and court"}}:::rt
+  TR -->|"salary"| ECT["ECT track"]:::act
+  TR -->|"neighbour"| CDRT["CDRT track"]:::act
+  TR -->|"harass"| PHC["PHC track"]:::act
+  TR -->|"consumer and value le 20k and eligible"| SCT["SCT track"]:::act
+  TR -->|"declaration"| OA["OA track"]:::act
+  TR -->|"money or other"| PRE["Pre-action"]:::act
+  PRE --> OC["OC track<br/>MC · DC · HC by value"]:::act
+  PRE -.-> OA
+  SCT --> ENF["Enforcement spine"]:::act
+  ECT --> ENF
+  CDRT --> ENF
+  PHC --> ENF
+  OC --> ENF
+  OA --> ENF
+  SCT -.->|"settle"| ENDS(["Settled / consent"]):::term
+  OC -.->|"settle"| ENDS
+  ENF --> ENDR(["Recovered"]):::term
+  ENF -.->|"no assets"| ENDU(["Uneconomic"]):::term
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef rt fill:#efe7f7,stroke:#5b3a86,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+  classDef info fill:#f0ede5,stroke:#807A6E,color:#1C1A16;
+      </pre>
+    </div>
+  </section>
+
+  <!-- DIAGRAMS -->
+  <section id="diagrams">
+    <div class="sec-head"><span class="num">03</span><div><h2>Phase diagrams</h2><p>Each phase as its own legible flowchart. IDs match the registry and JSON below.</p></div></div>
+    <div class="tabs" id="dtabs">
+      <button class="tab active" data-pane="d-triage">Triage</button>
+      <button class="tab" data-pane="d-pre">Pre-action</button>
+      <button class="tab" data-pane="d-sct">SCT</button>
+      <button class="tab" data-pane="d-ect">ECT</button>
+      <button class="tab" data-pane="d-cdrt">CDRT</button>
+      <button class="tab" data-pane="d-phc">PHC</button>
+      <button class="tab" data-pane="d-oc">Originating Claim</button>
+      <button class="tab" data-pane="d-oa">Originating Application</button>
+      <button class="tab" data-pane="d-enf">Enforcement</button>
+      <button class="tab" data-pane="d-sf">Subflows</button>
+    </div>
+
+    <div class="pane active" id="d-triage"><div class="diagram"><div class="cap">Fig. 1 — Triage and routing</div><pre class="mermaid">
+flowchart TD
+  T0(["Start"]):::info --> T1{"Q1 nature of dispute"}:::q
+  T1 --> T2{"Q2 value band"}:::q
+  T2 --> T3{"Q3 party location"}:::q
+  T3 --> TR{{"Router"}}:::rt
+  TR -->|"salary"| E1["ECT · E1"]:::act
+  TR -->|"neighbour"| C1["CDRT · C1"]:::act
+  TR -->|"harass"| H1["PHC · H1"]:::act
+  TR -->|"consumer and le20k"| T4{"Q4 SCT subject matter eligible"}:::q
+  TR -->|"declaration"| PRE0["Pre-action · P0 (track OA)"]:::act
+  TR -->|"money or consumer gt20k or damages"| PRE0b["Pre-action · P0 (track OC)"]:::act
+  T4 -->|"yes"| S1["SCT · S1"]:::act
+  T4 -->|"no"| PRE0b
+  TR -.->|"party outside and tribunal"| TRW["Warn: tribunals cannot serve overseas → court"]:::term
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef rt fill:#efe7f7,stroke:#5b3a86,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+  classDef info fill:#f0ede5,stroke:#807A6E,color:#1C1A16;
+    </pre></div></div>
+
+    <div class="pane" id="d-pre"><div class="diagram"><div class="cap">Fig. 2 — Pre-action (court tracks)</div><pre class="mermaid">
+flowchart TD
+  P0["P0 pre-action gate"]:::act --> P1{"P1 within limitation period"}:::q
+  P1 -->|"no"| ENDT(["END_TIMEBARRED"]):::term
+  P1 -->|"yes"| P2["P2 send letter of demand"]:::act
+  P2 --> P3{"P3 mandatory protocol applies (PI / med-neg / NIMA)"}:::q
+  P3 -->|"yes"| P3a["P3a comply with protocol"]:::act
+  P3 -->|"no"| P4
+  P3a --> P4["P4 consider ADR / offer to settle"]:::act
+  P4 -->|"resolved"| ENDS(["END_SETTLED"]):::term
+  P4 -->|"track OC"| O1["OC · O1"]:::act
+  P4 -->|"track OA"| A1["OA · A1"]:::act
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-sct"><div class="diagram"><div class="cap">Fig. 3 — Small Claims Tribunals (CJTS)</div><pre class="mermaid">
+flowchart TD
+  S1{"S1 CJTS pre-filing assessment eligible"}:::q
+  S1 -->|"no"| RR["reroute → Pre-action P0 (track OC)"]:::act
+  S1 -->|"yes"| S2["S2 optional eNegotiation / eMediation"]:::act
+  S2 -->|"resolved"| ENDS(["END_SETTLED"]):::term
+  S2 -->|"not resolved"| S3["S3 file Claim Form + pay"]:::act
+  S3 --> S4["S4 serve claim + Notice of Consultation in 7 days"]:::act
+  S4 --> S5["S5 file Declaration of Service"]:::act
+  S5 --> S6{"S6 consultation / mediation settle"}:::q
+  S6 -->|"yes"| ENDC(["END_CONSENT"]):::term
+  S6 -->|"no"| S7["S7 hearing → Order of Tribunal"]:::act
+  S7 --> S8{"S8 paid by deadline"}:::q
+  S8 -->|"yes"| ENDP(["END_PAID"]):::term
+  S8 -->|"no"| X1["Enforcement · X1"]:::act
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-ect"><div class="diagram"><div class="cap">Fig. 4 — Employment Claims Tribunals (TADM then CJTS)</div><pre class="mermaid">
+flowchart TD
+  E1{"E1 TADM mediation (mandatory) resolved"}:::q
+  E1 -->|"yes"| ENDS(["END_SETTLED"]):::term
+  E1 -->|"no"| E2["E2 obtain referral certificate"]:::act
+  E2 --> E3["E3 file at ECT via CJTS + pay"]:::act
+  E3 --> E4["E4 serve + Declaration of Service"]:::act
+  E4 --> E5["E5 ECT hearing → order"]:::act
+  E5 --> E6{"E6 paid"}:::q
+  E6 -->|"yes"| ENDP(["END_PAID"]):::term
+  E6 -->|"no"| X1["Enforcement · X1"]:::act
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-cdrt"><div class="diagram"><div class="cap">Fig. 5 — Community Disputes Resolution Tribunals</div><pre class="mermaid">
+flowchart TD
+  C1{"C1 community mediation resolved"}:::q
+  C1 -->|"yes"| ENDS(["END_SETTLED"]):::term
+  C1 -->|"no"| C2["C2 file neighbour claim (CJTS)"]:::act
+  C2 --> C3["C3 serve + Declaration of Service"]:::act
+  C3 --> C4{"C4 directed mediation resolve"}:::q
+  C4 -->|"yes"| ENDS
+  C4 -->|"no"| C5["C5 hearing → CDRT order"]:::act
+  C5 --> C6{"C6 complied or breach"}:::q
+  C6 -->|"complied"| ENDO(["END_ORDER"]):::term
+  C6 -->|"breach"| C7["C7 escalation / special directions"]:::act
+  C7 --> X1["Enforcement · X1"]:::act
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-phc"><div class="diagram"><div class="cap">Fig. 6 — Protection from Harassment Court (simplified)</div><pre class="mermaid">
+flowchart TD
+  H1{"H1 relief type"}:::q
+  H1 -->|"PO / EPO / false statement"| H2["H2 file CJTS simplified"]:::act
+  H2 --> H3["H3 serve + DOS (EPO may precede)"]:::act
+  H3 --> H4{"H4 hearing order granted"}:::q
+  H4 -->|"yes"| ENDO(["END_ORDER (monitor breach)"]):::term
+  H4 -->|"no"| ENDD(["END_DISMISSED"]):::term
+  ENDO -.->|"breach of PO"| SFR["report / enforce"]:::act
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-oc"><div class="diagram"><div class="cap">Fig. 7 — Originating Claim (the main contested track, via Service Bureau)</div><pre class="mermaid">
+flowchart TD
+  O1{{"O1 confirm court by value"}}:::rt --> O2["O2 draft OC + Statement of Claim (Form 9)"]:::act
+  O2 --> O3["O3 file at Service Bureau (eLitigation) + pay"]:::act
+  O3 --> O4{"O4 court accepts"}:::q
+  O4 -->|"no"| O2
+  O4 -->|"yes (sealed OC, valid 3 months)"| O5["O5 serve personally 14 / 28 days"]:::act
+  O5 --> O5d{"O5d served"}:::q
+  O5d -->|"no"| SFS["SF substituted service / serve out / extend validity"]:::sub
+  SFS --> O5d
+  O5d -->|"yes"| O6["O6 file Memorandum of Service"]:::act
+  O6 --> O7{"O7 Notice of Intention to Contest (14 / 21 days)"}:::br
+  O7 -->|"no NITC or not contesting"| O11["O11 apply default judgment"]:::act
+  O7 -->|"intends to contest"| O8{"O8 Defence (21 days / 5 weeks)"}:::br
+  O8 -->|"no defence"| O11
+  O8 -->|"defence + counterclaim"| O8cc["O8cc file Reply / Defence to Counterclaim"]:::act
+  O8 -->|"defence filed"| O9
+  O8cc --> O9["O9 case conference + document production (Order 65)"]:::act
+  O9 -.->|"interlocutory"| SFI["SF summons + affidavit"]:::sub
+  O9 -.->|"offer to settle"| SFO["SF offer to settle"]:::sub
+  O9 --> O9b{"O9b settle before trial"}:::q
+  O9b -->|"yes"| ENDS(["END_SETTLED"]):::term
+  O9b -->|"no"| O10["O10 trial (AEIC, subpoena F67, cross-exam)"]:::act
+  O10 --> O12(["O12 judgment obtained"]):::act
+  O11 --> O11b{"O11b set-aside applied"}:::br
+  O11b -->|"granted"| O8
+  O11b -->|"refused"| O12
+  O12 -.->|"appeal"| SFA["SF appeal"]:::sub
+  O12 --> O13{"O13 paid / complied"}:::q
+  O13 -->|"yes"| ENDP(["END_PAID"]):::term
+  O13 -->|"no"| X1["Enforcement · X1"]:::act
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef rt fill:#efe7f7,stroke:#5b3a86,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef br fill:#f7efdc,stroke:#9A7B3F,color:#1C1A16;
+  classDef sub fill:#e9f1ea,stroke:#3C6E47,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-oa"><div class="diagram"><div class="cap">Fig. 8 — Originating Application (affidavit-based)</div><pre class="mermaid">
+flowchart TD
+  A1["A1 confirm OA correct (Form 15 / 16)"]:::act --> A2["A2 draft OA + supporting affidavit"]:::act
+  A2 --> A3["A3 file at Service Bureau + pay"]:::act
+  A3 --> A3d{"A3d accepted"}:::q
+  A3d -->|"no"| A2
+  A3d -->|"yes (sealed OA)"| A4["A4 serve 14 / 28 days + proof"]:::act
+  A4 --> A5{"A5 defendant affidavit (21 days / 5 weeks)"}:::br
+  A5 -->|"filed or none or jurisdiction challenge"| A6{"A6 OA hearing outcome"}:::q
+  A6 -->|"granted"| A7{"A7 complied / paid"}:::q
+  A6 -->|"dismissed"| ENDD(["END_DISMISSED"]):::term
+  A6 -->|"adjourned / cross-exam"| A6
+  A6 -->|"converted to OC"| O1["OC · O1"]:::act
+  A7 -->|"yes"| ENDO(["END_ORDER / END_PAID"]):::term
+  A7 -->|"no"| X1["Enforcement · X1"]:::act
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef br fill:#f7efdc,stroke:#9A7B3F,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-enf"><div class="diagram"><div class="cap">Fig. 9 — Enforcement spine (shared by all tracks)</div><pre class="mermaid">
+flowchart TD
+  X1{"X1 worth enforcing (assets exist)"}:::q
+  X1 -->|"no"| ENDU(["END_UNECONOMIC"]):::term
+  X1 -->|"yes"| X2{"X2 assets known"}:::q
+  X2 -->|"no"| X2e["X2e examination of respondent (summons w/o notice + affidavit)"]:::act
+  X2e --> X3
+  X2 -->|"yes"| X3["X3 file single Enforcement Order (Form 38), pick methods"]:::act
+  X3 --> X3a["X3a seizure + sale (Notice of Seizure F40, 7-day window)"]:::act
+  X3 --> X3b["X3b attachment of debt (bank)"]:::act
+  X3 --> X3c["X3c delivery / possession"]:::act
+  X3 --> X3d["X3d committal (indemnity undertaking)"]:::act
+  X3a --> X4{"X4 third-party objection"}:::br
+  X3b --> X4
+  X3c --> X4
+  X3d --> X4
+  X4 -->|"yes"| X4o["X4o objection handling (14-day notices)"]:::act
+  X4 -->|"no"| X5
+  X4o --> X5{"X5 recovered fully"}:::q
+  X5 -->|"yes"| ENDR(["END_RECOVERED"]):::term
+  X5 -->|"partial / none"| X6["X6 extend EO (12mo) / another method / foreign (REFJA)"]:::act
+  X6 -->|"retry"| X3
+  X6 -->|"abroad"| SFF["SF foreign enforcement"]:::sub
+  X6 -->|"stop"| ENDPA(["END_PARTIAL"]):::term
+  classDef q fill:#fbe9e7,stroke:#9C2B22,color:#1C1A16;
+  classDef act fill:#eef4f6,stroke:#1B3A4B,color:#1C1A16;
+  classDef br fill:#f7efdc,stroke:#9A7B3F,color:#1C1A16;
+  classDef sub fill:#e9f1ea,stroke:#3C6E47,color:#1C1A16;
+  classDef term fill:#1C1A16,stroke:#1C1A16,color:#F4EFE6;
+    </pre></div></div>
+
+    <div class="pane" id="d-sf"><div class="diagram"><div class="cap">Fig. 10 — Callable subflows (invoked from many nodes, return to caller)</div><pre class="mermaid">
+flowchart LR
+  CALLER(["any caller node"]):::info --> HUB{{"subflow dispatcher"}}:::rt
+  HUB --> SF1["SF_SUBSERVICE substituted service"]:::sub
+  HUB --> SF2["SF_SERVEOUT service out (approval + affidavit)"]:::sub
+  HUB --> SF3["SF_EXTEND extend OC validity"]:::sub
+  HUB --> SF4["SF_AMEND amend (endorsement)"]:::sub
+  HUB --> SF5["SF_SUBPOENA subpoena Form 67"]:::sub
+  HUB --> SF6["SF_OFFER offer to settle (costs effect)"]:::sub
+  HUB --> SF7["SF_INTERLOC interlocutory summons"]:::sub
+  HUB --> SF8["SF_SETASIDE set aside default judgment"]:::sub
+  HUB --> SF9["SF_DISCONTINUE discontinue / withdraw"]:::sub
+  HUB --> SF10["SF_TRANSFER transfer / consent"]:::sub
+  HUB --> SF11["SF_APPEAL appeal (deadlines, permission)"]:::sub
+  HUB --> SF12["SF_FOREIGN REFJA / fresh action"]:::sub
+  SF1 -.->|"return"| CALLER
+  classDef rt fill:#efe7f7,stroke:#5b3a86,color:#1C1A16;
+  classDef sub fill:#e9f1ea,stroke:#3C6E47,color:#1C1A16;
+  classDef info fill:#f0ede5,stroke:#807A6E,color:#1C1A16;
+    </pre></div></div>
+  </section>
+
+  <!-- REGISTRY -->
+  <section>
+    <div class="sec-head"><span class="num">04</span><div><h2 id="registry">Node registry</h2><p>Every node with its on-screen copy, edges, forms, system, and outcome class. Rendered from the JSON model so it cannot drift from the diagrams.</p></div></div>
+    <div id="registryMount"></div>
+  </section>
+
+  <!-- JSON -->
+  <section id="json">
+    <div class="sec-head"><span class="num">05</span><div><h2>Canonical JSON model</h2><p>The implementable source of truth. Drop into a state-machine library (XState, a reducer, or a graph DB). The diagrams and registry above are generated from this exact object.</p></div></div>
+    <div class="jsonbar"><button class="btn" id="copyBtn">Copy JSON</button><span class="mono" id="copyMsg" style="font-size:11px;color:var(--green);"></span></div>
+    <pre class="json" id="jsonOut"></pre>
+  </section>
+
+  <!-- IMPL NOTES -->
+  <section id="impl">
+    <div class="sec-head"><span class="num">06</span><div><h2>Build notes for the UX programmer</h2><p>The non-obvious things that will bite if missed, including where this cuts against a naive "just file it" UX.</p></div></div>
+    <div class="impl">
+      <div class="panel"><h4>Two backends, not one</h4><ul>
+        <li>Tribunal nodes (<code>S*, E*, C*, H*</code>) deep-link into CJTS; the user authenticates and acts there.</li>
+        <li>Court nodes (<code>O*, A*, X*</code>) cannot file online. Model the Service Bureau as a real-world step: generate a print pack, then a "go to bureau" checkpoint with appointment booking.</li>
+        <li>Never imply the app files to eLitigation directly for a self-litigant. It cannot.</li>
+      </ul></div>
+      <div class="panel"><h4>Timers are first-class</h4><ul>
+        <li><code>branch</code> nodes (O7, O8, A5, X4) hang on deadlines. Store served-on dates and compute windows (14 / 21 days, 21 days / 5 weeks, 3-month OC validity, 12-month EO).</li>
+        <li>Different clocks for service in vs out of Singapore. Drive these off <code>partyLocation</code>.</li>
+        <li>Surface countdowns and the consequence of lapse (default judgment for, or against, the user).</li>
+      </ul></div>
+      <div class="panel"><h4>Forms are data, not constants</h4><ul>
+        <li>Each action node references a form by stable key, not a hard-coded number.</li>
+        <li>Form numbers shift with Practice Direction updates; resolve keys against a live forms table at runtime.</li>
+        <li>Flag any form the user must draft themselves (pleadings) versus fill in a template; the bureau will not draft.</li>
+      </ul></div>
+      <div class="panel"><h4>Honest guardrails</h4><ul>
+        <li>No node should output merits advice. Gate trial-stage nodes (O10) behind a "consider getting advice" interstitial.</li>
+        <li>Terminals carry an outcome class (bull / base / bear) so the UI sets realistic expectations, especially that a judgment is not recovery (X1 to X6).</li>
+        <li>Route specialist matters (probate, insolvency, family, IP, admiralty) to an off-ramp; they are out of scope and mis-filing them harms users.</li>
+      </ul></div>
+    </div>
+    <div class="callout" style="margin-top:18px;"><b>One contrary note worth surfacing in the product itself.</b> The cleanest UX would hide the Service Bureau friction, but doing so would mislead. The honest design makes the in-person, no-legal-advice constraint visible at the OC and OA entry points, and positions the SCT and tribunal tracks (which a person can genuinely complete alone online) as the recommended path whenever a dispute qualifies for them.</div>
+  </section>
+
+  <footer>
+    <div class="mono">LITIS · DECISION-TREE SPEC v0.1 · NODE MODEL + MERMAID + REGISTRY</div>
+    <p style="max-width:80ch;margin-top:10px;">Diagrams render via Mermaid. The JSON is the source of truth; the registry and diagrams mirror it by ID. Verify all forms, statutory periods, and jurisdictional limits against judiciary.gov.sg, elitigation.sg, cjts.judiciary.gov.sg, and the Practice Directions before any release. Not legal advice.</p>
+  </footer>
+</div>
+
+<!-- ===================== MODEL ===================== -->
+<script id="flowModel" type="application/json">
+{
+  "meta":{"name":"SG Self-Filing Civil Litigation","version":"0.1","jurisdiction":"Singapore","rules":"Rules of Court 2021"},
+  "stateVars":["nature","valueBand","partyLocation","track","court","sctEligible","withinLimitation","protocolApplies","defendantResponded","defenceFiled","assetsKnown"],
+  "phases":[
+    {"id":"triage","title":"Triage and routing","sub":"Collect nature, value, party; derive track and court."},
+    {"id":"pre","title":"Pre-action","sub":"Limitation, demand, protocol, ADR; gate before the court tracks."},
+    {"id":"sct","title":"Small Claims Tribunals","sub":"CJTS self-serve. Limit S$20k (S$30k by consent). 2-year bar."},
+    {"id":"ect","title":"Employment Claims Tribunals","sub":"TADM mediation mandatory, then CJTS."},
+    {"id":"cdrt","title":"Community Disputes Resolution Tribunals","sub":"Neighbour disputes via CJTS; mediation expected."},
+    {"id":"phc","title":"Protection from Harassment Court","sub":"POHA relief; simplified proceedings via CJTS."},
+    {"id":"oc","title":"Originating Claim","sub":"Facts disputed. eLitigation via Service Bureau. MC / DC / HC by value."},
+    {"id":"oa","title":"Originating Application","sub":"Facts mostly undisputed; affidavit evidence."},
+    {"id":"enf","title":"Enforcement spine","sub":"Shared. Single Enforcement Order, multiple methods."},
+    {"id":"sf","title":"Callable subflows","sub":"Reusable modules invoked from many nodes; return to caller."}
+  ],
+  "nodes":[
+    {"id":"T0","phase":"triage","type":"info","title":"Start","screen":"Welcome. We will ask three questions to find the right forum. This is information, not legal advice.","edges":[{"when":"always","to":"T1"}]},
+    {"id":"T1","phase":"triage","type":"question","title":"What is the dispute about?","screen":"Pick the closest fit.","field":"nature","options":[{"label":"Money / contract / damages","value":"money","to":"T2"},{"label":"Consumer / tenancy (small)","value":"consumer","to":"T2"},{"label":"Unpaid salary / employment","value":"salary","to":"T2"},{"label":"A neighbour's behaviour","value":"neighbour","to":"T2"},{"label":"Harassment","value":"harass","to":"T2"},{"label":"A right, status or interpretation","value":"declaration","to":"T2"}],"edges":[{"when":"always","to":"T2"}]},
+    {"id":"T2","phase":"triage","type":"question","title":"How much is it worth?","screen":"Use the sum claimed or your honest estimate.","field":"valueBand","options":[{"label":"Up to S$20,000","value":"le20k","to":"T3"},{"label":"S$20,001 to S$60,000","value":"b20_60k","to":"T3"},{"label":"S$60,001 to S$250,000","value":"b60_250k","to":"T3"},{"label":"Above S$250,000","value":"gt250k","to":"T3"},{"label":"Not about money","value":"nonmoney","to":"T3"}],"edges":[{"when":"always","to":"T3"}]},
+    {"id":"T3","phase":"triage","type":"question","title":"Where is the other party?","screen":"Service overseas needs court approval and changes timelines; tribunals generally cannot serve overseas.","field":"partyLocation","options":[{"label":"In Singapore","value":"sg","to":"TR"},{"label":"Outside Singapore","value":"outside","to":"TR"}],"edges":[{"when":"always","to":"TR"}]},
+    {"id":"TR","phase":"triage","type":"router","title":"Route to track","screen":"Derives track and court from collected state.","rules":[{"if":"nature==salary","to":"E1","set":{"track":"ECT"}},{"if":"nature==neighbour","to":"C1","set":{"track":"CDRT"}},{"if":"nature==harass","to":"H1","set":{"track":"PHC"}},{"if":"nature==consumer && valueBand==le20k","to":"T4"},{"if":"nature==declaration","to":"P0","set":{"track":"OA"}},{"if":"default","to":"P0","set":{"track":"OC","court":"byValue"}}],"edges":[{"when":"salary","to":"E1"},{"when":"neighbour","to":"C1"},{"when":"harass","to":"H1"},{"when":"consumer + le20k","to":"T4"},{"when":"declaration","to":"P0 (OA)"},{"when":"default","to":"P0 (OC)"}],"notes":"If partyLocation==outside and track is a tribunal, raise TRW warning (tribunals cannot serve overseas)."},
+    {"id":"T4","phase":"triage","type":"question","title":"Is the SCT subject matter eligible?","screen":"SCT covers sale of goods, provision of services, residential tenancy up to 2 years, certain property damage, and CPFTA unfair practices.","field":"sctEligible","options":[{"label":"Yes, fits one of those","value":"yes","to":"S1"},{"label":"No / unsure","value":"no","to":"P0"}],"edges":[{"when":"yes","to":"S1"},{"when":"no","to":"P0 (OC)"}]},
+
+    {"id":"P0","phase":"pre","type":"info","title":"Pre-action gate","screen":"Before filing in court, work through limitation, demand, protocol and settlement.","edges":[{"when":"always","to":"P1"}]},
+    {"id":"P1","phase":"pre","type":"question","title":"Within the limitation period?","screen":"Most contract and tort claims must be brought within 6 years of the cause of action. Other periods exist.","field":"withinLimitation","options":[{"label":"Yes","value":"yes","to":"P2"},{"label":"No / expired","value":"no","to":"END_TIMEBARRED"}],"edges":[{"when":"yes","to":"P2"},{"when":"no","to":"END_TIMEBARRED"}]},
+    {"id":"P2","phase":"pre","type":"action","title":"Send a letter of demand","screen":"State the claim, the sum, and a deadline. Keep proof.","form":"Letter of demand (free text)","edges":[{"when":"always","to":"P3"}]},
+    {"id":"P3","phase":"pre","type":"question","title":"Does a mandatory pre-action protocol apply?","screen":"Personal injury, medical negligence, and non-injury motor accident claims have protocols you must follow first.","field":"protocolApplies","options":[{"label":"Yes","value":"yes","to":"P3a"},{"label":"No","value":"no","to":"P4"}],"edges":[{"when":"yes","to":"P3a"},{"when":"no","to":"P4"}]},
+    {"id":"P3a","phase":"pre","type":"action","title":"Comply with the protocol","screen":"Exchange the required pre-action correspondence and documents.","edges":[{"when":"always","to":"P4"}]},
+    {"id":"P4","phase":"pre","type":"action","title":"Consider ADR / offer to settle","screen":"The Rules require genuine consideration of amicable resolution. A formal offer to settle carries costs consequences.","subflow":"SF_OFFER","edges":[{"when":"resolved","to":"END_SETTLED"},{"when":"track==OC","to":"O1"},{"when":"track==OA","to":"A1"}]},
+
+    {"id":"S1","phase":"sct","type":"question","title":"CJTS pre-filing assessment","screen":"Run the eligibility check in CJTS. If it fails, the dispute belongs in a normal court.","system":"CJTS","field":"sctEligible","options":[{"label":"Eligible","value":"yes","to":"S2"},{"label":"Not eligible","value":"no","to":"P0"}],"edges":[{"when":"eligible","to":"S2"},{"when":"not eligible","to":"P0 (reroute OC)"}]},
+    {"id":"S2","phase":"sct","type":"action","title":"Try eNegotiation / eMediation","screen":"Optional online resolution with the other side before filing.","system":"CJTS","edges":[{"when":"resolved","to":"END_SETTLED"},{"when":"not resolved","to":"S3"}]},
+    {"id":"S3","phase":"sct","type":"action","title":"File the Claim Form","screen":"Enter pre-filing ID and facts, attach evidence, pick a consultation date, pay.","system":"CJTS","form":"Claim Form (CJTS)","fee":true,"edges":[{"when":"always","to":"S4"}]},
+    {"id":"S4","phase":"sct","type":"action","title":"Serve claim + Notice of Consultation","screen":"Serve the respondent within 7 days by an allowed method.","system":"CJTS","form":"Notice of Consultation","timer":"7 days","edges":[{"when":"always","to":"S5"}]},
+    {"id":"S5","phase":"sct","type":"action","title":"File Declaration of Service","screen":"File proof of service in CJTS.","system":"CJTS","form":"Declaration of Service","edges":[{"when":"always","to":"S6"}]},
+    {"id":"S6","phase":"sct","type":"question","title":"Consultation (mediation)","screen":"A registrar mediates. Many cases settle here.","options":[{"label":"Settled","value":"yes","to":"END_CONSENT"},{"label":"Not settled","value":"no","to":"S7"}],"edges":[{"when":"settled","to":"END_CONSENT"},{"when":"not settled","to":"S7"}]},
+    {"id":"S7","phase":"sct","type":"action","title":"Hearing before tribunal magistrate","screen":"Both sides present. The magistrate issues an Order of Tribunal.","form":"Order of Tribunal","edges":[{"when":"always","to":"S8"}]},
+    {"id":"S8","phase":"sct","type":"question","title":"Paid by deadline?","screen":"SCT orders are enforced through the normal court machinery.","options":[{"label":"Yes","value":"yes","to":"END_PAID"},{"label":"No","value":"no","to":"X1"}],"edges":[{"when":"yes","to":"END_PAID"},{"when":"no","to":"X1"}]},
+
+    {"id":"E1","phase":"ect","type":"question","title":"TADM mediation (mandatory)","screen":"Register the employment dispute at TADM and attend mediation first.","options":[{"label":"Resolved","value":"yes","to":"END_SETTLED"},{"label":"Not resolved","value":"no","to":"E2"}],"edges":[{"when":"resolved","to":"END_SETTLED"},{"when":"not resolved","to":"E2"}]},
+    {"id":"E2","phase":"ect","type":"action","title":"Obtain referral certificate","screen":"TADM issues the certificate that lets you file at the ECT. Note its validity window.","form":"TADM Claim Referral Certificate","edges":[{"when":"always","to":"E3"}]},
+    {"id":"E3","phase":"ect","type":"action","title":"File at the ECT","screen":"Lodge in CJTS within the time allowed, attach the certificate, pay.","system":"CJTS","form":"ECT claim (CJTS)","fee":true,"edges":[{"when":"always","to":"E4"}]},
+    {"id":"E4","phase":"ect","type":"action","title":"Serve + Declaration of Service","screen":"Serve the respondent and file proof in CJTS.","system":"CJTS","form":"Declaration of Service","edges":[{"when":"always","to":"E5"}]},
+    {"id":"E5","phase":"ect","type":"action","title":"ECT hearing","screen":"The tribunal hears both sides and makes an order.","form":"ECT Order","edges":[{"when":"always","to":"E6"}]},
+    {"id":"E6","phase":"ect","type":"question","title":"Paid?","screen":"If not, enforce through the normal machinery.","options":[{"label":"Yes","value":"yes","to":"END_PAID"},{"label":"No","value":"no","to":"X1"}],"edges":[{"when":"yes","to":"END_PAID"},{"when":"no","to":"X1"}]},
+
+    {"id":"C1","phase":"cdrt","type":"question","title":"Community mediation","screen":"Attempt mediation (CMC) first; the tribunal can require it. Keep records.","options":[{"label":"Resolved","value":"yes","to":"END_SETTLED"},{"label":"Not resolved","value":"no","to":"C2"}],"edges":[{"when":"resolved","to":"END_SETTLED"},{"when":"not resolved","to":"C2"}]},
+    {"id":"C2","phase":"cdrt","type":"action","title":"File neighbour-dispute claim","screen":"Set out the interference, dates, and order sought.","system":"CJTS","form":"CDRT claim (CJTS)","edges":[{"when":"always","to":"C3"}]},
+    {"id":"C3","phase":"cdrt","type":"action","title":"Serve + Declaration of Service","screen":"Serve within the required window and file proof.","system":"CJTS","form":"Declaration of Service","edges":[{"when":"always","to":"C4"}]},
+    {"id":"C4","phase":"cdrt","type":"question","title":"Directed mediation","screen":"The tribunal may direct mediation again before hearing.","options":[{"label":"Resolved","value":"yes","to":"END_SETTLED"},{"label":"Not resolved","value":"no","to":"C5"}],"edges":[{"when":"resolved","to":"END_SETTLED"},{"when":"not resolved","to":"C5"}]},
+    {"id":"C5","phase":"cdrt","type":"action","title":"Hearing → CDRT order","screen":"Orders can stop conduct, award damages, or require compliance.","form":"CDRT Order","edges":[{"when":"always","to":"C6"}]},
+    {"id":"C6","phase":"cdrt","type":"question","title":"Complied or breach?","screen":"Breach can escalate to special directions and sanctions.","options":[{"label":"Complied","value":"complied","to":"END_ORDER"},{"label":"Breach","value":"breach","to":"C7"}],"edges":[{"when":"complied","to":"END_ORDER"},{"when":"breach","to":"C7"}]},
+    {"id":"C7","phase":"cdrt","type":"action","title":"Escalation / special directions","screen":"Pursue special directions; monetary parts enforced via the normal machinery.","edges":[{"when":"always","to":"X1"}]},
+
+    {"id":"H1","phase":"phc","type":"question","title":"Identify the relief","screen":"Protection Order, Expedited Protection Order (urgent), or relief for false statements. Gather dated evidence.","options":[{"label":"PO","value":"po","to":"H2"},{"label":"EPO (urgent)","value":"epo","to":"H2"},{"label":"False statement","value":"false","to":"H2"}],"edges":[{"when":"any","to":"H2"}]},
+    {"id":"H2","phase":"phc","type":"action","title":"File (CJTS simplified)","screen":"Set out the conduct and the order sought; pay any fee.","system":"CJTS","form":"PHC application (CJTS)","edges":[{"when":"always","to":"H3"}]},
+    {"id":"H3","phase":"phc","type":"action","title":"Serve + Declaration of Service","screen":"Serve as directed; for an EPO the court may act before full service.","system":"CJTS","form":"Declaration of Service","edges":[{"when":"always","to":"H4"}]},
+    {"id":"H4","phase":"phc","type":"question","title":"Hearing → order granted?","screen":"The court may grant a protection order with conditions.","options":[{"label":"Granted","value":"yes","to":"END_ORDER"},{"label":"Refused","value":"no","to":"END_DISMISSED"}],"edges":[{"when":"granted","to":"END_ORDER"},{"when":"refused","to":"END_DISMISSED"}],"notes":"On breach of a granted PO, route to report/enforce."},
+
+    {"id":"O1","phase":"oc","type":"router","title":"Confirm court by value","screen":"le60k Magistrate's; 60k to 250k District; above 250k High Court; non-money assessed.","rules":[{"if":"valueBand==le20k||valueBand==b20_60k","to":"O2","set":{"court":"MC"}},{"if":"valueBand==b60_250k","to":"O2","set":{"court":"DC"}},{"if":"valueBand==gt250k","to":"O2","set":{"court":"HC"}},{"if":"default","to":"O2","set":{"court":"assess"}}],"edges":[{"when":"always","to":"O2"}]},
+    {"id":"O2","phase":"oc","type":"action","title":"Draft OC + Statement of Claim","screen":"The OC is the originating process; serve it with a Statement of Claim. If generally endorsed, the SOC follows within 14 days.","system":"eLitigation","form":"Originating Claim (App. A2) + Statement of Claim (Form 9)","notes":"The Service Bureau will not draft these for you.","edges":[{"when":"always","to":"O3"}]},
+    {"id":"O3","phase":"oc","type":"action","title":"File at Service Bureau","screen":"Bring completed hardcopy forms to a LawNet and CrimsonLogic Service Bureau; they file via eLitigation. Pay court + bureau fees.","system":"eLitigation","fee":true,"edges":[{"when":"always","to":"O4"}]},
+    {"id":"O4","phase":"oc","type":"question","title":"Court accepts?","screen":"On acceptance, a sealed OC is issued (valid 3 months).","options":[{"label":"Accepted","value":"yes","to":"O5"},{"label":"Rejected","value":"no","to":"O2"}],"edges":[{"when":"accepted","to":"O5"},{"when":"rejected","to":"O2"}]},
+    {"id":"O5","phase":"oc","type":"action","title":"Serve personally","screen":"Take reasonable steps within 14 days (in SG) or 28 days (out of SG, needs approval).","timer":"14 / 28 days","edges":[{"when":"always","to":"O5d"}]},
+    {"id":"O5d","phase":"oc","type":"question","title":"Served?","screen":"If you cannot serve after at least two attempts, use substituted service or service-out.","options":[{"label":"Yes","value":"yes","to":"O6"},{"label":"No","value":"no","to":"SF_SUBSERVICE"}],"edges":[{"when":"served","to":"O6"},{"when":"not served","to":"SF_SUBSERVICE / SF_SERVEOUT / SF_EXTEND"}]},
+    {"id":"O6","phase":"oc","type":"action","title":"File Memorandum of Service","screen":"Record how and when the defendant was served.","form":"Memorandum of Service","edges":[{"when":"always","to":"O7"}]},
+    {"id":"O7","phase":"oc","type":"branch","title":"Notice of Intention to Contest window","screen":"Defendant must respond within 14 days (in SG) or 21 days (out of SG) of SOC service.","timer":"14 / 21 days","form":"Notice of Intention to Contest or Not Contest","edges":[{"when":"no NITC or not contesting","to":"O11"},{"when":"intends to contest","to":"O8"}]},
+    {"id":"O8","phase":"oc","type":"branch","title":"Defence window","screen":"Defendant files a Defence within 21 days (in SG) or 5 weeks (out of SG).","timer":"21 days / 5 weeks","form":"Defence","edges":[{"when":"no defence","to":"O11"},{"when":"defence filed","to":"O9"},{"when":"defence + counterclaim","to":"O8cc"}]},
+    {"id":"O8cc","phase":"oc","type":"action","title":"File Reply / Defence to Counterclaim","screen":"Answer the counterclaim.","form":"Reply / Defence to Counterclaim","edges":[{"when":"always","to":"O9"}]},
+    {"id":"O9","phase":"oc","type":"action","title":"Case conference + document production","screen":"Court-managed. Exchange documents; affidavits of evidence-in-chief may be ordered. Order 65 simplified process applies in the MC.","subflow":"SF_INTERLOC, SF_OFFER","edges":[{"when":"always","to":"O9b"}]},
+    {"id":"O9b","phase":"oc","type":"question","title":"Settle before trial?","screen":"Most contested claims resolve here, often via an offer to settle.","options":[{"label":"Settled","value":"yes","to":"END_SETTLED"},{"label":"Not settled","value":"no","to":"O10"}],"edges":[{"when":"settled","to":"END_SETTLED"},{"when":"not settled","to":"O10"}]},
+    {"id":"O10","phase":"oc","type":"action","title":"Trial","screen":"Witnesses (AEIC) cross-examined; you make submissions; court delivers judgment.","form":"Affidavit of Evidence-in-Chief; Subpoena (Form 67)","subflow":"SF_SUBPOENA","notes":"Hardest stage for a self-litigant. Gate behind a 'consider advice' interstitial.","edges":[{"when":"always","to":"O12"}]},
+    {"id":"O11","phase":"oc","type":"action","title":"Apply for default judgment","screen":"Where the defendant does not respond or does not defend in time.","form":"Request for default judgment","edges":[{"when":"always","to":"O11b"}]},
+    {"id":"O11b","phase":"oc","type":"branch","title":"Set-aside applied?","screen":"A defendant may apply to set aside a default judgment; a regular one is usually set aside on showing a defence with merits, sometimes on terms.","subflow":"SF_SETASIDE","edges":[{"when":"granted","to":"O8"},{"when":"refused","to":"O12"}]},
+    {"id":"O12","phase":"oc","type":"action","title":"Judgment obtained","screen":"By default or after trial. Draw up and file the order. Appeal rights and deadlines apply.","subflow":"SF_APPEAL","edges":[{"when":"always","to":"O13"}]},
+    {"id":"O13","phase":"oc","type":"question","title":"Paid / complied?","screen":"If not honoured, enforce.","options":[{"label":"Yes","value":"yes","to":"END_PAID"},{"label":"No","value":"no","to":"X1"}],"edges":[{"when":"yes","to":"END_PAID"},{"when":"no","to":"X1"}]},
+
+    {"id":"A1","phase":"oa","type":"info","title":"Confirm OA is correct","screen":"Use where facts are largely undisputed. Where no specific form is prescribed, use Form 15 (with notice) or Form 16 (without notice).","form":"OA (Form 15 / Form 16)","edges":[{"when":"always","to":"A2"}]},
+    {"id":"A2","phase":"oa","type":"action","title":"Draft OA + supporting affidavit","screen":"State the orders sought; support with an affidavit and exhibits.","form":"Supporting Affidavit","edges":[{"when":"always","to":"A3"}]},
+    {"id":"A3","phase":"oa","type":"action","title":"File at Service Bureau","screen":"File via eLitigation at the Service Bureau; pay fees.","system":"eLitigation","fee":true,"edges":[{"when":"always","to":"A3d"}]},
+    {"id":"A3d","phase":"oa","type":"question","title":"Accepted?","screen":"On acceptance, collect the sealed OA.","options":[{"label":"Accepted","value":"yes","to":"A4"},{"label":"Rejected","value":"no","to":"A2"}],"edges":[{"when":"accepted","to":"A4"},{"when":"rejected","to":"A2"}]},
+    {"id":"A4","phase":"oa","type":"action","title":"Serve sealed OA + affidavit","screen":"Serve within 14 days (in SG) or 28 days (out of SG); file proof.","timer":"14 / 28 days","edges":[{"when":"always","to":"A5"}]},
+    {"id":"A5","phase":"oa","type":"branch","title":"Defendant's affidavit window","screen":"Defendant files within 21 days (in SG) or 5 weeks (out of SG). A jurisdiction challenge is raised by affidavit on that ground only.","timer":"21 days / 5 weeks","form":"Defendant's Affidavit","edges":[{"when":"filed / none / jurisdiction challenge","to":"A6"}]},
+    {"id":"A6","phase":"oa","type":"question","title":"OA hearing outcome","screen":"The court may grant, dismiss, adjourn, order cross-examination, or send to trial (converting toward an OC).","options":[{"label":"Granted","value":"granted","to":"A7"},{"label":"Dismissed","value":"dismissed","to":"END_DISMISSED"},{"label":"Adjourned / cross-exam","value":"adjourn","to":"A6"},{"label":"Converted to OC","value":"convert","to":"O1"}],"edges":[{"when":"granted","to":"A7"},{"when":"dismissed","to":"END_DISMISSED"},{"when":"adjourned","to":"A6"},{"when":"converted","to":"O1"}]},
+    {"id":"A7","phase":"oa","type":"question","title":"Complied / paid?","screen":"If not, enforce.","options":[{"label":"Yes","value":"yes","to":"END_ORDER"},{"label":"No","value":"no","to":"X1"}],"edges":[{"when":"yes","to":"END_ORDER / END_PAID"},{"when":"no","to":"X1"}]},
+
+    {"id":"X1","phase":"enf","type":"question","title":"Worth enforcing?","screen":"Fees are non-refundable and there is no guarantee of recovery. If the respondent has no assets, an order changes nothing.","field":"assetsKnown","options":[{"label":"Likely has assets","value":"yes","to":"X2"},{"label":"No assets / not worth it","value":"no","to":"END_UNECONOMIC"}],"edges":[{"when":"yes","to":"X2"},{"when":"no","to":"END_UNECONOMIC"}]},
+    {"id":"X2","phase":"enf","type":"question","title":"Do you know the assets?","screen":"If not, examine the respondent under oath about what they own.","options":[{"label":"Yes","value":"yes","to":"X3"},{"label":"No","value":"no","to":"X2e"}],"edges":[{"when":"yes","to":"X3"},{"when":"no","to":"X2e"}]},
+    {"id":"X2e","phase":"enf","type":"action","title":"Examination of enforcement respondent","screen":"Apply (summons without notice + affidavit) to examine the respondent and obtain documents. ACRA and property searches also help.","form":"Application to examine (without notice) + affidavit","edges":[{"when":"always","to":"X3"}]},
+    {"id":"X3","phase":"enf","type":"action","title":"File single Enforcement Order","screen":"One application (Form 38) can seek several methods at once. The EO is valid 12 months, extendable.","system":"eLitigation","form":"Enforcement Order (Form 38)","edges":[{"when":"seizure+sale","to":"X3a"},{"when":"attachment","to":"X3b"},{"when":"delivery/possession","to":"X3c"},{"when":"committal","to":"X3d"}]},
+    {"id":"X3a","phase":"enf","type":"action","title":"Seizure and sale","screen":"Sheriff seizes property; respondent has 7 days to pay before sale. Property over S$20,000 or any immovable property is sold by public auction.","form":"Notice of Seizure (Form 40)","edges":[{"when":"always","to":"X4"}]},
+    {"id":"X3b","phase":"enf","type":"action","title":"Attachment of a debt","screen":"Redirects money a third party owes the respondent (for example a bank balance) to you. You must identify and prove the debt.","form":"Notice of Attachment","edges":[{"when":"always","to":"X4"}]},
+    {"id":"X3c","phase":"enf","type":"action","title":"Delivery / possession","screen":"Delivery: seize and hand over a specific item. Possession: recover land or premises (eviction).","edges":[{"when":"always","to":"X4"}]},
+    {"id":"X3d","phase":"enf","type":"action","title":"Committal","screen":"For breach of an order to do or stop an act; can lead to fine or imprisonment. Requires an indemnity undertaking to the Sheriff and Police.","edges":[{"when":"always","to":"X4"}]},
+    {"id":"X4","phase":"enf","type":"branch","title":"Third-party objection?","screen":"An objector files a notice of objection within 14 days of the notice of seizure or attachment.","timer":"14 days","edges":[{"when":"objection","to":"X4o"},{"when":"none","to":"X5"}]},
+    {"id":"X4o","phase":"enf","type":"action","title":"Objection handling","screen":"Consent to release, or dispute and let the objector apply to court for release.","edges":[{"when":"always","to":"X5"}]},
+    {"id":"X5","phase":"enf","type":"question","title":"Recovered fully?","screen":"Assess the result.","options":[{"label":"Yes","value":"yes","to":"END_RECOVERED"},{"label":"Partial / none","value":"no","to":"X6"}],"edges":[{"when":"yes","to":"END_RECOVERED"},{"when":"no","to":"X6"}]},
+    {"id":"X6","phase":"enf","type":"action","title":"Extend / retry / go abroad","screen":"Extend the EO (12 months), try another method, or enforce overseas where assets sit.","edges":[{"when":"retry","to":"X3"},{"when":"abroad","to":"SF_FOREIGN"},{"when":"stop","to":"END_PARTIAL"}]},
+
+    {"id":"SF_SUBSERVICE","phase":"sf","type":"subflow","returns":true,"title":"Substituted service","screen":"After at least two attempts, apply by summons + affidavit proposing an effective method (door posting, email).","form":"Summons + affidavit","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_SERVEOUT","phase":"sf","type":"subflow","returns":true,"title":"Service out of Singapore","screen":"Needs court approval; file an affidavit showing jurisdiction or that Singapore is the appropriate court (sufficient nexus).","form":"Application + affidavit","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_EXTEND","phase":"sf","type":"subflow","returns":true,"title":"Extend OC validity","screen":"Apply before the 3-month validity expires; seek a period matched to expected service time.","form":"Summons for extension of validity","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_AMEND","phase":"sf","type":"subflow","returns":true,"title":"Amend a filed document","screen":"Endorse the amendment with date and authority (court order or the Rule relied on). Some amendments need permission.","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_SUBPOENA","phase":"sf","type":"subflow","returns":true,"title":"Subpoena a witness","screen":"File a subpoena (Form 67) via eLitigation at the Service Bureau; serve personally within validity.","form":"Subpoena (Form 67)","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_OFFER","phase":"sf","type":"subflow","returns":true,"title":"Offer to settle","screen":"A formal offer with costs consequences: beat it at trial and costs can shift against the refusing party.","form":"Offer to settle","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_INTERLOC","phase":"sf","type":"subflow","returns":true,"title":"Interlocutory application","screen":"Made by summons supported by affidavit; deliberately limited under the simplified process.","form":"Summons + affidavit","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_SETASIDE","phase":"sf","type":"subflow","returns":true,"title":"Set aside default judgment","screen":"Defendant applies by summons + affidavit, usually exhibiting a draft defence with merits.","form":"Summons + affidavit + draft defence","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_DISCONTINUE","phase":"sf","type":"subflow","returns":true,"title":"Discontinue / withdraw","screen":"Timing affects costs; late discontinuance can mean paying the other side. SCT uses a CJTS Withdrawal Request (fees not refunded).","form":"Notice of discontinuance / Withdrawal Request","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_TRANSFER","phase":"sf","type":"subflow","returns":true,"title":"Transfer between courts","screen":"Move a case to the right court, or consent for the DC to hear above its limit, or cap a claim to fit a lower court.","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_APPEAL","phase":"sf","type":"subflow","returns":true,"title":"Appeal","screen":"State Courts to High Court; SCT to a District Judge then onward with permission; High Court to Appellate Division or Court of Appeal. Tight deadlines; permission may be required.","edges":[{"when":"return","to":"caller"}]},
+    {"id":"SF_FOREIGN","phase":"sf","type":"subflow","returns":true,"title":"Foreign judgment enforcement","screen":"Register under REFJA (gazetted jurisdictions) or sue afresh at common law; or enforce a Singapore judgment abroad where assets sit.","edges":[{"when":"return","to":"caller"}]},
+
+    {"id":"END_SETTLED","phase":"terminal","type":"terminal","outcomeClass":"bull","title":"Settled","screen":"Resolved by agreement. Record the settlement; consider a consent order.","edges":[]},
+    {"id":"END_CONSENT","phase":"terminal","type":"terminal","outcomeClass":"bull","title":"Consent order","screen":"Settled at consultation with a recorded order.","edges":[]},
+    {"id":"END_PAID","phase":"terminal","type":"terminal","outcomeClass":"bull","title":"Paid","screen":"Order honoured. Matter complete.","edges":[]},
+    {"id":"END_RECOVERED","phase":"terminal","type":"terminal","outcomeClass":"bull","title":"Recovered","screen":"Full recovery after enforcement.","edges":[]},
+    {"id":"END_ORDER","phase":"terminal","type":"terminal","outcomeClass":"base","title":"Order granted / complied","screen":"Non-money order in force; monitor compliance.","edges":[]},
+    {"id":"END_PARTIAL","phase":"terminal","type":"terminal","outcomeClass":"bear","title":"Partial recovery","screen":"Some sums recovered; further enforcement uneconomic.","edges":[]},
+    {"id":"END_UNECONOMIC","phase":"terminal","type":"terminal","outcomeClass":"bear","title":"Uneconomic to enforce","screen":"Holding a judgment but no realistic recovery.","edges":[]},
+    {"id":"END_TIMEBARRED","phase":"terminal","type":"terminal","outcomeClass":"bear","title":"Time-barred","screen":"Outside the limitation period; the claim likely cannot proceed.","edges":[]},
+    {"id":"END_DISMISSED","phase":"terminal","type":"terminal","outcomeClass":"bear","title":"Dismissed","screen":"Claim or application not granted. Consider appeal within the deadline.","edges":[]}
+  ]
+}
+</script>
+
+<script>
+  /* ---------- mermaid ---------- */
+  mermaid.initialize({startOnLoad:false, securityLevel:'loose', theme:'base', themeVariables:{
+    fontFamily:'IBM Plex Sans, sans-serif', fontSize:'13px',
+    primaryColor:'#FBF8F1', primaryBorderColor:'#1B3A4B', primaryTextColor:'#1C1A16',
+    lineColor:'#9C2B22', tertiaryColor:'#F4EFE6'
+  }});
+
+  // Render only diagrams that are currently on screen. A Mermaid graph rendered
+  // inside a display:none container cannot be measured, which makes it throw the
+  // generic "Syntax error" bomb, so we render each pane lazily when it is shown.
+  async function renderVisible(scope){
+    const els = [...(scope||document).querySelectorAll('.mermaid')]
+      .filter(el => !el.getAttribute('data-processed') && el.offsetParent !== null);
+    if(!els.length) return;
+    try{ await mermaid.run({ nodes: els }); }
+    catch(e){ console.error('mermaid render error', e); }
+  }
+
+  /* ---------- diagram tabs ---------- */
+  document.querySelectorAll('#dtabs .tab').forEach(t=>{
+    t.onclick=()=>{
+      document.querySelectorAll('#dtabs .tab').forEach(x=>x.classList.toggle('active',x===t));
+      document.querySelectorAll('#diagrams .pane').forEach(p=>p.classList.toggle('active',p.id===t.dataset.pane));
+      renderVisible(document.getElementById(t.dataset.pane));
+    };
+  });
+
+  // initial render: the always-visible master map + the active (triage) pane only
+  window.addEventListener('load', ()=>{ renderVisible(document); });
+
+  /* ---------- registry + json render ---------- */
+  const model = JSON.parse(document.getElementById('flowModel').textContent);
+
+  // registry
+  const mount = document.getElementById('registryMount');
+  model.phases.forEach(ph=>{
+    const nodes = model.nodes.filter(n=>n.phase===ph.id);
+    if(!nodes.length) return;
+    const block=document.createElement('div'); block.className='phase-block';
+    block.innerHTML=`<div class="phase-title"><span class="pid">${ph.id.toUpperCase()}</span>${ph.title}</div><div class="phase-sub">${ph.sub}</div>`;
+    nodes.forEach(n=>{
+      const el=document.createElement('div'); el.className='node';
+      let edges='';
+      (n.edges||[]).forEach(e=>{ edges+=`<div class="edge"><span class="cond">${e.when}</span><span class="arrow">→</span><span class="target">${e.to}</span></div>`; });
+      let meta='';
+      if(n.system) meta+=`<span class="chip sys ${n.system==='eLitigation'?'elit':''}">${n.system}</span>`;
+      if(n.form) meta+=`<span class="chip form">${n.form}</span>`;
+      if(n.timer) meta+=`<span class="chip">⏱ ${n.timer}</span>`;
+      if(n.fee) meta+=`<span class="chip">fee</span>`;
+      if(n.subflow) meta+=`<span class="chip">calls ${n.subflow}</span>`;
+      if(n.field) meta+=`<span class="chip">writes ${n.field}</span>`;
+      if(n.outcomeClass) meta+=`<span class="chip out ${n.outcomeClass}">${n.outcomeClass}</span>`;
+      el.innerHTML=`<div class="nh"><span class="nid">${n.id}</span><span class="badge b-${n.type}">${n.type}</span><span class="nt">${n.title}</span></div>
+        <div class="screen">${n.screen||''}</div>
+        ${edges?`<div class="edges">${edges}</div>`:''}
+        ${meta?`<div class="meta-row">${meta}</div>`:''}
+        ${n.notes?`<div class="notes">${n.notes}</div>`:''}`;
+      block.appendChild(el);
+    });
+    mount.appendChild(block);
+  });
+
+  // json pretty + highlight
+  const raw = JSON.stringify(model,null,2);
+  const esc = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const hi = esc
+    .replace(/"([^"]+)":/g,'"<span class="k">$1</span>":')
+    .replace(/: "([^"]*)"/g,': "<span class="s">$1</span>"')
+    .replace(/: (true|false)/g,': <span class="b">$1</span>')
+    .replace(/: (\d+\.?\d*)/g,': <span class="n">$1</span>');
+  document.getElementById('jsonOut').innerHTML = hi;
+
+  document.getElementById('copyBtn').onclick=async()=>{
+    try{ await navigator.clipboard.writeText(raw); document.getElementById('copyMsg').textContent='Copied to clipboard'; setTimeout(()=>document.getElementById('copyMsg').textContent='',2200); }
+    catch(e){ document.getElementById('copyMsg').textContent='Select the block and copy manually'; }
+  };
+</script>
+</body>
+</html>
