@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "purpose": "Alpha Extraction case corpus. Each entry drives the cases index and the per-case dashboard; authorities feed the citation ledger; proceduralRegime + statutes feed the temporal-validity engine.",
+    "updated": "2026-08-08"
+  },
+  "cases": [
+    {
+      "id": "tembusu",
+      "citation": "[2016] SGHC 36",
+      "name": "Peh Yeng Yok v Tembusu Systems Pte Ltd",
+      "court": "SGHC",
+      "decisionDate": "2016-03-15",
+      "area": "Search Order (Anton Piller) · s216 minority oppression",
+      "outcome": "Search order set aside",
+      "outcomeSide": "defendant",
+      "judge": "Chua Lee Ming JC",
+      "proceduralRegime": "roc2014",
+      "statutes": ["companies-act-2006rev"],
+      "contemptBasis": "ajpa2016",
+      "authorities": [
+        { "name": "Asian Corporate Services [2006] 1 SLR(R) 901", "verified": true, "url": "https://www.elitigation.sg/gd/s/2006_SGHC_186" },
+        { "name": "Bengawan Solo [1994] 1 SLR(R) 448", "verified": true },
+        { "name": "BP Singapore [2011] 2 SLR 541", "verified": true },
+        { "name": "Bouvier [2015] 5 SLR 558", "verified": true },
+        { "name": "Nikkomann [1992] 2 SLR(R) 328", "verified": true },
+        { "name": "Peh Yeng Yok v Tembusu [2016] SGHC 36", "verified": true, "url": "https://www.elitigation.sg/gd/s/2016_SGHC_36" }
+      ],
+      "dashboard": "case-tembusu.html",
+      "report": "case-report.html",
+      "sourceUrl": "https://www.elitigation.sg/gd/s/2016_SGHC_36"
+    }
+  ]
+}

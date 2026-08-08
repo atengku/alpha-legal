@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "purpose": "Temporal-validity graph source. Statutes and rules mapped to commencement dates and the regime each displaced, so authority can be checked for anachronism against a decision date.",
+    "jurisdiction": "SG",
+    "updated": "2026-08-08"
+  },
+  "regimes": [
+    { "id": "roc2014", "name": "Rules of Court 2014", "domain": "civil-procedure", "inForce": "2014-05-01", "supersededBy": "roc2021", "supersededOn": "2022-04-01", "note": "Governed civil procedure (including search orders) until replaced by ROC 2021.", "source": "https://sso.agc.gov.sg/SL/scja1969-s914-2021" },
+    { "id": "roc2021", "name": "Rules of Court 2021", "domain": "civil-procedure", "inForce": "2022-04-01", "supersededBy": null, "supersededOn": null, "note": "Current civil procedure regime for proceedings commenced on/after 1 Apr 2022.", "source": "https://www.judiciary.gov.sg/civil/new-rules-of-court-2021" },
+    { "id": "sicc-roc2021", "name": "SICC Rules 2021", "domain": "civil-procedure-sicc", "inForce": "2022-04-01", "supersededBy": null, "supersededOn": null, "note": "Singapore International Commercial Court procedural regime.", "source": "https://www.sicc.gov.sg/" },
+    { "id": "companies-act-2006rev", "name": "Companies Act (Cap 50, 2006 Rev Ed)", "domain": "companies", "inForce": "2006-01-31", "supersededBy": "companies-act-2020rev", "supersededOn": "2020-12-31", "note": "s216 minority oppression. Citation form updated on 2020 revision; substantive s216 carried forward.", "source": "https://sso.agc.gov.sg/Act/CoA1967" },
+    { "id": "companies-act-2020rev", "name": "Companies Act 1967 (2020 Rev Ed)", "domain": "companies", "inForce": "2020-12-31", "supersededBy": null, "supersededOn": null, "note": "Current citation form; s216 minority oppression retained.", "source": "https://sso.agc.gov.sg/Act/CoA1967" },
+    { "id": "ajpa2016", "name": "Administration of Justice (Protection) Act 2016", "domain": "contempt", "inForce": "2017-10-01", "supersededBy": null, "supersededOn": null, "amendedOn": "2025-01-28", "note": "Statutory contempt regime; before commencement, contempt was common-law. Amended (egregious abuse of process) i/f 28 Jan 2025.", "source": "https://sso.agc.gov.sg/Act/AJPA2016" }
+  ]
+}
