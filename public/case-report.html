@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Alpha — Litigation Alpha Extraction: Peh Yeng Yok v Tembusu [2016] SGHC 36</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-dark:#050608; --bg-panel:#0A0C10; --bg-panel2:#0D1016;
+  --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.16);
+  --gold:#C4A25C; --gold-dim:rgba(196,162,92,0.20);
+  --text-main:#EAEAEA; --text-muted:#8B8D91;
+  --accent-red:#D24A4A; --accent-green:#4AD295; --accent-blue:#6AA9E0;
+  --ff-header:"Inter",system-ui,sans-serif; --ff-sans:"Inter",system-ui,sans-serif;
+  --ff-mono:"IBM Plex Mono",ui-monospace,monospace; --radius:10px;
+}
+*{box-sizing:border-box}
+body{background:var(--bg-dark);color:var(--text-main);font-family:var(--ff-sans);line-height:1.6;margin:0;font-weight:300}
+.sa-doc{max-width:940px;margin:0 auto;padding:56px 40px 96px}
+.sa-eyebrow{font-family:var(--ff-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-size:11px}
+h1{font-family:var(--ff-header);font-weight:700;line-height:1.15;font-size:38px;margin:.35em 0 .15em;letter-spacing:-0.01em}
+h2{font-family:var(--ff-header);font-size:22px;font-weight:600;border-bottom:1px solid var(--border);padding-bottom:.35em;margin-top:2.4em;color:var(--gold);letter-spacing:.01em}
+h3{font-family:var(--ff-header);font-size:16px;font-weight:600;margin:1.6em 0 .5em;color:var(--text-main)}
+p{margin:.7em 0}
+strong{font-weight:600;color:#fff}
+.sub{color:var(--text-muted);font-size:15px;max-width:640px}
+.sa-rule{height:2px;background:linear-gradient(90deg,var(--gold),transparent);border:0;margin:1.4em 0 0}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px}
+.pill{font-family:var(--ff-mono);font-size:11px;padding:4px 11px;border-radius:999px;border:1px solid var(--gold-dim);color:var(--gold);background:rgba(196,162,92,0.05)}
+.pill.g{color:var(--accent-green);border-color:rgba(74,210,149,.35);background:rgba(74,210,149,.06)}
+.pill.r{color:var(--accent-red);border-color:rgba(210,74,74,.35);background:rgba(210,74,74,.06)}
+.pill.b{color:var(--accent-blue);border-color:rgba(106,169,224,.35);background:rgba(106,169,224,.06)}
+.panel{background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px;margin:18px 0}
+.panel.tight{padding:18px 20px}
+.cite{font-family:var(--ff-mono);font-size:11px;color:var(--gold);background:rgba(196,162,92,0.08);border:1px solid var(--gold-dim);border-radius:5px;padding:1px 6px;white-space:nowrap}
+.lead-cite{font-family:var(--ff-mono);font-size:10.5px;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:2px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0}
+th,td{border-bottom:1px solid var(--border);padding:11px 12px;text-align:left;vertical-align:top}
+th{font-family:var(--ff-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);font-weight:400}
+td .cite{font-size:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}.sa-doc{padding:36px 20px 72px}h1{font-size:30px}}
+.card-h{font-family:var(--ff-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.bull .card-h{color:var(--accent-green)} .base .card-h{color:var(--gold)} .bear .card-h{color:var(--accent-red)}
+.bull{border-top:2px solid var(--accent-green)} .base{border-top:2px solid var(--gold)} .bear{border-top:2px solid var(--accent-red)}
+ul{margin:.5em 0;padding-left:1.15em} li{margin:.4em 0}
+.kicker{font-family:var(--ff-mono);font-size:11px;color:var(--gold);letter-spacing:.08em}
+.verdict{font-family:var(--ff-mono);font-size:12px;padding:3px 9px;border-radius:5px;font-weight:500}
+.v-fail{color:var(--accent-red);background:rgba(210,74,74,.1);border:1px solid rgba(210,74,74,.3)}
+.v-pass{color:var(--accent-green);background:rgba(74,210,149,.1);border:1px solid rgba(74,210,149,.3)}
+.v-split{color:var(--gold);background:rgba(196,162,92,.1);border:1px solid var(--gold-dim)}
+.trust{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
+.trust:last-child{border-bottom:0}
+.trust .num{font-family:var(--ff-mono);color:var(--gold);font-size:20px;min-width:34px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-family:var(--ff-mono)}
+.src li{font-size:13px}
+.watermark{font-family:var(--ff-mono);font-size:10px;color:var(--text-muted);letter-spacing:.18em;text-transform:uppercase}
+a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-dim)}
+a:hover{border-color:var(--gold)}
+.callout{border-left:2px solid var(--gold);padding:6px 0 6px 16px;color:var(--text-main);margin:14px 0;font-size:15px}
+</style>
+</head>
+<body>
+<div class="sa-doc">
+
+  <div style="display:flex;gap:16px;align-items:center;margin-bottom:18px;font-family:var(--ff-mono);font-size:12px"><a href="/" style="color:var(--gold)">← Seeking Alpha Legal</a><a href="case-analysis.html" style="color:var(--text-muted)">Open interactive dashboard ↗</a></div>
+  <div class="watermark">Legal Alpha · Litigation Intelligence</div>
+  <div class="sa-eyebrow" style="margin-top:18px">Litigation Alpha Extraction · Confidential Work Product</div>
+  <h1>Peh Yeng Yok v Tembusu Systems Pte Ltd</h1>
+  <p class="sub"><span class="cite">[2016] SGHC 36</span> &nbsp;·&nbsp; Singapore High Court, Suit No 504 of 2015 (Summons Nos 2958 & 2962 of 2015) &nbsp;·&nbsp; Chua Lee Ming JC &nbsp;·&nbsp; Search order (Anton Piller) set aside.</p>
+
+  <div class="meta-row">
+    <span class="pill">Civil Procedure · Search Order</span>
+    <span class="pill">s216 Minority Oppression</span>
+    <span class="pill r">Outcome: Order set aside</span>
+    <span class="pill r">Costs: S$45,000 vs plaintiff</span>
+    <span class="pill b">Regime: pre-ROC 2021 ⚠</span>
+  </div>
+  <hr class="sa-rule">
+
+  <h2>1 · Executive summary — where the alpha is</h2>
+  <p><span class="lead-cite">Source: [2016] SGHC 36 at [2], [17], [40]</span>
+  This is a <strong>defendant's win</strong>: an ex parte search order granted on 17 June 2015 was set aside in full on 19 November 2015, with costs of S$20,000 (Company) and S$25,000 (the two directors) ordered against the plaintiff, and all seized material returned. The case is a clean, current statement of the four-limb search-order test and — the doctrinal prize — the point at which the stringent <em>Bouvier</em> "real risk" standard is imported into search orders.</p>
+  <p><span class="lead-cite">Extraction thesis</span>
+  The reported judgment is the <strong>filing, not the alpha</strong>. Its transferable edge is threefold: (i) a black-letter test map with the burden calibrated by worked example; (ii) a limb-by-limb autopsy of exactly which evidence failed and why; and (iii) a judicial-disposition read on Chua Lee Ming JC. Two caveats are load-bearing for any reuse: the decision runs on the <strong>superseded Rules of Court 2014</strong> regime, and a Notice of Appeal was filed — appellate history must be checked before this is relied on.</p>
+
+  <h2>2 · The test &amp; burden map</h2>
+  <p><span class="lead-cite">Source: [2016] SGHC 36 at [14]–[16], citing Asian Corporate Services [2006] 1 SLR(R) 901 at [14]</span>
+  A search order is "a draconian measure" granted only where necessary in the interests of justice. The applicant must satisfy <strong>all four</strong> cumulative limbs; the defendant needs only <strong>one</strong> to fall — or a single material non-disclosure — to set the order aside.</p>
+  <table>
+    <thead><tr><th>Limb</th><th>Requirement</th><th>Authority</th><th>Result here</th></tr></thead>
+    <tbody>
+      <tr><td>(a)</td><td>Extremely strong <em>prima facie</em> case</td><td><span class="cite">[14]</span></td><td><span class="verdict v-fail">FAILED [19],[29]</span></td></tr>
+      <tr><td>(b)</td><td>Very serious potential damage</td><td><span class="cite">[14]</span></td><td><span class="verdict v-pass">Met [30]</span></td></tr>
+      <tr><td>(c)</td><td>Real possibility of destruction</td><td><span class="cite">[14]</span></td><td><span class="verdict v-fail">FAILED [37]</span></td></tr>
+      <tr><td>(d)</td><td>Effect proportionate to object</td><td><span class="cite">[14]</span></td><td><span class="verdict v-fail">FAILED [39]</span></td></tr>
+    </tbody>
+  </table>
+  <p><span class="lead-cite">Set-aside levers · [15]–[16]</span>
+  Two further weapons the defendant deployed: <strong>material non-disclosure alone suffices</strong> to discharge the order (<span class="cite">Bengawan Solo [1994] 1 SLR(R) 448 at [12]</span>), and the court <strong>may consider events after the grant</strong> when deciding whether the requirements were ever met (<span class="cite">BP Singapore [2011] 2 SLR 541 at [55]</span>). The latter let the defendants rely on their own post-order conduct and disclosures.</p>
+
+  <h2>3 · The doctrinal prize — Bouvier imported into search orders</h2>
+  <div class="panel">
+    <p><span class="lead-cite">Source: [2016] SGHC 36 at [31]–[32], citing Bouvier [2015] 5 SLR 558 at [94]</span>
+    The core holding worth extracting: <strong>surreptitious or untrustworthy conduct does not, by itself, establish a propensity to destroy evidence.</strong> "An allegation of dishonesty is no substitute for examining whether there is in fact a real risk"; the court must examine "the precise nature of the dishonesty and the strength of the supporting evidence." The judge expressly aligns the <em>Nikkomann / Asian Corporate Services / BP Singapore</em> line with the stringent <em>Bouvier</em> approach.</p>
+    <p class="callout"><strong>Use of it:</strong> on the defence side this paragraph is a ready-made set-aside thesis. On the applicant side it is the warning that character attacks will not carry limb (c) — you need evidence of <em>actual</em> deletion or concealment behaviour.</p>
+  </div>
+
+  <h2>4 · Win / loss autopsy — why the plaintiff lost, limb by limb</h2>
+
+  <h3>Limb (a) — no "extremely strong" prima facie case <span class="verdict v-fail">FAILED</span></h3>
+  <p><span class="lead-cite">Source: [2016] SGHC 36 at [21]–[27]</span>
+  The plaintiff's three pillars each collapsed against paper. The <strong>"Suspicious Transactions"</strong> were rebutted with supporting documents showing legitimate purposes (rent, salaries, furniture, directors' fees — including PSW's own — and consultancy); the plaintiff had only "bare assertion" that the documents were not credible <span class="cite">[21]</span>. The <strong>"Offer"</strong> was accepted as legitimate without-prejudice settlement and its pleadings were struck out — and tellingly PSW had asked for more time to consider it, "an odd response" for an alleged bribe for silence <span class="cite">[22]</span>. The <strong>"Ukraine Deal"</strong> was "a bare allegation; no details or evidence" <span class="cite">[23]</span>, and the corroborating recording was an <strong>inaudible transcript the court refused to rely on</strong> <span class="cite">[25]</span>.</p>
+
+  <h3>Limb (c) — no real possibility of destruction <span class="verdict v-fail">FAILED</span></h3>
+  <p><span class="lead-cite">Source: [2016] SGHC 36 at [33]–[38]</span>
+  The plaintiff's inferences — sub-S$10,000 transfers to avoid PSW's signature, removal of PSW as a bank signatory, and a crypto "he could dissipate untraceably" theory — were met with commercial explanations (preserving cash-flow amid PSW's non-cooperation) that "seemed consistent with the evidence" <span class="cite">[34]</span>. The destruction case was "conjecture and suspicion" <span class="cite">[36]–[37]</span>. A behavioural own-goal reinforced it: PSW <strong>failed to attend a scheduled review</strong> of the Company's expenses <span class="cite">[35]</span>.</p>
+
+  <h3>Limb (d) — disproportionate <span class="verdict v-fail">FAILED</span></h3>
+  <p><span class="lead-cite">Source: [2016] SGHC 36 at [12], [39]</span>
+  The order threatened investor confidence in a company that needed fresh funding, against an object (evidence preservation) already largely answered by the defendants' documents. Critically, the defendants had <strong>consented on 19 June 2015 to surrender laptops, clone phones and permit inbox screenshots</strong> <span class="cite">[12]</span> — voluntarily neutralising the preservation rationale and making the intrusive order redundant.</p>
+
+  <h3>The framing / standing defect <span class="verdict v-split">STRUCTURAL</span></h3>
+  <p><span class="lead-cite">Source: [2016] SGHC 36 at [18], [28]</span>
+  The "backdoor derivative action" attack <em>failed</em> <span class="cite">[18]</span> — instructive on what framing a Singapore judge will not buy. But the court saw the matter as "really" PSW's dispute (director-v-director and an Estates General shareholder fight) dressed as minority oppression, with a <strong>remedy mismatch</strong>: a buy-out of Estates General shares had "no place" in a s216 claim about the Company <span class="cite">[28]</span>.</p>
+
+  <h2>5 · Judge &amp; counsel profile</h2>
+  <div class="grid2">
+    <div class="panel tight">
+      <div class="card-h" style="color:var(--gold)">Bench — Chua Lee Ming JC</div>
+      <ul>
+        <li>Weights <strong>proportionality heavily</strong>; will let a met damage-limb be outweighed by commercial harm to a going concern <span class="cite">[39]</span>.</li>
+        <li>Demands <strong>documentary rebuttal</strong> and credits it over assertion <span class="cite">[21],[34]</span>.</li>
+        <li>Hostile to <strong>speculation/conjecture</strong>; names it explicitly <span class="cite">[36]–[37]</span>.</li>
+        <li>Pattern-matches on <strong>conduct inconsistent with the pleaded narrative</strong> <span class="cite">[22],[35]</span>.</li>
+        <li>Will <strong>recharacterise</strong> a mis-framed claim / remedy <span class="cite">[28]</span>.</li>
+      </ul>
+    </div>
+    <div class="panel tight">
+      <div class="card-h" style="color:var(--gold)">Counsel of record</div>
+      <table style="margin-top:2px">
+        <tbody>
+        <tr><td>Plaintiff</td><td>Harry Elias Partnership LLP <span class="cite">(Kevin Lim, Philip Fong, Nicklaus Tan, Lynn Wong)</span></td></tr>
+        <tr><td>D1 (Company)</td><td>August Law Corporation <span class="cite">(Adrian Tan)</span></td></tr>
+        <tr><td>D2 &amp; D3<br>(directors)</td><td>Shook Lin &amp; Bok LLP <span class="cite">(Joseph Tay, Tan Aik Thong, Claire Yeo)</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:0">Separate representation for Company vs directors is itself a tell — the D-side split preserved the Company's "going-concern harm" argument independent of the individuals' conduct defence.</p>
+    </div>
+  </div>
+
+  <h2>6 · Side-specific playbooks</h2>
+  <div class="grid2">
+    <div class="panel bull">
+      <div class="card-h">If acting for the applicant (plaintiff)</div>
+      <ul>
+        <li>Build limb (a) on <strong>corroborated documents before filing</strong>; assume every allegation meets a paper trail <span class="cite">[21]</span>.</li>
+        <li>For limb (c), obtain evidence of <strong>actual deletion/concealment</strong>, not character <span class="cite">[32],[37]</span>.</li>
+        <li>Run a <strong>full-and-frank disclosure checklist</strong> — non-disclosure alone is fatal <span class="cite">[15]</span>.</li>
+        <li><strong>Align cause of action to remedy</strong> and confirm standing <span class="cite">[28]</span>.</li>
+        <li>Secure/authenticate recordings — an inaudible transcript is worse than none <span class="cite">[25]</span>.</li>
+      </ul>
+    </div>
+    <div class="panel bear">
+      <div class="card-h">If acting for the respondent (defendant)</div>
+      <ul>
+        <li>Attack <strong>each limb independently</strong>; you need only one <span class="cite">[17]</span>.</li>
+        <li><strong>Offer voluntary preservation early</strong> to gut proportionality <span class="cite">[12],[39]</span>.</li>
+        <li>Hunt the ex parte affidavit for <strong>material non-disclosure</strong> <span class="cite">[15]</span>.</li>
+        <li>Deploy <strong>subsequent-events</strong> and the <strong>Bouvier "real risk"</strong> standard <span class="cite">[16],[32]</span>.</li>
+        <li>Answer every impugned transaction with <strong>documents</strong>; strike collateral allegations (e.g. WP settlement) <span class="cite">[21],[22]</span>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>7 · Trust layer applied — why this output is reliable</h2>
+  <p class="sub" style="margin-bottom:6px">The strategic analysis above sits on three verification guarantees. They do not generate alpha; they make it safe to rely on without re-checking.</p>
+  <div class="panel">
+    <div class="trust">
+      <div class="num">01</div>
+      <div>
+        <div class="card-h" style="color:var(--accent-blue)">Temporal-validity graph — anachronism flag <span class="pill b" style="margin-left:6px">ACTIVE ⚠</span></div>
+        <p style="margin:.3em 0">This 2016 decision operated under the <strong>Rules of Court 2014</strong>; that regime was replaced by the <strong>Rules of Court 2021, in force 1 April 2022</strong>. Any procedural mechanics lifted from <span class="cite">[9]–[13]</span> (supervising solicitor, safekeeping, service) are re-mapped to the current ROC 2021 search-order provisions before use. The substantive claim is pinned to <strong>s216 Companies Act (Cap 50, 2006 Rev Ed)</strong> <span class="cite">[19]</span>. If a contempt/evidence-destruction angle arises, the graph distinguishes common-law contempt from the <strong>Administration of Justice (Protection) Act 2016</strong> (as amended, in force 28 Jan 2025) by relevant date.</p>
+      </div>
+    </div>
+    <div class="trust">
+      <div class="num">02</div>
+      <div>
+        <div class="card-h" style="color:var(--accent-green)">Streaming citation interception — 6 / 6 authorities verified <span class="pill g" style="margin-left:6px">VERIFIED ✓</span></div>
+        <p style="margin:.3em 0">Every authority in this report was verified against source before render: <em>Asian Corporate Services</em>, <em>Bengawan Solo</em>, <em>BP Singapore</em>, <em>Bouvier</em>, <em>Nikkomann</em>, and the subject judgment. A trailing buffer sized to hold a complete citation suppresses any unverifiable authority before it reaches the page — post-hoc filtering cannot achieve this once a token is streamed.</p>
+      </div>
+    </div>
+    <div class="trust">
+      <div class="num">03</div>
+      <div>
+        <div class="card-h" style="color:var(--gold)">Verbatim statutory grounding — ROC 2021 index <span class="pill" style="margin-left:6px">823 rules · 73 Orders</span></div>
+        <p style="margin:.3em 0">Any forward-looking procedural step (e.g. mounting a fresh search-order application today) is grounded verbatim in the ROC 2021 text via explicit-citation parsing and heading-scored retrieval, with no extrapolation — not in the 2016-era practice this judgment describes. Mistaken premises are corrected from authoritative Order titles rather than answered inside the error.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>8 · Is this document enough to prep for trial? — Bull / Base / Bear</h2>
+  <div class="grid3">
+    <div class="panel bull"><div class="card-h">Bull</div><p style="font-size:14px">As a doctrinal anchor for a similar interlocutory fight, it is excellent — a current statement of the test, the tightened destruction standard, and a vivid catalogue of what fails. For a first-orientation memo it already beats an opponent working from older authority.</p></div>
+    <div class="panel base"><div class="card-h">Base — most likely</div><p style="font-size:14px">Necessary, not sufficient. A reported judgment is the decision-maker's curated narrative — you get conclusions, not the record: not the ex parte affidavit, pleadings, supervising solicitor's report, submissions, or WP correspondence. You have the verdict, not the game film — and not the appeal outcome.</p></div>
+    <div class="panel bear"><div class="card-h">Bear</div><p style="font-size:14px">Relied on alone it is a latent trap: it runs on superseded ROC 2014 procedure; a Notice of Appeal was filed <span class="cite">[3]</span> and the result could have moved; and fact differences flip search-order applications. Un-updated, that is a malpractice exposure.</p></div>
+  </div>
+
+  <h2>9 · Sourcing manifest — convert the judgment into trial-ready edge</h2>
+  <p class="sub" style="margin-bottom:8px">The documents to pull next, ranked by alpha per unit of effort. This is the service: the judgment is the index; these are the primary layers it points to.</p>
+  <table>
+    <thead><tr><th>#</th><th>Document / source</th><th>Why it carries alpha</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Ex parte supporting affidavit</strong></td><td>Highest-value single document — shows exactly how limb (a) was built and where it broke.</td><td>Court file / eLitigation</td></tr>
+      <tr><td>2</td><td>Pleadings (SOC &amp; Defence), supervising solicitor's report, written submissions</td><td>The arguments actually run and rejected — the game film behind the verdict.</td><td>Court file</td></tr>
+      <tr><td>3</td><td><strong>Appellate history</strong> (Notice of Appeal, 15 Dec 2015)</td><td>Was the set-aside affirmed, reversed, or the appeal withdrawn? Decisive for reliability.</td><td>eLitigation / LawNet</td></tr>
+      <tr><td>4</td><td><strong>Citator / good-law pull</strong> — everything citing Tembusu post-2016</td><td>Confirms whether the Bouvier-into-search-orders move is settled or doubted.</td><td>LawNet citator</td></tr>
+      <tr><td>5</td><td>Doctrinal chain in full (Asian Corporate Services, Nikkomann, BP Singapore, Bouvier, Bengawan Solo)</td><td>Mapped, not name-checked — the distinguishing/analogising toolkit.</td><td>SLR / eLitigation</td></tr>
+      <tr><td>6</td><td>Judge analytics — Chua Lee Ming's interlocutory decisions</td><td>Grant rate, evidence credited, proportionality weighting — durable edge.</td><td>Legal Alpha profile</td></tr>
+      <tr><td>7</td><td>Practice text — Singapore Civil Procedure ("White Book") &amp; ROC 2021 O. on search orders</td><td>The judge relied on it at <span class="cite">[32]</span>; ground fresh procedure in current text.</td><td>Sweet &amp; Maxwell / SSO</td></tr>
+      <tr><td>8</td><td>Factual / OSINT layer (ACRA filings; crypto / Ukraine-deal backdrop)</td><td>Where a similar case shares parties or sector.</td><td>ACRA / open source</td></tr>
+    </tbody>
+  </table>
+
+  <h2>10 · Sources</h2>
+  <ul class="src">
+    <li>Subject judgment — <em>Peh Yeng Yok v Tembusu Systems Pte Ltd</em> [2016] SGHC 36 — <a href="https://www.elitigation.sg/gd/s/2016_SGHC_36">eLitigation full text</a> (pinpoints as cited throughout).</li>
+    <li>Test &amp; authorities cited within: Asian Corporate Services [2006] 1 SLR(R) 901; Bengawan Solo [1994] 1 SLR(R) 448; BP Singapore [2011] 2 SLR 541; Bouvier [2015] 5 SLR 558; Nikkomann [1992] 2 SLR(R) 328.</li>
+    <li>Regime currency — <a href="https://www.judiciary.gov.sg/civil/new-rules-of-court-2021">Rules of Court 2021 (in force 1 April 2022)</a>; <a href="https://sso.agc.gov.sg/SL/scja1969-s914-2021">ROC 2021 text (SSO)</a>.</li>
+    <li>Contempt regime — <a href="https://sso.agc.gov.sg/Act/AJPA2016">Administration of Justice (Protection) Act 2016 (SSO)</a>; <a href="https://www.mlaw.gov.sg/commencement-of-the-administration-of-justice-protection-amendment-act-2024/">2024 amendment commencement, 28 Jan 2025</a>.</li>
+    <li>Commentary — <a href="https://www.lexology.com/library/detail.aspx?g=602fb944-af20-4317-b359-aeef7956a5f1">Lexology case note</a>; <a href="https://conventuslaw.com/report/singapore-high-court-sets-aside-search-order/">Conventus Law</a>.</li>
+  </ul>
+
+  <div class="foot">
+    Legal Alpha · Litigation Alpha Extraction · Generated as work product for discussion. Not legal advice. Verify appellate history and good-law status before reliance.<br>
+    Trust layer: temporal-validity ⚠ 1 flag · citation interception ✓ 6/6 · verbatim grounding · ROC 2021 (823 rules / 73 Orders).
+  </div>
+
+</div>
+</body>
+</html>
