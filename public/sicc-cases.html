@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Alpha — SICC judgments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sicc.css">
+<style>
+.cw{color:var(--text-muted);font-size:11px;margin-top:4px;line-height:1.4}
+.nm{color:#fff;font-weight:500;line-height:1.35}
+.panelist{font-size:11.5px;color:var(--text-muted);line-height:1.5}
+.panelist .w{color:var(--green)}
+.ext{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-decoration:none;border:1px solid var(--border);border-radius:5px;padding:2px 6px}
+.ext:hover{color:var(--gold);border-color:var(--gold-dim)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <a href="/" class="logo"><span class="dot"></span> LEGAL&nbsp;<b>ALPHA</b></a>
+    <div class="search"><input id="q" placeholder="Filter by case, citation, judge, catchword…"></div>
+    <div class="top-right"><span>SG · SICC</span><div class="avatar">AZ</div></div>
+  </div>
+  <div class="nav">
+    <div class="grp">SICC</div>
+    <a href="sicc.html"><span class="ic">◎</span> Overview</a>
+    <a class="active"><span class="ic">▤</span> Judgments</a>
+    <a href="judges.html"><span class="ic">⚖</span> The bench</a>
+    <a href="awards.html"><span class="ic">§</span> Money awards</a>
+    <a href="sicc-bar.html"><span class="ic">⛨</span> Firms &amp; counsel</a>
+    <a href="sicc-authorities.html"><span class="ic">⧉</span> Authorities</a>
+    <div class="grp">Workspace</div>
+    <a href="case-analysis.html"><span class="ic">▣</span> Alpha Extraction</a>
+  </div>
+  <div class="main">
+    <div class="crumb"><a href="/">Seeking Alpha Legal</a> / <a href="sicc.html">SICC</a> / <b>Judgments</b></div>
+    <h1>Every SICC judgment</h1>
+    <p class="subline">The complete written output of the Singapore International Commercial Court, as published on eLitigation. Panels are reconstructed from the coram line with name variants merged, so a judge appears once however the judgment spelled them.</p>
+    <div class="toolbar">
+      <select id="year"><option value="">All years</option></select>
+      <select id="cat"><option value="">All subjects</option></select>
+      <select id="judge"><option value="">Any judge</option></select>
+      <select id="flag">
+        <option value="">All judgments</option>
+        <option value="award">Carries a money award</option>
+        <option value="nopanel">No panel identified</option>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+    <table id="tbl">
+      <thead><tr><th>Citation</th><th>Case</th><th>Panel</th><th>Decided</th><th>Award</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">No judgments match that filter.</div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+<script>
+var C=[],META={};
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmt(s){if(!s)return '—';var a=String(s).split('-');return a.length<3?s:a[2]+' '+M[+a[1]-1]+' '+a[0];}
+function money(a,c){
+  if(a==null)return '';
+  if(a>=1e9)return c+' '+(a/1e9).toFixed(2)+'bn';
+  if(a>=1e6)return c+' '+(a/1e6).toFixed(1)+'m';
+  if(a>=1e3)return c+' '+Math.round(a/1e3)+'k';
+  return c+' '+a;
+}
+function row(c){
+  var panel=(c.panel||[]).map(function(p){
+    return '<a class="jl" href="judge.html?id='+encodeURIComponent(p.id)+'">'+
+      (p.authored?'<span class="w">'+esc(p.name)+'</span>':esc(p.name))+'</a>';
+  }).join(', ') || '<span class="mut">not identified</span>';
+  var aw=c.award?'<span class="amt">'+money(c.award.amount,c.award.currency)+'</span>':'<span class="mut">—</span>';
+  var cw=(c.catchwords||[]).slice(0,2).join(' · ');
+  return '<tr>'+
+    '<td><span class="cite">'+esc(c.citation)+'</span><br><span class="b">'+esc(c.category)+'</span></td>'+
+    '<td><span class="nm">'+esc(c.name)+'</span>'+(cw?'<div class="cw">'+esc(cw)+'</div>':'')+
+      (c.url?'<div style="margin-top:6px"><a class="ext" href="'+esc(c.url)+'" target="_blank" rel="noopener">eLitigation ↗</a></div>':'')+'</td>'+
+    '<td><span class="panelist">'+panel+'</span></td>'+
+    '<td class="mut">'+fmt(c.date)+'</td>'+
+    '<td>'+aw+'</td></tr>';
+}
+function render(){
+  var q=(document.getElementById('q').value||'').toLowerCase();
+  var yr=document.getElementById('year').value, cat=document.getElementById('cat').value;
+  var jd=document.getElementById('judge').value, fl=document.getElementById('flag').value;
+  var list=C.filter(function(c){
+    if(yr && String(c.year)!==yr) return false;
+    if(cat && c.category!==cat) return false;
+    if(jd && !(c.panel||[]).some(function(p){return p.name===jd;})) return false;
+    if(fl==='award' && !c.award) return false;
+    if(fl==='nopanel' && (c.panel||[]).length) return false;
+    if(!q) return true;
+    var hay=(c.name+' '+c.citation+' '+(c.catchwords||[]).join(' ')+' '+
+      (c.panel||[]).map(function(p){return p.name;}).join(' ')+' '+(c.caseNo||'')).toLowerCase();
+    return hay.indexOf(q)>=0;
+  });
+  document.getElementById('rows').innerHTML=list.map(row).join('');
+  document.getElementById('empty').style.display=list.length?'none':'block';
+  document.getElementById('tbl').style.display=list.length?'':'none';
+  document.getElementById('count').textContent=list.length+' of '+C.length+' judgments';
+}
+['q','year','cat','judge','flag'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+
+fetch('data/sicc-cases.json').then(function(r){return r.json();}).then(function(d){
+  C=d.cases; META=d._meta;
+  Object.keys(META.byYear).sort().reverse().forEach(function(y){
+    document.getElementById('year').innerHTML+='<option value="'+y+'">'+y+' ('+META.byYear[y]+')</option>';});
+  Object.keys(META.byCategory).sort().forEach(function(k){
+    document.getElementById('cat').innerHTML+='<option value="'+esc(k)+'">'+esc(k)+' ('+META.byCategory[k]+')</option>';});
+  var js={}; C.forEach(function(c){(c.panel||[]).forEach(function(p){js[p.name]=(js[p.name]||0)+1;});});
+  Object.keys(js).sort(function(a,b){return js[b]-js[a];}).forEach(function(n){
+    document.getElementById('judge').innerHTML+='<option value="'+esc(n)+'">'+esc(n)+' ('+js[n]+')</option>';});
+  document.getElementById('foot').innerHTML=
+    'LEGAL ALPHA · SICC judgments · '+esc(META.source)+' · '+META.judgments+' judgments spanning '+esc(META.span)+
+    ' · '+META.withPanel+' with an identified panel, '+META.withAward+' carrying a money award'+
+    '<br>A judge shown in green authored that judgment; the others sat on it. Subjects are mapped from the first catchword, so they are an index, not a holding.';
+  render();
+}).catch(function(e){
+  document.getElementById('tbl').style.display='none';
+  document.getElementById('empty').style.display='block';
+  document.getElementById('empty').textContent='Could not load data/sicc-cases.json — '+e;
+});
+</script>
+</body>
+</html>

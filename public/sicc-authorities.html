@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Alpha — SICC authorities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sicc.css">
+<style>
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.seg button{background:transparent;border:none;color:var(--text-muted);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 15px;cursor:pointer}
+.seg button.on{background:rgba(196,162,92,.12);color:var(--gold)}
+.nm{color:#fff;font-weight:500;line-height:1.35}
+.slugs{color:var(--text-muted);font-size:11px;line-height:1.6;margin-top:4px;font-family:var(--mono)}
+.slugs a{color:var(--text-muted);text-decoration:none;border-bottom:1px dotted var(--gold-dim)}
+.slugs a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <a href="/" class="logo"><span class="dot"></span> LEGAL&nbsp;<b>ALPHA</b></a>
+    <div class="search"><input id="q" placeholder="Filter authorities…"></div>
+    <div class="top-right"><span>SG · SICC</span><div class="avatar">AZ</div></div>
+  </div>
+  <div class="nav">
+    <div class="grp">SICC</div>
+    <a href="sicc.html"><span class="ic">◎</span> Overview</a>
+    <a href="sicc-cases.html"><span class="ic">▤</span> Judgments</a>
+    <a href="judges.html"><span class="ic">⚖</span> The bench</a>
+    <a href="awards.html"><span class="ic">§</span> Money awards</a>
+    <a href="sicc-bar.html"><span class="ic">⛨</span> Firms &amp; counsel</a>
+    <a class="active"><span class="ic">⧉</span> Authorities</a>
+    <div class="grp">Workspace</div>
+    <a href="case-analysis.html"><span class="ic">▣</span> Alpha Extraction</a>
+  </div>
+  <div class="main">
+    <div class="crumb"><a href="/">Seeking Alpha Legal</a> / <a href="sicc.html">SICC</a> / <b>Authorities</b></div>
+    <h1>What this court cites</h1>
+    <p class="subline">The cases, statutes and arbitral institutions that recur across the corpus, counted by the number of judgments each appears in. Useful for finding what to read next, and for seeing which authorities this bench keeps returning to.</p>
+
+    <div class="warn"><b>CANDIDATES, NOT A CITATOR.</b> &nbsp;These are regex sweeps over judgment bodies, tuned for recall. A hit means the string appeared, not that the authority was applied, followed, or even cited approvingly. Verify against the judgment before relying on anything here.</div>
+
+    <div class="toolbar">
+      <span class="seg">
+        <button id="bCases" class="on">Cited cases</button>
+        <button id="bStat">Statutes</button>
+        <button id="bArb">Arbitral bodies</button>
+      </span>
+      <span class="count" id="count"></span>
+    </div>
+    <table id="tbl"><thead><tr><th style="width:56px">Judgments</th><th>Authority</th><th>Appears in</th></tr></thead><tbody id="rows"></tbody></table>
+    <div class="empty" id="empty" style="display:none"></div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+<script>
+var D={}, MODE='citedCases';
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function setMode(m,btn){
+  MODE=m;
+  ['bCases','bStat','bArb'].forEach(function(id){document.getElementById(id).className='';});
+  document.getElementById(btn).className='on';
+  render();
+}
+document.getElementById('bCases').onclick=function(){setMode('citedCases','bCases');};
+document.getElementById('bStat').onclick=function(){setMode('statutes','bStat');};
+document.getElementById('bArb').onclick=function(){setMode('arbitral','bArb');};
+
+function render(){
+  var q=(document.getElementById('q').value||'').toLowerCase();
+  var src=D[MODE]||[];
+  var list=src.filter(function(r){ return !q || r.name.toLowerCase().indexOf(q)>=0; });
+  document.getElementById('rows').innerHTML=list.map(function(r){
+    var slugs=(r.cases||[]).slice(0,8).map(function(s){
+      return '<a href="sicc-cases.html?q='+encodeURIComponent(s)+'" title="'+esc(s)+'">'+esc(s)+'</a>';
+    }).join(' · ');
+    var more=(r.cases||[]).length>8 ? ' <span class="mut">+'+((r.cases||[]).length-8)+' more</span>' : '';
+    return '<tr><td class="amt">'+r.n+'</td>'+
+      '<td><span class="nm">'+esc(r.name)+'</span></td>'+
+      '<td><span class="slugs">'+(slugs||'<span class="mut">—</span>')+more+'</span></td></tr>';
+  }).join('');
+  var label = MODE==='citedCases'?'cited cases':(MODE==='statutes'?'statutes':'arbitral bodies');
+  document.getElementById('count').textContent=list.length+' of '+src.length+' '+label;
+  document.getElementById('empty').style.display=list.length?'none':'block';
+  document.getElementById('empty').textContent='Nothing matches.';
+  document.getElementById('tbl').style.display=list.length?'':'none';
+}
+document.getElementById('q').addEventListener('input',render);
+
+fetch('data/sicc-authorities.json').then(function(r){return r.json();}).then(function(d){
+  D=d;
+  document.getElementById('foot').innerHTML=
+    'LEGAL ALPHA · SICC authorities · '+d.citedCases.length+' cited cases, '+d.statutes.length+
+    ' statutes, '+d.arbitral.length+' arbitral bodies · updated '+esc(d._meta.updated)+
+    '<br>'+esc(d._meta.note)+
+    '<br>A judgment&rsquo;s own citation is excluded from its cited-case list, so a case does not cite itself.';
+  render();
+}).catch(function(e){
+  document.getElementById('tbl').style.display='none';
+  document.getElementById('empty').style.display='block';
+  document.getElementById('empty').textContent='Could not load data/sicc-authorities.json — '+e;
+});
+</script>
+</body>
+</html>

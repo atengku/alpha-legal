@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Alpha — Singapore International Commercial Court</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sicc.css">
+<style>
+.hero{border:1px solid var(--border);background:linear-gradient(180deg,rgba(196,162,92,.06),rgba(196,162,92,0) 60%),var(--bg-panel);border-radius:var(--r);padding:22px 24px;margin-top:14px}
+.hero .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:28px;margin:8px 0 8px}
+.hero h1 em{color:var(--gold);font-style:italic;font-weight:600}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+.lead{display:flex;gap:14px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.lead:last-child{border-bottom:none}
+.lead .rank{font-family:var(--mono);font-size:11px;color:var(--gold);width:20px;flex:none;padding-top:2px}
+.lead .body{flex:1;min-width:0}
+.lead .t{color:#fff;font-size:13.5px;line-height:1.35}
+.lead .s{color:var(--text-muted);font-size:11.5px;margin-top:3px}
+.lead .v{font-family:var(--mono);color:var(--gold);font-size:12px;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <a href="/" class="logo"><span class="dot"></span> LEGAL&nbsp;<b>ALPHA</b></a>
+    <div class="top-right"><span>SG · SICC</span><span id="tr">● loading</span><div class="avatar">AZ</div></div>
+  </div>
+  <div class="nav">
+    <div class="grp">SICC</div>
+    <a class="active"><span class="ic">◎</span> Overview</a>
+    <a href="sicc-cases.html"><span class="ic">▤</span> Judgments</a>
+    <a href="judges.html"><span class="ic">⚖</span> The bench</a>
+    <a href="awards.html"><span class="ic">§</span> Money awards</a>
+    <a href="sicc-bar.html"><span class="ic">⛨</span> Firms &amp; counsel</a>
+    <a href="sicc-authorities.html"><span class="ic">⧉</span> Authorities</a>
+    <div class="grp">Workspace</div>
+    <a href="case-analysis.html"><span class="ic">▣</span> Alpha Extraction</a>
+    <a href="/"><span class="ic">←</span> Seeking Alpha Legal</a>
+  </div>
+  <div class="main">
+    <div class="crumb"><a href="/">Seeking Alpha Legal</a> / <b>SICC</b></div>
+
+    <div class="hero">
+      <div class="eyebrow">Complete corpus · primary source</div>
+      <h1>The <em>Singapore International Commercial Court</em>, worked end to end</h1>
+      <p class="subline">Every written judgment the SICC has issued, scraped from eLitigation and put through the same pipeline: layout-aware parsing, entity and counsel extraction, judge canonicalisation, and a case-by-case read of each disposition for the money actually ordered paid. This page is the way in.</p>
+      <div class="stats" id="heroStats"></div>
+    </div>
+
+    <h2>Where to start</h2>
+    <div class="hubgrid" id="hub"></div>
+
+    <div class="split">
+      <div>
+        <h2>Judgments by year</h2>
+        <div class="panel"><div class="bars" id="byYear"></div></div>
+      </div>
+      <div>
+        <h2>Judgments by subject</h2>
+        <div class="panel"><div class="bars" id="byCat"></div></div>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <h2>Largest money awards</h2>
+        <div class="panel" id="topAwards"></div>
+      </div>
+      <div>
+        <h2>Busiest on the bench</h2>
+        <div class="panel" id="topJudges"></div>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <h2>Most-cited authorities</h2>
+        <div class="panel" id="topCites"></div>
+      </div>
+      <div>
+        <h2>Firms by appearances</h2>
+        <div class="panel" id="topFirms"></div>
+      </div>
+    </div>
+
+    <h2>How this was built, and what it is not</h2>
+    <div class="note">
+      <b>Source.</b> eLitigation's SG Courts Judgments search, filtered to the SICC universe. Every judgment was captured three ways: the authoritative PDF, clean extracted text for parsing, and the raw HTML for layout fidelity.<br><br>
+      <b>Judges.</b> Coram lines name the same judge several ways. &ldquo;Sir Bernard Rix&rdquo; and &ldquo;Bernard Rix&rdquo; are one person; so are &ldquo;Beverley Marian McLachlin&rdquo;, &ldquo;Beverley McLachlin&rdquo; and &ldquo;Beverley McLachlin PC&rdquo;. Variants are merged by surname plus a shared given name, after stripping honorific prefixes and post-nominals, so counts are per judge and not per spelling.<br><br>
+      <b>Awards.</b> Only the operative court award counts. In arbitration matters &ldquo;the Award&rdquo; usually means the <i>arbitral</i> award, not money the court ordered, so arbitral context is detected and excluded. An appeal affirming an award below is the same money, not a second award. Currencies are never converted or summed.<br><br>
+      <b>Counsel and firms.</b> Extracted from the counsel lines by pattern. The extractor also captured personal names and phrases such as &ldquo;instructed counsel&rdquo; as firms; those are filtered out here, but the underlying sweep is recall-oriented.<br><br>
+      <b>Treat entries as candidates, not a citator.</b> Authorities and statutes are regex sweeps over judgment bodies. They are good for finding what to read next. They are not a verified citation index, and nothing here is legal advice.
+    </div>
+
+    <div class="foot" id="foot">LEGAL ALPHA · SICC</div>
+  </div>
+</div>
+<script>
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function num(n){return (n==null)?'—':n.toLocaleString('en-US',{minimumFractionDigits:(n%1?2:0),maximumFractionDigits:2});}
+function money(a,c){
+  if(a==null)return '—';
+  if(a>=1e9)return c+' '+(a/1e9).toFixed(2)+'bn';
+  if(a>=1e6)return c+' '+(a/1e6).toFixed(1)+'m';
+  if(a>=1e3)return c+' '+Math.round(a/1e3)+'k';
+  return c+' '+num(a);
+}
+function bars(el,obj,order){
+  var keys=order||Object.keys(obj).sort();
+  var max=Math.max.apply(null,keys.map(function(k){return obj[k]||0;}))||1;
+  el.innerHTML=keys.map(function(k){
+    return '<div class="barrow"><span class="lbl">'+esc(k)+'</span>'+
+      '<span class="track"><i style="width:'+Math.round(100*(obj[k]||0)/max)+'%"></i></span>'+
+      '<span class="v">'+(obj[k]||0)+'</span></div>';
+  }).join('');
+}
+function leadRow(rank,title,sub,val,href){
+  var inner='<div class="lead"><span class="rank">'+rank+'</span><div class="body">'+
+    '<div class="t">'+title+'</div><div class="s">'+sub+'</div></div><span class="v">'+val+'</span></div>';
+  return href? '<a href="'+href+'" style="text-decoration:none;color:inherit;display:block">'+inner+'</a>' : inner;
+}
+
+Promise.all([
+  fetch('data/sicc-cases.json').then(function(r){return r.json();}),
+  fetch('data/judges.json').then(function(r){return r.json();}),
+  fetch('data/awards.json').then(function(r){return r.json();}),
+  fetch('data/sicc-bar.json').then(function(r){return r.json();}),
+  fetch('data/sicc-authorities.json').then(function(r){return r.json();})
+]).then(function(R){
+  var C=R[0], J=R[1], A=R[2], B=R[3], AU=R[4];
+
+  document.getElementById('tr').textContent='● '+C._meta.judgments+' judgments · '+C._meta.span;
+
+  document.getElementById('heroStats').innerHTML=
+    '<div class="stat"><div class="n">'+C._meta.judgments+'</div><div class="l">written judgments, '+esc(C._meta.span)+'</div></div>'+
+    '<div class="stat"><div class="n">'+J.judges.length+'</div><div class="l">judges on the bench, variants merged</div></div>'+
+    '<div class="stat"><div class="n">'+A._meta.shortlisted+'</div><div class="l">judgments carrying a money award</div></div>'+
+    '<div class="stat"><div class="n">'+B._meta.firms+'</div><div class="l">law firms appearing</div></div>'+
+    '<div class="stat"><div class="n">'+B._meta.counsel+'</div><div class="l">counsel on the record</div></div>';
+
+  document.getElementById('hub').innerHTML=
+    '<a class="hubcard" href="sicc-cases.html"><div class="ic">▤</div><h3>The judgments</h3>'+
+      '<p>Every decision, filterable by year, subject and judge, each linked to its panel and to eLitigation.</p>'+
+      '<span class="n">'+C._meta.judgments+' judgments</span></a>'+
+    '<a class="hubcard" href="judges.html"><div class="ic">⚖</div><h3>The bench</h3>'+
+      '<p>Who sat, who wrote, what subjects they take, who they sit with, and what they awarded.</p>'+
+      '<span class="n">'+J.judges.length+' judges</span></a>'+
+    '<a class="hubcard" href="awards.html"><div class="ic">§</div><h3>Money awards</h3>'+
+      '<p>The sums the court actually ordered paid, read from each disposition. Never converted across currencies.</p>'+
+      '<span class="n">'+A.awards.length+' award rows</span></a>'+
+    '<a class="hubcard" href="sicc-bar.html"><div class="ic">⛨</div><h3>Firms &amp; counsel</h3>'+
+      '<p>Which practices appear, how often, and who they field.</p>'+
+      '<span class="n">'+B._meta.firms+' firms · '+B._meta.counsel+' counsel</span></a>'+
+    '<a class="hubcard" href="sicc-authorities.html"><div class="ic">⧉</div><h3>Authorities</h3>'+
+      '<p>What this court cites: the recurring cases, the statutes invoked, and the arbitral institutions in play.</p>'+
+      '<span class="n">'+AU.citedCases.length+' cases · '+AU.statutes.length+' statutes</span></a>';
+
+  var yrs=Object.keys(C._meta.byYear).sort();
+  bars(document.getElementById('byYear'), C._meta.byYear, yrs);
+  var cats=Object.keys(C._meta.byCategory).sort(function(a,b){return C._meta.byCategory[b]-C._meta.byCategory[a];});
+  bars(document.getElementById('byCat'), C._meta.byCategory, cats);
+
+  var top=A.awards.slice().sort(function(a,b){return (b.amount||0)-(a.amount||0);}).slice(0,6);
+  document.getElementById('topAwards').innerHTML=top.map(function(a,i){
+    return leadRow(i+1, esc(a.case), esc(a.citation)+' · '+esc(a.judge||'—'), money(a.amount,a.currency), 'awards.html');
+  }).join('') + '<div class="mut" style="margin-top:10px">Raw numeric order only. Currencies are not comparable.</div>';
+
+  var tj=J.judges.slice().sort(function(a,b){return b.sat-a.sat;}).slice(0,6);
+  document.getElementById('topJudges').innerHTML=tj.map(function(j,i){
+    return leadRow(i+1, esc(j.name), esc(j.bench)+' · wrote '+j.authored+' of '+j.sat, j.sat+' sat',
+      'judge.html?id='+encodeURIComponent(j.id));
+  }).join('');
+
+  document.getElementById('topCites').innerHTML=AU.citedCases.slice(0,6).map(function(c,i){
+    return leadRow(i+1, esc(c.name), 'appears across the corpus', c.n+'×', 'sicc-authorities.html');
+  }).join('');
+
+  document.getElementById('topFirms').innerHTML=B.firms.slice(0,6).map(function(f,i){
+    return leadRow(i+1, esc(f.name), (f.counsel?f.counsel.length:0)+' counsel on the record', f.appearances+'×', 'sicc-bar.html');
+  }).join('');
+
+  document.getElementById('foot').innerHTML=
+    'LEGAL ALPHA · SICC · '+esc(C._meta.source)+' · '+C._meta.judgments+' judgments, '+
+    C._meta.withPanel+' with an identified panel, '+C._meta.withAward+' carrying a money award · data updated '+esc(C._meta.updated);
+}).catch(function(e){
+  document.getElementById('foot').textContent='Data load failed — '+e;
+});
+</script>
+</body>
+</html>

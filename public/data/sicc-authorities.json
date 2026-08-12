@@ -1,0 +1,2685 @@
+﻿{
+    "_meta":  {
+                  "note":  "Citations, statutes and arbitral institutions swept from the judgment bodies by regex. Counts are judgments in which the item appears. Regex sweeps are recall-oriented: treat entries as candidates, not a verified citator.",
+                  "updated":  "2026-08-13"
+              },
+    "citedCases":  [
+                       {
+                           "name":  "[2007] 3 SLR(R) 86",
+                           "n":  24,
+                           "cases":  [
+                                         "2019_SGHCI_10",
+                                         "2020_SGHCI_11",
+                                         "2020_SGHCI_23",
+                                         "2021_SGCAI_3",
+                                         "2021_SGHCI_13",
+                                         "2021_SGHCI_17",
+                                         "2021_SGHCI_20",
+                                         "2021_SGHCI_5",
+                                         "2022_SGCAI_4",
+                                         "2022_SGCAI_6",
+                                         "2022_SGHCI_8",
+                                         "2023_SGCAI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2023] 1 SLR 96",
+                           "n":  22,
+                           "cases":  [
+                                         "2023_SGCAI_10",
+                                         "2023_SGHCI_12",
+                                         "2023_SGHCI_14",
+                                         "2023_SGHCI_15",
+                                         "2023_SGHCI_17",
+                                         "2023_SGHCI_20",
+                                         "2024_SGHCI_11",
+                                         "2024_SGHCI_18",
+                                         "2024_SGHCI_26",
+                                         "2024_SGHCI_28",
+                                         "2024_SGHCI_30",
+                                         "2024_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 3 SLR 488",
+                           "n":  20,
+                           "cases":  [
+                                         "2020_SGHCI_11",
+                                         "2020_SGHCI_23",
+                                         "2021_SGCAI_3",
+                                         "2021_SGHCI_13",
+                                         "2021_SGHCI_20",
+                                         "2021_SGHCI_5",
+                                         "2022_SGCAI_4",
+                                         "2022_SGCAI_9",
+                                         "2022_SGHCI_11",
+                                         "2022_SGHCI_3",
+                                         "2022_SGHCI_8",
+                                         "2022_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2013] 1 SLR 125",
+                           "n":  16,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2021_SGHCI_13",
+                                         "2021_SGHCI_20",
+                                         "2022_SGCAI_9",
+                                         "2022_SGHCI_11",
+                                         "2023_SGCAI_9",
+                                         "2023_SGHCI_10",
+                                         "2023_SGHCI_2",
+                                         "2024_SGCAI_6",
+                                         "2024_SGHCI_24",
+                                         "2024_SGHCI_4",
+                                         "2025_SGCAI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2020] 1 SLR 695",
+                           "n":  15,
+                           "cases":  [
+                                         "2020_SGHCI_23",
+                                         "2021_SGHCI_13",
+                                         "2021_SGHCI_17",
+                                         "2021_SGHCI_20",
+                                         "2022_SGHCI_11",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_8",
+                                         "2022_SGHCI_9",
+                                         "2023_SGHCI_10",
+                                         "2023_SGHCI_21",
+                                         "2024_SGCAI_10",
+                                         "2025_SGCAI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 5 SLR 1",
+                           "n":  15,
+                           "cases":  [
+                                         "2019_SGHCI_2",
+                                         "2020_SGCAI_1",
+                                         "2020_SGCAI_5",
+                                         "2020_SGHCI_1",
+                                         "2020_SGHCI_27",
+                                         "2021_SGHCI_12",
+                                         "2021_SGHCI_2",
+                                         "2021_SGHCI_6",
+                                         "2022_SGCAI_10",
+                                         "2022_SGCAI_5",
+                                         "2023_SGCAI_3",
+                                         "2023_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2007] 1 SLR(R) 597",
+                           "n":  14,
+                           "cases":  [
+                                         "2020_SGHCI_11",
+                                         "2020_SGHCI_17",
+                                         "2020_SGHCI_23",
+                                         "2021_SGCAI_3",
+                                         "2021_SGHCI_13",
+                                         "2022_SGHCI_3",
+                                         "2023_SGHCI_18",
+                                         "2024_SGHCI_10",
+                                         "2024_SGHCI_24",
+                                         "2024_SGHCI_9",
+                                         "2025_SGHCI_15",
+                                         "2026_SGHCI_1"
+                                     ]
+                       },
+                       {
+                           "name":  "[2014] 4 SLR 79",
+                           "n":  13,
+                           "cases":  [
+                                         "2020_SGHCI_11",
+                                         "2020_SGHCI_23",
+                                         "2021_SGHCI_10",
+                                         "2021_SGHCI_13",
+                                         "2021_SGHCI_5",
+                                         "2022_SGCAI_9",
+                                         "2022_SGHCI_11",
+                                         "2022_SGHCI_8",
+                                         "2022_SGHCI_9",
+                                         "2023_SGCAI_9",
+                                         "2023_SGHCI_2",
+                                         "2024_SGHCI_24"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 4 SLR 38",
+                           "n":  11,
+                           "cases":  [
+                                         "2018_SGCAI_7",
+                                         "2019_SGHCI_12",
+                                         "2019_SGHCI_7",
+                                         "2020_SGHCI_12",
+                                         "2021_SGCAI_4",
+                                         "2021_SGHCI_16",
+                                         "2022_SGHCI_12",
+                                         "2022_SGHCI_17",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_7",
+                                         "2025_SGHCI_20"
+                                     ]
+                       },
+                       {
+                           "name":  "[2011] 4 SLR 739",
+                           "n":  10,
+                           "cases":  [
+                                         "2020_SGHCI_17",
+                                         "2020_SGHCI_23",
+                                         "2022_SGCAI_9",
+                                         "2022_SGHCI_3",
+                                         "2022_SGHCI_9",
+                                         "2023_SGHCI_18",
+                                         "2024_SGHCI_1",
+                                         "2024_SGHCI_10",
+                                         "2024_SGHCI_13",
+                                         "2026_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] 1 SLR 88",
+                           "n":  10,
+                           "cases":  [
+                                         "2022_SGCAI_10",
+                                         "2022_SGHCI_12",
+                                         "2022_SGHCI_17",
+                                         "2022_SGHCI_6",
+                                         "2023_SGHCI_17",
+                                         "2024_SGHCI_18",
+                                         "2024_SGHCI_30",
+                                         "2024_SGHCI_5",
+                                         "2025_SGHCI_7",
+                                         "2026_SGHCI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] 3 SLR 174",
+                           "n":  10,
+                           "cases":  [
+                                         "2022_SGCAI_10",
+                                         "2022_SGHCI_12",
+                                         "2022_SGHCI_13",
+                                         "2022_SGHCI_17",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_7",
+                                         "2023_SGHCI_12",
+                                         "2023_SGHCI_14",
+                                         "2023_SGHCI_17",
+                                         "2025_SGHCI_7"
+                                     ]
+                       },
+                       {
+                           "name":  "[2013] 4 SLR 193",
+                           "n":  10,
+                           "cases":  [
+                                         "2016_SGHCI_1",
+                                         "2016_SGHCI_3",
+                                         "2018_SGHCI_6",
+                                         "2019_SGHCI_13",
+                                         "2019_SGHCI_3",
+                                         "2021_SGHCI_10",
+                                         "2021_SGHCI_7",
+                                         "2022_SGCAI_10",
+                                         "2023_SGHCI_8",
+                                         "2024_SGHCI_16"
+                                     ]
+                       },
+                       {
+                           "name":  "[2008] 2 SLR(R) 623",
+                           "n":  10,
+                           "cases":  [
+                                         "2016_SGHCI_6",
+                                         "2017_SGHCI_5",
+                                         "2020_SGCAI_5",
+                                         "2020_SGHCI_1",
+                                         "2020_SGHCI_7",
+                                         "2021_SGHCI_19",
+                                         "2021_SGHCI_7",
+                                         "2022_SGCAI_5",
+                                         "2023_SGHCI_3",
+                                         "2026_SGCAI_1"
+                                     ]
+                       },
+                       {
+                           "name":  "[2001] 2 SLR(R) 435",
+                           "n":  10,
+                           "cases":  [
+                                         "2019_SGHCI_5",
+                                         "2020_SGHCI_14",
+                                         "2020_SGHCI_16",
+                                         "2022_SGHCI_1",
+                                         "2022_SGHCI_4",
+                                         "2023_SGHCI_13",
+                                         "2024_SGHCI_32",
+                                         "2025_SGCAI_3",
+                                         "2025_SGHCI_17",
+                                         "2026_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2011] 4 SLR 305",
+                           "n":  9,
+                           "cases":  [
+                                         "2020_SGHCI_17",
+                                         "2020_SGHCI_23",
+                                         "2021_SGCAI_3",
+                                         "2021_SGHCI_5",
+                                         "2022_SGHCI_8",
+                                         "2023_SGHCI_10",
+                                         "2023_SGHCI_21",
+                                         "2026_SGCAI_3",
+                                         "2026_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2019] 2 SLR 1",
+                           "n":  8,
+                           "cases":  [
+                                         "2020_SGCAI_1",
+                                         "2020_SGCAI_5",
+                                         "2020_SGHCI_1",
+                                         "2022_SGCAI_10",
+                                         "2022_SGCAI_5",
+                                         "2023_SGCAI_3",
+                                         "2023_SGHCI_3",
+                                         "2025_SGCAI_1"
+                                     ]
+                       },
+                       {
+                           "name":  "[2014] 1 SLR 372",
+                           "n":  8,
+                           "cases":  [
+                                         "2019_SGHCI_10",
+                                         "2019_SGHCI_11",
+                                         "2021_SGHCI_10",
+                                         "2021_SGHCI_17",
+                                         "2023_SGCAI_10",
+                                         "2023_SGHCI_6",
+                                         "2025_SGHCI_19",
+                                         "2025_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 5 SLR 536",
+                           "n":  7,
+                           "cases":  [
+                                         "2020_SGHCI_8",
+                                         "2021_SGHCI_10",
+                                         "2022_SGHCI_16",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_9",
+                                         "2025_SGHCI_19",
+                                         "2025_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 2 SLR 110",
+                           "n":  7,
+                           "cases":  [
+                                         "2019_SGHCI_5",
+                                         "2020_SGHCI_14",
+                                         "2020_SGHCI_16",
+                                         "2021_SGHCI_12",
+                                         "2022_SGHCI_4",
+                                         "2025_SGCAI_3",
+                                         "2025_SGHCI_17"
+                                     ]
+                       },
+                       {
+                           "name":  "[2013] 4 SLR 972",
+                           "n":  7,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2021_SGHCI_20",
+                                         "2021_SGHCI_5",
+                                         "2022_SGHCI_8",
+                                         "2023_SGCAI_9",
+                                         "2023_SGHCI_1",
+                                         "2023_SGHCI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] 1 SLR 1080",
+                           "n":  7,
+                           "cases":  [
+                                         "2022_SGCAI_9",
+                                         "2023_SGHCI_1",
+                                         "2023_SGHCI_18",
+                                         "2023_SGHCI_2",
+                                         "2024_SGCAI_6",
+                                         "2024_SGHCI_4",
+                                         "2024_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] SGHC(I) 6",
+                           "n":  7,
+                           "cases":  [
+                                         "2022_SGCAI_10",
+                                         "2022_SGHCI_12",
+                                         "2022_SGHCI_13",
+                                         "2022_SGHCI_17",
+                                         "2022_SGHCI_8",
+                                         "2023_SGHCI_12",
+                                         "2023_SGHCI_14"
+                                     ]
+                       },
+                       {
+                           "name":  "[2014] 1 SLR 860",
+                           "n":  7,
+                           "cases":  [
+                                         "2016_SGHCI_3",
+                                         "2018_SGCAI_3",
+                                         "2018_SGHCI_6",
+                                         "2019_SGHCI_5",
+                                         "2021_SGHCI_10",
+                                         "2023_SGCAI_6",
+                                         "2025_SGCAI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2008] 3 SLR(R) 1029",
+                           "n":  7,
+                           "cases":  [
+                                         "2016_SGHCI_1",
+                                         "2017_SGHCI_5",
+                                         "2019_SGHCI_3",
+                                         "2020_SGHCI_16",
+                                         "2021_SGHCI_10",
+                                         "2021_SGHCI_7",
+                                         "2023_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 1 SLR 373",
+                           "n":  7,
+                           "cases":  [
+                                         "2016_SGHCI_5",
+                                         "2019_SGCAI_1",
+                                         "2021_SGHCI_17",
+                                         "2022_SGCAI_5",
+                                         "2023_SGHCI_23",
+                                         "2025_SGCAI_1",
+                                         "2026_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 1 SLR 317",
+                           "n":  7,
+                           "cases":  [
+                                         "2019_SGHCI_5",
+                                         "2020_SGHCI_14",
+                                         "2021_SGHCI_7",
+                                         "2022_SGHCI_4",
+                                         "2024_SGHCI_21",
+                                         "2024_SGHCI_23",
+                                         "2025_SGHCI_15"
+                                     ]
+                       },
+                       {
+                           "name":  "[2013] 3 SLR 801",
+                           "n":  7,
+                           "cases":  [
+                                         "2017_SGHCI_5",
+                                         "2019_SGHCI_3",
+                                         "2019_SGHCI_5",
+                                         "2020_SGHCI_14",
+                                         "2022_SGHCI_4",
+                                         "2025_SGHCI_17",
+                                         "2026_SGHCI_4"
+                                     ]
+                       },
+                       {
+                           "name":  "[2019] 5 SLR 48",
+                           "n":  6,
+                           "cases":  [
+                                         "2020_SGHCI_12",
+                                         "2020_SGHCI_21",
+                                         "2021_SGCAI_4",
+                                         "2022_SGHCI_6",
+                                         "2024_SGHCI_18",
+                                         "2025_SGHCI_20"
+                                     ]
+                       },
+                       {
+                           "name":  "[2008] 2 SLR(R) 491",
+                           "n":  6,
+                           "cases":  [
+                                         "2020_SGHCI_10",
+                                         "2020_SGHCI_16",
+                                         "2020_SGHCI_2",
+                                         "2023_SGHCI_18",
+                                         "2025_SGCAI_2",
+                                         "2025_SGHCI_24"
+                                     ]
+                       },
+                       {
+                           "name":  "[2012] 4 SLR 98",
+                           "n":  6,
+                           "cases":  [
+                                         "2020_SGHCI_23",
+                                         "2021_SGCAI_3",
+                                         "2021_SGHCI_13",
+                                         "2021_SGHCI_17",
+                                         "2022_SGCAI_4",
+                                         "2022_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[2023] 4 SLR 77",
+                           "n":  6,
+                           "cases":  [
+                                         "2024_SGHCI_11",
+                                         "2024_SGHCI_28",
+                                         "2024_SGHCI_30",
+                                         "2024_SGHCI_5",
+                                         "2025_SGHCI_20",
+                                         "2026_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 4 SLR 768",
+                           "n":  6,
+                           "cases":  [
+                                         "2021_SGHCI_13",
+                                         "2022_SGCAI_9",
+                                         "2024_SGHCI_4",
+                                         "2025_SGCAI_2",
+                                         "2026_SGCAI_3",
+                                         "2026_SGHCI_1"
+                                     ]
+                       },
+                       {
+                           "name":  "[1994] 2 SLR(R) 501",
+                           "n":  6,
+                           "cases":  [
+                                         "2018_SGHCI_6",
+                                         "2019_SGHCI_2",
+                                         "2020_SGCAI_1",
+                                         "2021_SGCAI_1",
+                                         "2026_SGCAI_1",
+                                         "2026_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 5 SLR 1187",
+                           "n":  6,
+                           "cases":  [
+                                         "2016_SGHCI_1",
+                                         "2019_SGHCI_3",
+                                         "2021_SGHCI_10",
+                                         "2021_SGHCI_7",
+                                         "2022_SGHCI_2",
+                                         "2023_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[2010] 2 SLR 776",
+                           "n":  6,
+                           "cases":  [
+                                         "2018_SGHCI_6",
+                                         "2019_SGCAI_1",
+                                         "2019_SGHCI_2",
+                                         "2022_SGCAI_5",
+                                         "2025_SGCAI_1",
+                                         "2026_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 1 SLR 496",
+                           "n":  6,
+                           "cases":  [
+                                         "2019_SGHCI_12",
+                                         "2022_SGCAI_10",
+                                         "2022_SGHCI_4",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_7",
+                                         "2026_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 2 SLR 972",
+                           "n":  6,
+                           "cases":  [
+                                         "2019_SGHCI_10",
+                                         "2022_SGCAI_9",
+                                         "2022_SGHCI_11",
+                                         "2023_SGHCI_6",
+                                         "2024_SGHCI_34",
+                                         "2026_SGHCI_7"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 2 SLR 1156",
+                           "n":  5,
+                           "cases":  [
+                                         "2020_SGHCI_6",
+                                         "2023_SGHCI_1",
+                                         "2024_SGHCI_24",
+                                         "2025_SGCAI_2",
+                                         "2025_SGHCI_15"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 1 SLR 114",
+                           "n":  5,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2022_SGCAI_9",
+                                         "2023_SGHCI_1",
+                                         "2025_SGCAI_2",
+                                         "2025_SGHCI_15"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 1 SLR 966",
+                           "n":  5,
+                           "cases":  [
+                                         "2020_SGHCI_17",
+                                         "2022_SGCAI_6",
+                                         "2023_SGHCI_18",
+                                         "2025_SGCAI_2",
+                                         "2025_SGHCI_12"
+                                     ]
+                       },
+                       {
+                           "name":  "[2010] 3 SLR 1",
+                           "n":  5,
+                           "cases":  [
+                                         "2020_SGHCI_23",
+                                         "2022_SGHCI_3",
+                                         "2023_SGHCI_18",
+                                         "2024_SGHCI_9",
+                                         "2025_SGHCI_15"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 1 SLR 894",
+                           "n":  5,
+                           "cases":  [
+                                         "2022_SGHCI_4",
+                                         "2023_SGHCI_13",
+                                         "2024_SGHCI_29",
+                                         "2024_SGHCI_32",
+                                         "2025_SGCAI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 1 SLR 276",
+                           "n":  5,
+                           "cases":  [
+                                         "2022_SGHCI_9",
+                                         "2024_SGHCI_24",
+                                         "2025_SGHCI_15",
+                                         "2025_SGHCI_29",
+                                         "2026_SGHCI_7"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 5 SLR 228",
+                           "n":  5,
+                           "cases":  [
+                                         "2021_SGHCI_13",
+                                         "2022_SGCAI_9",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_9",
+                                         "2024_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2020] 4 SLR 85",
+                           "n":  5,
+                           "cases":  [
+                                         "2021_SGHCI_14",
+                                         "2021_SGHCI_19",
+                                         "2022_SGCAI_7",
+                                         "2022_SGCAI_8",
+                                         "2024_SGHCI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 2 SLR 686",
+                           "n":  5,
+                           "cases":  [
+                                         "2020_SGHCI_16",
+                                         "2020_SGHCI_25",
+                                         "2020_SGHCI_27",
+                                         "2022_SGHCI_14",
+                                         "2025_SGHCI_17"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 4 SLR 1",
+                           "n":  5,
+                           "cases":  [
+                                         "2017_SGHCI_6",
+                                         "2019_SGHCI_1",
+                                         "2020_SGHCI_10",
+                                         "2020_SGHCI_25",
+                                         "2022_SGHCI_17"
+                                     ]
+                       },
+                       {
+                           "name":  "[2017] 1 SLR 141",
+                           "n":  5,
+                           "cases":  [
+                                         "2018_SGHCI_6",
+                                         "2020_SGHCI_16",
+                                         "2020_SGHCI_25",
+                                         "2021_SGHCI_7",
+                                         "2023_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2008] 1 SLR(R) 80",
+                           "n":  5,
+                           "cases":  [
+                                         "2016_SGHCI_3",
+                                         "2018_SGCAI_3",
+                                         "2018_SGHCI_6",
+                                         "2019_SGHCI_7",
+                                         "2024_SGHCI_32"
+                                     ]
+                       },
+                       {
+                           "name":  "[2004] 1 AC 919",
+                           "n":  5,
+                           "cases":  [
+                                         "2017_SGHCI_11",
+                                         "2017_SGHCI_5",
+                                         "2018_SGHCI_5",
+                                         "2019_SGHCI_3",
+                                         "2025_SGHCI_12"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 2 SLR 655",
+                           "n":  5,
+                           "cases":  [
+                                         "2019_SGHCI_8",
+                                         "2020_SGHCI_27",
+                                         "2022_SGCAI_5",
+                                         "2022_SGHCI_2",
+                                         "2023_SGHCI_13"
+                                     ]
+                       },
+                       {
+                           "name":  "[2002] 2 AC 1",
+                           "n":  5,
+                           "cases":  [
+                                         "2020_SGHCI_14",
+                                         "2021_SGCAI_2",
+                                         "2021_SGHCI_12",
+                                         "2023_SGCAI_10",
+                                         "2024_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2004] 2 SLR(R) 427",
+                           "n":  5,
+                           "cases":  [
+                                         "2018_SGHCI_8",
+                                         "2020_SGHCI_24",
+                                         "2020_SGHCI_9",
+                                         "2023_SGHCI_15",
+                                         "2024_SGHCI_12"
+                                     ]
+                       },
+                       {
+                           "name":  "[2010] 2 SLR 589",
+                           "n":  5,
+                           "cases":  [
+                                         "2019_SGHCI_5",
+                                         "2020_SGHCI_14",
+                                         "2020_SGHCI_2",
+                                         "2022_SGHCI_10",
+                                         "2023_SGHCI_13"
+                                     ]
+                       },
+                       {
+                           "name":  "[2019] 2 SLR 131",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGHCI_17",
+                                         "2024_SGHCI_3",
+                                         "2025_SGHCI_15",
+                                         "2025_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2019] 2 SLR 372",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGHCI_14",
+                                         "2022_SGCAI_7",
+                                         "2025_SGHCI_16",
+                                         "2026_SGHCI_6"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 3 SLR 215",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGCAI_10",
+                                         "2022_SGCAI_5",
+                                         "2023_SGHCI_3",
+                                         "2023_SGHCI_4"
+                                     ]
+                       },
+                       {
+                           "name":  "[1978] VR 385",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGCAI_4",
+                                         "2024_SGCAI_6",
+                                         "2025_SGHCI_15",
+                                         "2025_SGHCI_29"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 5 SLR 111",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGCAI_10",
+                                         "2022_SGCAI_5",
+                                         "2023_SGHCI_3",
+                                         "2023_SGHCI_4"
+                                     ]
+                       },
+                       {
+                           "name":  "[2019] 1 SLR 732",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGHCI_14",
+                                         "2023_SGHCI_23",
+                                         "2024_SGHCI_19",
+                                         "2025_SGHCI_16"
+                                     ]
+                       },
+                       {
+                           "name":  "[2010] SGHC 80",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGCAI_3",
+                                         "2022_SGCAI_4",
+                                         "2023_SGCAI_9",
+                                         "2025_SGCAI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2007] 1 SLR(R) 453",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGCAI_2",
+                                         "2021_SGHCI_12",
+                                         "2021_SGHCI_14",
+                                         "2023_SGCAI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 2 SLR 322",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_9",
+                                         "2026_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 2 SLR 235",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGHCI_13",
+                                         "2022_SGHCI_8",
+                                         "2023_SGHCI_1",
+                                         "2023_SGHCI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 1 SLR 1",
+                           "n":  4,
+                           "cases":  [
+                                         "2021_SGHCI_13",
+                                         "2023_SGCAI_10",
+                                         "2023_SGHCI_1",
+                                         "2025_SGHCI_25"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 1 SLR 1045",
+                           "n":  4,
+                           "cases":  [
+                                         "2024_SGHCI_10",
+                                         "2024_SGHCI_33",
+                                         "2024_SGHCI_9",
+                                         "2026_SGHCI_7"
+                                     ]
+                       },
+                       {
+                           "name":  "[2023] 1 SLR 349",
+                           "n":  4,
+                           "cases":  [
+                                         "2023_SGCAI_10",
+                                         "2023_SGHCI_23",
+                                         "2024_SGHCI_33",
+                                         "2026_SGHCI_1"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] 1 SLR 505",
+                           "n":  4,
+                           "cases":  [
+                                         "2024_SGHCI_24",
+                                         "2025_SGCAI_2",
+                                         "2025_SGHCI_15",
+                                         "2025_SGHCI_29"
+                                     ]
+                       },
+                       {
+                           "name":  "[2025] 1 SLR 806",
+                           "n":  4,
+                           "cases":  [
+                                         "2025_SGHCI_23",
+                                         "2025_SGHCI_25",
+                                         "2025_SGHCI_29",
+                                         "2026_SGHCI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2023] 1 SLR 55",
+                           "n":  4,
+                           "cases":  [
+                                         "2024_SGHCI_24",
+                                         "2024_SGHCI_9",
+                                         "2025_SGHCI_15",
+                                         "2026_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2014] 3 SLR 481",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGHCI_8",
+                                         "2023_SGHCI_21",
+                                         "2025_SGHCI_29",
+                                         "2025_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2007] 3 SLR(R) 86",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGHCI_11",
+                                         "2023_SGCAI_9",
+                                         "2023_SGHCI_1",
+                                         "2023_SGHCI_22"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 1 SLR 549",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGCAI_9",
+                                         "2024_SGHCI_24",
+                                         "2025_SGHCI_15",
+                                         "2026_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] SGCA(I) 10",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGHCI_17",
+                                         "2023_SGHCI_1",
+                                         "2023_SGHCI_4",
+                                         "2025_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 3 SLR 22",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGHCI_3",
+                                         "2023_SGHCI_18",
+                                         "2025_SGHCI_24",
+                                         "2026_SGHCI_1"
+                                     ]
+                       },
+                       {
+                           "name":  "[2020] 5 SLR 266",
+                           "n":  4,
+                           "cases":  [
+                                         "2022_SGHCI_3",
+                                         "2023_SGCAI_10",
+                                         "2023_SGHCI_18",
+                                         "2024_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2020] 3 SLR 61",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_24",
+                                         "2021_SGCAI_1",
+                                         "2022_SGHCI_12",
+                                         "2022_SGHCI_4"
+                                     ]
+                       },
+                       {
+                           "name":  "[2007] 3 SLR(R) 782",
+                           "n":  4,
+                           "cases":  [
+                                         "2017_SGHCI_5",
+                                         "2018_SGCAI_1",
+                                         "2020_SGHCI_1",
+                                         "2021_SGHCI_7"
+                                     ]
+                       },
+                       {
+                           "name":  "[2007] 3 SLR(R) 537",
+                           "n":  4,
+                           "cases":  [
+                                         "2017_SGHCI_5",
+                                         "2019_SGHCI_3",
+                                         "2020_SGHCI_18",
+                                         "2022_SGHCI_4"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 2 SLR 1114",
+                           "n":  4,
+                           "cases":  [
+                                         "2017_SGHCI_5",
+                                         "2020_SGHCI_2",
+                                         "2021_SGCAI_1",
+                                         "2024_SGHCI_23"
+                                     ]
+                       },
+                       {
+                           "name":  "[2017] 2 SLR 592",
+                           "n":  4,
+                           "cases":  [
+                                         "2018_SGCAI_5",
+                                         "2020_SGHCI_14",
+                                         "2020_SGHCI_25",
+                                         "2024_SGCAI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2000] 2 SLR(R) 407",
+                           "n":  4,
+                           "cases":  [
+                                         "2017_SGHCI_8",
+                                         "2018_SGCAI_5",
+                                         "2020_SGHCI_2",
+                                         "2020_SGHCI_25"
+                                     ]
+                       },
+                       {
+                           "name":  "[1964] 2 QB 480",
+                           "n":  4,
+                           "cases":  [
+                                         "2017_SGHCI_5",
+                                         "2020_SGHCI_2",
+                                         "2024_SGCAI_10",
+                                         "2024_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[1999] 3 SLR(R) 842",
+                           "n":  4,
+                           "cases":  [
+                                         "2016_SGHCI_1",
+                                         "2016_SGHCI_5",
+                                         "2020_SGHCI_23",
+                                         "2020_SGHCI_25"
+                                     ]
+                       },
+                       {
+                           "name":  "[1920] 2 KB 287",
+                           "n":  4,
+                           "cases":  [
+                                         "2016_SGHCI_1",
+                                         "2020_SGHCI_23",
+                                         "2020_SGHCI_25",
+                                         "2023_SGHCI_18"
+                                     ]
+                       },
+                       {
+                           "name":  "(1984) 156 CLR 41",
+                           "n":  4,
+                           "cases":  [
+                                         "2016_SGHCI_3",
+                                         "2018_SGCAI_3",
+                                         "2019_SGHCI_8",
+                                         "2024_SGHCI_23"
+                                     ]
+                       },
+                       {
+                           "name":  "[1999] 1 SLR(R) 1053",
+                           "n":  4,
+                           "cases":  [
+                                         "2017_SGHCI_3",
+                                         "2017_SGHCI_7",
+                                         "2019_SGCAI_1",
+                                         "2024_SGHCI_22"
+                                     ]
+                       },
+                       {
+                           "name":  "[2011] 1 SLR 150",
+                           "n":  4,
+                           "cases":  [
+                                         "2016_SGHCI_6",
+                                         "2020_SGCAI_5",
+                                         "2021_SGHCI_7",
+                                         "2022_SGCAI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2004] 4 SLR(R) 162",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_16",
+                                         "2022_SGHCI_2",
+                                         "2026_SGCAI_1",
+                                         "2026_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 5 SLR 1104",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_14",
+                                         "2021_SGHCI_14",
+                                         "2024_SGHCI_9",
+                                         "2025_SGHCI_19"
+                                     ]
+                       },
+                       {
+                           "name":  "[1999] QB 740",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_17",
+                                         "2020_SGHCI_23",
+                                         "2021_SGHCI_10",
+                                         "2022_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 4 SLR 271",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_17",
+                                         "2021_SGCAI_3",
+                                         "2021_SGHCI_13",
+                                         "2022_SGHCI_8"
+                                     ]
+                       },
+                       {
+                           "name":  "[1999] QB 785",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_17",
+                                         "2020_SGHCI_23",
+                                         "2021_SGHCI_10",
+                                         "2022_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2014] 3 SLR 329",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_14",
+                                         "2020_SGHCI_25",
+                                         "2021_SGCAI_2",
+                                         "2024_SGCAI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2011] 1 SLR 391",
+                           "n":  4,
+                           "cases":  [
+                                         "2019_SGHCI_15",
+                                         "2021_SGCAI_1",
+                                         "2025_SGHCI_17",
+                                         "2026_SGHCI_6"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 1 SLR 180",
+                           "n":  4,
+                           "cases":  [
+                                         "2019_SGHCI_13",
+                                         "2021_SGHCI_7",
+                                         "2022_SGCAI_10",
+                                         "2024_SGCAI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2003] 3 SLR(R) 307",
+                           "n":  4,
+                           "cases":  [
+                                         "2019_SGHCI_5",
+                                         "2024_SGHCI_32",
+                                         "2025_SGCAI_3",
+                                         "2025_SGHCI_17"
+                                     ]
+                       },
+                       {
+                           "name":  "[2001] 1 SLR(R) 443",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGHCI_11",
+                                         "2020_SGHCI_23",
+                                         "2021_SGHCI_13",
+                                         "2021_SGHCI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2011] 1 AC 763",
+                           "n":  4,
+                           "cases":  [
+                                         "2020_SGCAI_2",
+                                         "2021_SGCAI_3",
+                                         "2023_SGCAI_10",
+                                         "2024_SGHCI_19"
+                                     ]
+                       },
+                       {
+                           "name":  "[2015] 5 SLR 873",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_14",
+                                         "2023_SGHCI_23",
+                                         "2025_SGHCI_16"
+                                     ]
+                       },
+                       {
+                           "name":  "[2016] 3 SLR 1308",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_19",
+                                         "2024_SGHCI_30",
+                                         "2024_SGHCI_6"
+                                     ]
+                       },
+                       {
+                           "name":  "[1997] 2 SLR(R) 148",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_14",
+                                         "2023_SGHCI_23",
+                                         "2025_SGHCI_16"
+                                     ]
+                       },
+                       {
+                           "name":  "[2011] 2 SLR 96",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_14",
+                                         "2022_SGCAI_7",
+                                         "2023_SGHCI_23"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 5 SLR 1",
+                           "n":  3,
+                           "cases":  [
+                                         "2022_SGCAI_10",
+                                         "2022_SGCAI_5",
+                                         "2023_SGHCI_3"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 1 SLR 935",
+                           "n":  3,
+                           "cases":  [
+                                         "2022_SGCAI_9",
+                                         "2023_SGHCI_21",
+                                         "2025_SGCAI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2021] 5 SLR 405",
+                           "n":  3,
+                           "cases":  [
+                                         "2022_SGHCI_11",
+                                         "2025_SGHCI_24",
+                                         "2026_SGHCI_1"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] SGCA(I) 5",
+                           "n":  3,
+                           "cases":  [
+                                         "2022_SGCAI_10",
+                                         "2023_SGHCI_3",
+                                         "2023_SGHCI_4"
+                                     ]
+                       },
+                       {
+                           "name":  "[2022] 3 SLR 103",
+                           "n":  3,
+                           "cases":  [
+                                         "2022_SGCAI_7",
+                                         "2023_SGHCI_23",
+                                         "2024_SGHCI_2"
+                                     ]
+                       },
+                       {
+                           "name":  "[2020] 3 SLR 225",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2022_SGHCI_6",
+                                         "2022_SGHCI_9"
+                                     ]
+                       },
+                       {
+                           "name":  "[2009] 3 SLR(R) 1017",
+                           "n":  3,
+                           "cases":  [
+                                         "2020_SGHCI_3",
+                                         "2023_SGHCI_15",
+                                         "2024_SGHCI_12"
+                                     ]
+                       },
+                       {
+                           "name":  "[1999] CLC 417",
+                           "n":  3,
+                           "cases":  [
+                                         "2020_SGHCI_8",
+                                         "2023_SGHCI_18",
+                                         "2025_SGHCI_24"
+                                     ]
+                       },
+                       {
+                           "name":  "[2018] 4 SLR 425",
+                           "n":  3,
+                           "cases":  [
+                                         "2020_SGHCI_27",
+                                         "2022_SGCAI_5",
+                                         "2023_SGCAI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2019] 4 SLR 1",
+                           "n":  3,
+                           "cases":  [
+                                         "2020_SGHCI_27",
+                                         "2021_SGHCI_6",
+                                         "2022_SGCAI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2009] 2 SLR(R) 796",
+                           "n":  3,
+                           "cases":  [
+                                         "2020_SGHCI_9",
+                                         "2024_SGHCI_12",
+                                         "2026_SGHCI_10"
+                                     ]
+                       },
+                       {
+                           "name":  "[2013] BCAA 366",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2022_SGCAI_9",
+                                         "2023_SGHCI_10"
+                                     ]
+                       },
+                       {
+                           "name":  "[2020] 1 SLR 1",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2022_SGHCI_9",
+                                         "2025_SGHCI_16"
+                                     ]
+                       },
+                       {
+                           "name":  "[2020] 1 SLR 1199",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGCAI_2",
+                                         "2023_SGHCI_9",
+                                         "2024_SGCAI_5"
+                                     ]
+                       },
+                       {
+                           "name":  "[2012] 1 SLR 152",
+                           "n":  3,
+                           "cases":  [
+                                         "2021_SGHCI_10",
+                                         "2022_SGHCI_4",
+                                         "2025_SGHCI_15"
+                                     ]
+                       },
+                       {
+                           "name":  "[1915] AC 79",
+                           "n":  3,
+                           "cases":  [
+                                         "2023_SGHCI_5",
+                                         "2026_SGHCI_7",
+                                         "2026_SGHCI_8"
+                                     ]
+                       }
+                   ],
+    "statutes":  [
+                     {
+                         "name":  "Singapore International Commercial Court Rules 2021",
+                         "n":  60,
+                         "cases":  [
+                                       "2022_SGCAI_10",
+                                       "2022_SGCAI_6",
+                                       "2022_SGCAI_7",
+                                       "2022_SGHCI_6",
+                                       "2022_SGHCI_7",
+                                       "2023_SGCAI_4",
+                                       "2023_SGCAI_8",
+                                       "2023_SGHCI_17",
+                                       "2023_SGHCI_18",
+                                       "2023_SGHCI_20",
+                                       "2023_SGHCI_21",
+                                       "2024_SGCAI_3"
+                                   ]
+                     },
+                     {
+                         "name":  "International Arbitration Act 1994",
+                         "n":  53,
+                         "cases":  [
+                                       "2023_SGCAI_10",
+                                       "2023_SGCAI_4",
+                                       "2023_SGCAI_9",
+                                       "2023_SGHCI_10",
+                                       "2023_SGHCI_11",
+                                       "2023_SGHCI_16",
+                                       "2023_SGHCI_17",
+                                       "2023_SGHCI_18",
+                                       "2023_SGHCI_2",
+                                       "2023_SGHCI_21",
+                                       "2023_SGHCI_22",
+                                       "2023_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "SICC Rules",
+                         "n":  38,
+                         "cases":  [
+                                       "2020_SGHCI_9",
+                                       "2022_SGHCI_6",
+                                       "2023_SGHCI_17",
+                                       "2023_SGHCI_20",
+                                       "2024_SGCAI_9",
+                                       "2024_SGHCI_1",
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_17",
+                                       "2024_SGHCI_18",
+                                       "2024_SGHCI_19",
+                                       "2024_SGHCI_21",
+                                       "2024_SGHCI_22"
+                                   ]
+                     },
+                     {
+                         "name":  "International Arbitration Act (Cap 143A, 2002 Rev Ed)",
+                         "n":  24,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2019_SGHCI_11",
+                                       "2020_SGHCI_11",
+                                       "2020_SGHCI_17",
+                                       "2020_SGHCI_23",
+                                       "2020_SGHCI_6",
+                                       "2020_SGHCI_8",
+                                       "2021_SGCAI_3",
+                                       "2021_SGCAI_4",
+                                       "2021_SGHCI_13",
+                                       "2021_SGHCI_15",
+                                       "2021_SGHCI_17"
+                                   ]
+                     },
+                     {
+                         "name":  "Evidence Act",
+                         "n":  23,
+                         "cases":  [
+                                       "2017_SGHCI_10",
+                                       "2017_SGHCI_4",
+                                       "2018_SGCAI_5",
+                                       "2018_SGHCI_1",
+                                       "2019_SGHCI_13",
+                                       "2020_SGHCI_14",
+                                       "2020_SGHCI_16",
+                                       "2020_SGHCI_18",
+                                       "2020_SGHCI_25",
+                                       "2020_SGHCI_27",
+                                       "2021_SGHCI_11",
+                                       "2022_SGCAI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "SIAC Rules",
+                         "n":  21,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2019_SGHCI_11",
+                                       "2020_SGHCI_23",
+                                       "2021_SGHCI_13",
+                                       "2021_SGHCI_17",
+                                       "2021_SGHCI_5",
+                                       "2022_SGCAI_4",
+                                       "2022_SGHCI_11",
+                                       "2022_SGHCI_9",
+                                       "2023_SGHCI_1",
+                                       "2023_SGHCI_10",
+                                       "2023_SGHCI_18"
+                                   ]
+                     },
+                     {
+                         "name":  "SICC Rules 2021",
+                         "n":  18,
+                         "cases":  [
+                                       "2022_SGCAI_10",
+                                       "2023_SGCAI_10",
+                                       "2023_SGCAI_4",
+                                       "2023_SGCAI_8",
+                                       "2023_SGHCI_11",
+                                       "2024_SGCAI_7",
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_30",
+                                       "2024_SGHCI_8",
+                                       "2025_SGHCI_18",
+                                       "2025_SGHCI_23",
+                                       "2025_SGHCI_27"
+                                   ]
+                     },
+                     {
+                         "name":  "Companies Act",
+                         "n":  18,
+                         "cases":  [
+                                       "2017_SGHCI_2",
+                                       "2018_SGHCI_6",
+                                       "2019_SGCAI_1",
+                                       "2019_SGHCI_2",
+                                       "2019_SGHCI_3",
+                                       "2020_SGCAI_4",
+                                       "2022_SGCAI_5",
+                                       "2023_SGHCI_15",
+                                       "2023_SGHCI_2",
+                                       "2023_SGHCI_7",
+                                       "2024_SGHCI_14",
+                                       "2024_SGHCI_2"
+                                   ]
+                     },
+                     {
+                         "name":  "New York Convention",
+                         "n":  16,
+                         "cases":  [
+                                       "2020_SGHCI_17",
+                                       "2021_SGCAI_3",
+                                       "2022_SGCAI_9",
+                                       "2022_SGHCI_3",
+                                       "2023_SGCAI_10",
+                                       "2023_SGHCI_18",
+                                       "2023_SGHCI_23",
+                                       "2024_SGCAI_8",
+                                       "2024_SGHCI_10",
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_19",
+                                       "2025_SGHCI_19"
+                                   ]
+                     },
+                     {
+                         "name":  "Evidence Act (Cap 97, 1997 Rev Ed)",
+                         "n":  15,
+                         "cases":  [
+                                       "2016_SGHCI_4",
+                                       "2017_SGHCI_10",
+                                       "2017_SGHCI_4",
+                                       "2018_SGCAI_5",
+                                       "2018_SGHCI_6",
+                                       "2019_SGHCI_13",
+                                       "2020_SGHCI_14",
+                                       "2020_SGHCI_16",
+                                       "2020_SGHCI_23",
+                                       "2020_SGHCI_25",
+                                       "2020_SGHCI_27",
+                                       "2021_SGHCI_11"
+                                   ]
+                     },
+                     {
+                         "name":  "Arbitration Rules",
+                         "n":  11,
+                         "cases":  [
+                                       "2019_SGHCI_11",
+                                       "2021_SGHCI_5",
+                                       "2022_SGHCI_11",
+                                       "2023_SGCAI_9",
+                                       "2023_SGHCI_10",
+                                       "2023_SGHCI_18",
+                                       "2023_SGHCI_19",
+                                       "2023_SGHCI_21",
+                                       "2024_SGHCI_19",
+                                       "2025_SGHCI_12",
+                                       "2025_SGHCI_19"
+                                   ]
+                     },
+                     {
+                         "name":  "Restructuring and Dissolution Act 2018",
+                         "n":  10,
+                         "cases":  [
+                                       "2021_SGHCI_8",
+                                       "2024_SGHCI_1",
+                                       "2024_SGHCI_14",
+                                       "2024_SGHCI_17",
+                                       "2024_SGHCI_18",
+                                       "2024_SGHCI_2",
+                                       "2024_SGHCI_22",
+                                       "2025_SGHCI_18",
+                                       "2025_SGHCI_4",
+                                       "2025_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Supreme Court of Judicature Act (Cap 322, 2007 Rev Ed)",
+                         "n":  9,
+                         "cases":  [
+                                       "2016_SGHCI_5",
+                                       "2017_SGHCI_12",
+                                       "2018_SGCAI_7",
+                                       "2019_SGHCI_11",
+                                       "2020_SGHCI_12",
+                                       "2020_SGHCI_20",
+                                       "2020_SGHCI_21",
+                                       "2020_SGHCI_22",
+                                       "2021_SGCAI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Companies Act 1967",
+                         "n":  7,
+                         "cases":  [
+                                       "2023_SGHCI_15",
+                                       "2024_SGHCI_14",
+                                       "2024_SGHCI_2",
+                                       "2025_SGCAI_1",
+                                       "2025_SGHCI_29",
+                                       "2026_SGHCI_5",
+                                       "2026_SGHCI_8"
+                                   ]
+                     },
+                     {
+                         "name":  "Supreme Court of Judicature Act 1969",
+                         "n":  7,
+                         "cases":  [
+                                       "2023_SGHCI_7",
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_14",
+                                       "2024_SGHCI_17",
+                                       "2024_SGHCI_19",
+                                       "2024_SGHCI_22",
+                                       "2025_SGHCI_12"
+                                   ]
+                     },
+                     {
+                         "name":  "State Immunity Act 1979",
+                         "n":  7,
+                         "cases":  [
+                                       "2023_SGCAI_10",
+                                       "2023_SGHCI_7",
+                                       "2024_SGHCI_10",
+                                       "2024_SGHCI_28",
+                                       "2025_SGHCI_16",
+                                       "2025_SGHCI_19",
+                                       "2025_SGHCI_27"
+                                   ]
+                     },
+                     {
+                         "name":  "Companies Act (Cap 50, 2006 Rev Ed)",
+                         "n":  7,
+                         "cases":  [
+                                       "2018_SGHCI_6",
+                                       "2019_SGCAI_1",
+                                       "2019_SGHCI_9",
+                                       "2020_SGHCI_9",
+                                       "2021_SGHCI_7",
+                                       "2022_SGCAI_5",
+                                       "2024_SGHCI_7"
+                                   ]
+                     },
+                     {
+                         "name":  "International Arbitration Act",
+                         "n":  7,
+                         "cases":  [
+                                       "2022_SGCAI_4",
+                                       "2022_SGHCI_3",
+                                       "2022_SGHCI_6",
+                                       "2023_SGCAI_4",
+                                       "2023_SGHCI_6",
+                                       "2026_SGCAI_3",
+                                       "2026_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "Civil Law Act (Cap 43, 1999 Rev Ed)",
+                         "n":  6,
+                         "cases":  [
+                                       "2019_SGHCI_11",
+                                       "2019_SGHCI_13",
+                                       "2020_SGHCI_15",
+                                       "2020_SGHCI_2",
+                                       "2021_SGHCI_19",
+                                       "2022_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "Civil Code",
+                         "n":  6,
+                         "cases":  [
+                                       "2021_SGHCI_13",
+                                       "2023_SGHCI_23",
+                                       "2023_SGHCI_6",
+                                       "2024_SGCAI_7",
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "A) of the Rules",
+                         "n":  6,
+                         "cases":  [
+                                       "2017_SGHCI_10",
+                                       "2018_SGHCI_8",
+                                       "2020_SGHCI_24",
+                                       "2020_SGHCI_9",
+                                       "2021_SGHCI_13",
+                                       "2023_SGHCI_18"
+                                   ]
+                     },
+                     {
+                         "name":  "Misrepresentation Act",
+                         "n":  6,
+                         "cases":  [
+                                       "2018_SGHCI_5",
+                                       "2019_SGHCI_15",
+                                       "2019_SGHCI_8",
+                                       "2020_SGCAI_3",
+                                       "2020_SGHCI_16",
+                                       "2022_SGHCI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Indian Contract Act",
+                         "n":  5,
+                         "cases":  [
+                                       "2020_SGHCI_11",
+                                       "2022_SGHCI_11",
+                                       "2022_SGHCI_3",
+                                       "2023_SGHCI_2",
+                                       "2025_SGHCI_15"
+                                   ]
+                     },
+                     {
+                         "name":  "UNCITRAL Rules",
+                         "n":  5,
+                         "cases":  [
+                                       "2021_SGHCI_10",
+                                       "2021_SGHCI_20",
+                                       "2022_SGCAI_9",
+                                       "2023_SGHCI_18",
+                                       "2025_SGHCI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "Civil Law Act 1909",
+                         "n":  5,
+                         "cases":  [
+                                       "2022_SGCAI_5",
+                                       "2023_SGHCI_23",
+                                       "2024_SGHCI_14",
+                                       "2024_SGHCI_19",
+                                       "2025_SGCAI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "Limitation Act",
+                         "n":  5,
+                         "cases":  [
+                                       "2018_SGCAI_7",
+                                       "2020_SGHCI_25",
+                                       "2022_SGCAI_1",
+                                       "2024_SGHCI_23",
+                                       "2025_SGHCI_15"
+                                   ]
+                     },
+                     {
+                         "name":  "Misrepresentation Act (Cap 390, 1994 Rev Ed)",
+                         "n":  5,
+                         "cases":  [
+                                       "2019_SGHCI_15",
+                                       "2020_SGCAI_3",
+                                       "2020_SGHCI_16",
+                                       "2020_SGHCI_24",
+                                       "2022_SGHCI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Hague Convention",
+                         "n":  5,
+                         "cases":  [
+                                       "2020_SGHCI_10",
+                                       "2023_SGHCI_15",
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_7",
+                                       "2025_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "Indian Arbitration Act",
+                         "n":  4,
+                         "cases":  [
+                                       "2020_SGHCI_11",
+                                       "2024_SGHCI_24",
+                                       "2025_SGCAI_2",
+                                       "2025_SGHCI_15"
+                                   ]
+                     },
+                     {
+                         "name":  "United States Code",
+                         "n":  4,
+                         "cases":  [
+                                       "2020_SGHCI_10",
+                                       "2023_SGHCI_1",
+                                       "2025_SGHCI_18",
+                                       "2025_SGHCI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Legal Profession Act 1966",
+                         "n":  4,
+                         "cases":  [
+                                       "2022_SGCAI_10",
+                                       "2022_SGHCI_9",
+                                       "2025_SGHCI_12",
+                                       "2025_SGHCI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Indian Companies Act",
+                         "n":  4,
+                         "cases":  [
+                                       "2023_SGHCI_2",
+                                       "2023_SGHCI_7",
+                                       "2025_SGHCI_23",
+                                       "2025_SGHCI_24"
+                                   ]
+                     },
+                     {
+                         "name":  "Arbitration Act 1996",
+                         "n":  4,
+                         "cases":  [
+                                       "2022_SGHCI_3",
+                                       "2023_SGHCI_18",
+                                       "2024_SGHCI_34",
+                                       "2025_SGHCI_19"
+                                   ]
+                     },
+                     {
+                         "name":  "Misrepresentation Act 1967",
+                         "n":  4,
+                         "cases":  [
+                                       "2018_SGHCI_5",
+                                       "2022_SGHCI_4",
+                                       "2024_SGHCI_32",
+                                       "2025_SGHCI_17"
+                                   ]
+                     },
+                     {
+                         "name":  "A of the Rules",
+                         "n":  4,
+                         "cases":  [
+                                       "2018_SGHCI_2",
+                                       "2020_SGHCI_16",
+                                       "2022_SGHCI_7",
+                                       "2023_SGCAI_8"
+                                   ]
+                     },
+                     {
+                         "name":  "English Arbitration Act 1996",
+                         "n":  4,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2020_SGHCI_11",
+                                       "2021_SGCAI_3",
+                                       "2023_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "Application of Rules",
+                         "n":  4,
+                         "cases":  [
+                                       "2020_SGCAI_4",
+                                       "2020_SGHCI_18",
+                                       "2022_SGHCI_6",
+                                       "2023_SGHCI_13"
+                                   ]
+                     },
+                     {
+                         "name":  "Subject to this Act",
+                         "n":  4,
+                         "cases":  [
+                                       "2019_SGHCI_11",
+                                       "2022_SGCAI_1",
+                                       "2022_SGCAI_9",
+                                       "2024_SGHCI_23"
+                                   ]
+                     },
+                     {
+                         "name":  "State is not defined in the Act",
+                         "n":  3,
+                         "cases":  [
+                                       "2023_SGHCI_18",
+                                       "2025_SGHCI_15",
+                                       "2025_SGHCI_24"
+                                   ]
+                     },
+                     {
+                         "name":  "Vienna Convention",
+                         "n":  3,
+                         "cases":  [
+                                       "2023_SGHCI_7",
+                                       "2025_SGHCI_9",
+                                       "2026_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "Bankruptcy Code",
+                         "n":  3,
+                         "cases":  [
+                                       "2024_SGHCI_1",
+                                       "2025_SGHCI_4",
+                                       "2025_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Building and Construction Industry Security of Payment Act (Cap 30B, 2006 Rev Ed)",
+                         "n":  3,
+                         "cases":  [
+                                       "2022_SGHCI_8",
+                                       "2024_SGHCI_33",
+                                       "2025_SGHCI_19"
+                                   ]
+                     },
+                     {
+                         "name":  "Civil Act",
+                         "n":  3,
+                         "cases":  [
+                                       "2022_SGHCI_8",
+                                       "2023_SGHCI_6",
+                                       "2024_SGHCI_27"
+                                   ]
+                     },
+                     {
+                         "name":  "Limitation Act 1959",
+                         "n":  3,
+                         "cases":  [
+                                       "2023_SGHCI_15",
+                                       "2024_SGHCI_23",
+                                       "2024_SGHCI_29"
+                                   ]
+                     },
+                     {
+                         "name":  "First Schedule to the International Arbitration Act 1994",
+                         "n":  3,
+                         "cases":  [
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_19",
+                                       "2024_SGHCI_26"
+                                   ]
+                     },
+                     {
+                         "name":  "A of the Indian Arbitration Act",
+                         "n":  3,
+                         "cases":  [
+                                       "2024_SGHCI_24",
+                                       "2025_SGCAI_2",
+                                       "2025_SGHCI_15"
+                                   ]
+                     },
+                     {
+                         "name":  "ICSID Convention",
+                         "n":  3,
+                         "cases":  [
+                                       "2024_SGHCI_34",
+                                       "2025_SGHCI_19",
+                                       "2026_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "The SICC Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2025_SGHCI_15",
+                                       "2025_SGHCI_24",
+                                       "2025_SGHCI_27"
+                                   ]
+                     },
+                     {
+                         "name":  "Philippines Act",
+                         "n":  3,
+                         "cases":  [
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_19",
+                                       "2024_SGHCI_20"
+                                   ]
+                     },
+                     {
+                         "name":  "Representation in Singapore International Commercial Court) Rules 2014",
+                         "n":  3,
+                         "cases":  [
+                                       "2024_SGHCI_17",
+                                       "2025_SGHCI_4",
+                                       "2026_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "United States Bankruptcy Code",
+                         "n":  3,
+                         "cases":  [
+                                       "2024_SGHCI_17",
+                                       "2025_SGHCI_25",
+                                       "2025_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "SCMA Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2022_SGCAI_9",
+                                       "2023_SGHCI_21",
+                                       "2025_SGHCI_12"
+                                   ]
+                     },
+                     {
+                         "name":  "Limitation Act (Cap 163, 1996 Rev Ed)",
+                         "n":  3,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2020_SGHCI_25",
+                                       "2022_SGCAI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "These Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2021_SGCAI_3",
+                                       "2025_SGHCI_7"
+                                   ]
+                     },
+                     {
+                         "name":  "UK Arbitration Act 1996",
+                         "n":  3,
+                         "cases":  [
+                                       "2020_SGHCI_17",
+                                       "2023_SGHCI_23",
+                                       "2025_SGHCI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "French Civil Code",
+                         "n":  3,
+                         "cases":  [
+                                       "2016_SGHCI_5",
+                                       "2024_SGCAI_7",
+                                       "2024_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "French Commercial Code",
+                         "n":  3,
+                         "cases":  [
+                                       "2017_SGCAI_1",
+                                       "2023_SGHCI_8",
+                                       "2024_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "Unfair Contract Terms Act (Cap 396, 1994 Rev Ed)",
+                         "n":  3,
+                         "cases":  [
+                                       "2017_SGHCI_11",
+                                       "2019_SGHCI_12",
+                                       "2019_SGHCI_3"
+                                   ]
+                     },
+                     {
+                         "name":  "Despite any provision of these Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2020_SGHCI_18",
+                                       "2022_SGHCI_6",
+                                       "2023_SGHCI_13"
+                                   ]
+                     },
+                     {
+                         "name":  "The UNCITRAL Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2021_SGHCI_10",
+                                       "2022_SGCAI_9",
+                                       "2023_SGHCI_18"
+                                   ]
+                     },
+                     {
+                         "name":  "UNCITRAL Arbitration Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2021_SGHCI_10",
+                                       "2022_SGCAI_9",
+                                       "2023_SGHCI_18"
+                                   ]
+                     },
+                     {
+                         "name":  "A Guide to the SIAC Arbitration Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2021_SGHCI_13",
+                                       "2022_SGHCI_11",
+                                       "2023_SGHCI_18"
+                                   ]
+                     },
+                     {
+                         "name":  "Thai Civil and Commercial Code",
+                         "n":  3,
+                         "cases":  [
+                                       "2020_SGHCI_2",
+                                       "2021_SGCAI_1",
+                                       "2021_SGCAI_3"
+                                   ]
+                     },
+                     {
+                         "name":  "Limitation of Act",
+                         "n":  3,
+                         "cases":  [
+                                       "2020_SGHCI_25",
+                                       "2022_SGCAI_1",
+                                       "2024_SGHCI_23"
+                                   ]
+                     },
+                     {
+                         "name":  "Singapore in accordance with the Arbitration Rules",
+                         "n":  3,
+                         "cases":  [
+                                       "2021_SGHCI_10",
+                                       "2022_SGCAI_9",
+                                       "2023_SGCAI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "The SIAC Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_18",
+                                       "2026_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Singapore International Arbitration Centre Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_19",
+                                       "2025_SGHCI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "Trustees Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_14",
+                                       "2023_SGHCI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "General Division costs regime as set out in the domestic Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_17",
+                                       "2025_SGHCI_13"
+                                   ]
+                     },
+                     {
+                         "name":  "B of the Supreme Court of Judicature Act 1969",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_20",
+                                       "2024_SGHCI_15"
+                                   ]
+                     },
+                     {
+                         "name":  "Korean Arbitration Act 2016",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_23",
+                                       "2024_SGCAI_8"
+                                   ]
+                     },
+                     {
+                         "name":  "Korean Civil Code",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_23",
+                                       "2024_SGCAI_8"
+                                   ]
+                     },
+                     {
+                         "name":  "Singapore and conducted in accordance with the Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_22",
+                                       "2025_SGCAI_2"
+                                   ]
+                     },
+                     {
+                         "name":  "Arbitration Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_23",
+                                       "2024_SGHCI_34"
+                                   ]
+                     },
+                     {
+                         "name":  "Australian Corporations Act 2001",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_17",
+                                       "2024_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "First Schedule to the International Arbitration Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_6",
+                                       "2025_SGHCI_6"
+                                   ]
+                     },
+                     {
+                         "name":  "Sale of Goods Act 1979",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_1",
+                                       "2023_SGCAI_7"
+                                   ]
+                     },
+                     {
+                         "name":  "English Sale of Goods Act 1979",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_15",
+                                       "2023_SGCAI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Monopoly Regulation and Fair Trade Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_8",
+                                       "2024_SGCAI_8"
+                                   ]
+                     },
+                     {
+                         "name":  "We do not agree that SIAC Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_9",
+                                       "2026_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Swiss Private International Law Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGCAI_10",
+                                       "2023_SGHCI_7"
+                                   ]
+                     },
+                     {
+                         "name":  "The Tribunal did not disregard the SIAC Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_9",
+                                       "2026_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "The parties agreed on the application of the SIAC Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2022_SGHCI_9",
+                                       "2026_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Indian Arbitration and Conciliation Act 1996",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_24",
+                                       "2025_SGCAI_2"
+                                   ]
+                     },
+                     {
+                         "name":  "International Chamber of Commerce Arbitration Rules 2021",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_24",
+                                       "2025_SGHCI_15"
+                                   ]
+                     },
+                     {
+                         "name":  "Companies Act 2006",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_14",
+                                       "2025_SGCAI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "LP (Representation in SICC) Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_17",
+                                       "2025_SGHCI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Court may apply the domestic Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2025_SGHCI_15",
+                                       "2026_SGCAI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "ICC’s Emergency Arbitrator Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2025_SGHCI_22",
+                                       "2025_SGHCI_3"
+                                   ]
+                     },
+                     {
+                         "name":  "A International Arbitration Act 1994",
+                         "n":  2,
+                         "cases":  [
+                                       "2025_SGHCI_3",
+                                       "2026_SGCAI_2"
+                                   ]
+                     },
+                     {
+                         "name":  "Where there is no express provision in these Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2025_SGHCI_15",
+                                       "2026_SGCAI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "A of the International Arbitration Act 1994",
+                         "n":  2,
+                         "cases":  [
+                                       "2025_SGHCI_22",
+                                       "2026_SGCAI_2"
+                                   ]
+                     },
+                     {
+                         "name":  "Philippine Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGCAI_9",
+                                       "2024_SGHCI_27"
+                                   ]
+                     },
+                     {
+                         "name":  "Philippines’ Central Authority in accordance with the Hague Convention",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGCAI_9",
+                                       "2024_SGHCI_27"
+                                   ]
+                     },
+                     {
+                         "name":  "Singapore in accordance with the Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_6",
+                                       "2024_SGCAI_2"
+                                   ]
+                     },
+                     {
+                         "name":  "UNCITRAL Arbitration Rules 1976",
+                         "n":  2,
+                         "cases":  [
+                                       "2023_SGHCI_7",
+                                       "2025_SGHCI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "Designated Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_1",
+                                       "2024_SGHCI_18"
+                                   ]
+                     },
+                     {
+                         "name":  "Philippines Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_27"
+                                   ]
+                     },
+                     {
+                         "name":  "Phoenix in the Philippines Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_13",
+                                       "2024_SGHCI_19"
+                                   ]
+                     },
+                     {
+                         "name":  "European Convention",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_10",
+                                       "2025_SGHCI_19"
+                                   ]
+                     },
+                     {
+                         "name":  "State Immunity Act 1978",
+                         "n":  2,
+                         "cases":  [
+                                       "2024_SGHCI_10",
+                                       "2025_SGHCI_19"
+                                   ]
+                     },
+                     {
+                         "name":  "Racketeer Influenced And Corrupt Organizations Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2021_SGHCI_14",
+                                       "2022_SGCAI_7"
+                                   ]
+                     },
+                     {
+                         "name":  "B) of the Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2018_SGHCI_8",
+                                       "2020_SGHCI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "Companies Act 1948",
+                         "n":  2,
+                         "cases":  [
+                                       "2019_SGCAI_1",
+                                       "2022_SGCAI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "A of the Evidence Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2018_SGHCI_1",
+                                       "2025_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "A of the Supreme Court of Judicature Act (Cap 322, 2007 Rev Ed)",
+                         "n":  2,
+                         "cases":  [
+                                       "2018_SGHCI_3",
+                                       "2020_SGCAI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Companies Act 1985",
+                         "n":  2,
+                         "cases":  [
+                                       "2019_SGCAI_1",
+                                       "2022_SGCAI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Legal Profession Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2020_SGCAI_4",
+                                       "2025_SGHCI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Arbitration and Conciliation Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2020_SGHCI_11",
+                                       "2020_SGHCI_8"
+                                   ]
+                     },
+                     {
+                         "name":  "Those Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2021_SGHCI_10"
+                                   ]
+                     },
+                     {
+                         "name":  "Companies Act (Cap 50, Rev Ed 2006)",
+                         "n":  2,
+                         "cases":  [
+                                       "2020_SGCAI_4",
+                                       "2021_SGHCI_8"
+                                   ]
+                     },
+                     {
+                         "name":  "Civil Procedure Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2016_SGHCI_4",
+                                       "2026_SGHCI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "Interpretation Act (Cap 1, 2002 Rev Ed)",
+                         "n":  2,
+                         "cases":  [
+                                       "2017_SGCAI_1",
+                                       "2018_SGCAI_7"
+                                   ]
+                     },
+                     {
+                         "name":  "Indonesian Civil Code",
+                         "n":  2,
+                         "cases":  [
+                                       "2016_SGHCI_1",
+                                       "2023_SGHCI_10"
+                                   ]
+                     },
+                     {
+                         "name":  "A Guide to the Rules",
+                         "n":  2,
+                         "cases":  [
+                                       "2016_SGHCI_2",
+                                       "2018_SGHCI_3"
+                                   ]
+                     },
+                     {
+                         "name":  "Defendant by Original Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2017_SGHCI_12",
+                                       "2018_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Judicature Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2017_SGHCI_5",
+                                       "2022_SGHCI_4"
+                                   ]
+                     },
+                     {
+                         "name":  "Administration of Justice (Protection) Act 2016",
+                         "n":  2,
+                         "cases":  [
+                                       "2018_SGCAI_7",
+                                       "2024_SGHCI_2"
+                                   ]
+                     },
+                     {
+                         "name":  "Original Act",
+                         "n":  2,
+                         "cases":  [
+                                       "2017_SGHCI_12",
+                                       "2018_SGHCI_5"
+                                   ]
+                     },
+                     {
+                         "name":  "Reciprocal Enforcement of Foreign Judgments Act (Cap 265, 2001 Rev Ed)",
+                         "n":  2,
+                         "cases":  [
+                                       "2017_SGHCI_3",
+                                       "2020_SGHCI_24"
+                                   ]
+                     }
+                 ],
+    "arbitral":  [
+                     {
+                         "name":  "UNCITRAL",
+                         "n":  69,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2019_SGHCI_11",
+                                       "2019_SGHCI_12",
+                                       "2020_SGHCI_11",
+                                       "2020_SGHCI_17",
+                                       "2020_SGHCI_23",
+                                       "2020_SGHCI_6",
+                                       "2020_SGHCI_8",
+                                       "2021_SGCAI_3",
+                                       "2021_SGCAI_4",
+                                       "2021_SGHCI_10",
+                                       "2021_SGHCI_13"
+                                   ]
+                     },
+                     {
+                         "name":  "SIAC",
+                         "n":  40,
+                         "cases":  [
+                                       "2019_SGHCI_10",
+                                       "2019_SGHCI_11",
+                                       "2020_SGHCI_23",
+                                       "2021_SGHCI_10",
+                                       "2021_SGHCI_13",
+                                       "2021_SGHCI_15",
+                                       "2021_SGHCI_17",
+                                       "2021_SGHCI_20",
+                                       "2021_SGHCI_4",
+                                       "2021_SGHCI_5",
+                                       "2022_SGCAI_4",
+                                       "2022_SGCAI_9"
+                                   ]
+                     },
+                     {
+                         "name":  "ICC",
+                         "n":  28,
+                         "cases":  [
+                                       "2020_SGHCI_12",
+                                       "2020_SGHCI_17",
+                                       "2020_SGHCI_21",
+                                       "2020_SGHCI_6",
+                                       "2020_SGHCI_8",
+                                       "2021_SGCAI_3",
+                                       "2021_SGCAI_4",
+                                       "2021_SGHCI_10",
+                                       "2022_SGHCI_16",
+                                       "2022_SGHCI_3",
+                                       "2022_SGHCI_8",
+                                       "2023_SGCAI_10"
+                                   ]
+                     },
+                     {
+                         "name":  "ICSID",
+                         "n":  10,
+                         "cases":  [
+                                       "2021_SGHCI_10",
+                                       "2022_SGCAI_9",
+                                       "2022_SGHCI_6",
+                                       "2022_SGHCI_9",
+                                       "2023_SGHCI_7",
+                                       "2024_SGHCI_34",
+                                       "2024_SGHCI_9",
+                                       "2025_SGHCI_19",
+                                       "2025_SGHCI_9",
+                                       "2026_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "PCA",
+                         "n":  9,
+                         "cases":  [
+                                       "2021_SGHCI_10",
+                                       "2022_SGCAI_9",
+                                       "2022_SGHCI_6",
+                                       "2022_SGHCI_9",
+                                       "2023_SGCAI_10",
+                                       "2024_SGHCI_34",
+                                       "2024_SGHCI_9",
+                                       "2025_SGHCI_9",
+                                       "2026_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "SCC",
+                         "n":  6,
+                         "cases":  [
+                                       "2020_SGHCI_8",
+                                       "2022_SGHCI_3",
+                                       "2023_SGHCI_2",
+                                       "2025_SGHCI_14",
+                                       "2025_SGHCI_21",
+                                       "2026_SGHCI_1"
+                                   ]
+                     },
+                     {
+                         "name":  "AAA",
+                         "n":  6,
+                         "cases":  [
+                                       "2020_SGHCI_12",
+                                       "2020_SGHCI_17",
+                                       "2020_SGHCI_6",
+                                       "2021_SGCAI_3",
+                                       "2023_SGHCI_9",
+                                       "2026_SGCAI_3"
+                                   ]
+                     },
+                     {
+                         "name":  "ICDR",
+                         "n":  1,
+                         "cases":  [
+                                       "2026_SGCAI_3"
+                                   ]
+                     }
+                 ]
+}

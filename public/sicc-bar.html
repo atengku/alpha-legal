@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Alpha — SICC firms &amp; counsel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sicc.css">
+<style>
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.seg button{background:transparent;border:none;color:var(--text-muted);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 15px;cursor:pointer}
+.seg button.on{background:rgba(196,162,92,.12);color:var(--gold)}
+.nm{color:#fff;font-weight:500}
+.ppl{color:var(--text-muted);font-size:11.5px;line-height:1.5;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <a href="/" class="logo"><span class="dot"></span> LEGAL&nbsp;<b>ALPHA</b></a>
+    <div class="search"><input id="q" placeholder="Filter by firm or counsel name…"></div>
+    <div class="top-right"><span>SG · SICC</span><div class="avatar">AZ</div></div>
+  </div>
+  <div class="nav">
+    <div class="grp">SICC</div>
+    <a href="sicc.html"><span class="ic">◎</span> Overview</a>
+    <a href="sicc-cases.html"><span class="ic">▤</span> Judgments</a>
+    <a href="judges.html"><span class="ic">⚖</span> The bench</a>
+    <a href="awards.html"><span class="ic">§</span> Money awards</a>
+    <a class="active"><span class="ic">⛨</span> Firms &amp; counsel</a>
+    <a href="sicc-authorities.html"><span class="ic">⧉</span> Authorities</a>
+    <div class="grp">Workspace</div>
+    <a href="case-analysis.html"><span class="ic">▣</span> Alpha Extraction</a>
+  </div>
+  <div class="main">
+    <div class="crumb"><a href="/">Seeking Alpha Legal</a> / <a href="sicc.html">SICC</a> / <b>Firms &amp; counsel</b></div>
+    <h1>Who appears before this court</h1>
+    <p class="subline">Law firms and counsel drawn from the counsel lines of every judgment in the corpus. Appearance counts are distinct judgments, not distinct hearings.</p>
+
+    <div class="note" id="caveat"></div>
+
+    <div class="toolbar">
+      <span class="seg"><button id="bFirms" class="on">Firms</button><button id="bCounsel">Counsel</button></span>
+      <span class="count" id="count"></span>
+    </div>
+    <table id="tbl"><thead id="head"></thead><tbody id="rows"></tbody></table>
+    <div class="empty" id="empty" style="display:none"></div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+<script>
+var D={firms:[],counsel:[]}, MODE='firms';
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function setMode(m){
+  MODE=m;
+  document.getElementById('bFirms').className = m==='firms'?'on':'';
+  document.getElementById('bCounsel').className = m==='counsel'?'on':'';
+  render();
+}
+document.getElementById('bFirms').onclick=function(){setMode('firms');};
+document.getElementById('bCounsel').onclick=function(){setMode('counsel');};
+
+function render(){
+  var q=(document.getElementById('q').value||'').toLowerCase();
+  var head=document.getElementById('head'), rows=document.getElementById('rows');
+  if(MODE==='firms'){
+    head.innerHTML='<tr><th>Firm</th><th>Appearances</th><th>Counsel on the record</th></tr>';
+    var list=D.firms.filter(function(f){
+      if(!q)return true;
+      return (f.name+' '+(f.counsel||[]).join(' ')).toLowerCase().indexOf(q)>=0;
+    });
+    rows.innerHTML=list.map(function(f){
+      var c=(f.counsel||[]);
+      return '<tr><td><span class="nm">'+esc(f.name)+'</span></td>'+
+        '<td class="amt">'+f.appearances+'</td>'+
+        '<td><span class="ppl">'+(c.length? esc(c.slice(0,14).join(' · '))+(c.length>14?' <span class="mut">+'+(c.length-14)+' more</span>':'') : '<span class="mut">none recorded</span>')+'</span></td></tr>';
+    }).join('');
+    document.getElementById('count').textContent=list.length+' of '+D.firms.length+' firms';
+    document.getElementById('empty').style.display=list.length?'none':'block';
+    document.getElementById('empty').textContent='No firms match.';
+    document.getElementById('tbl').style.display=list.length?'':'none';
+  } else {
+    head.innerHTML='<tr><th>Counsel</th><th>Appearances</th><th>Firm</th></tr>';
+    var l2=D.counsel.filter(function(c){
+      if(!q)return true;
+      return (c.name+' '+(c.firms||[]).join(' ')).toLowerCase().indexOf(q)>=0;
+    });
+    rows.innerHTML=l2.map(function(c){
+      return '<tr><td><span class="nm">'+esc(c.name)+'</span></td>'+
+        '<td class="amt">'+c.appearances+'</td>'+
+        '<td><span class="ppl">'+((c.firms||[]).length? esc(c.firms.join(' · ')) : '<span class="mut">not recorded</span>')+'</span></td></tr>';
+    }).join('');
+    document.getElementById('count').textContent=l2.length+' of '+D.counsel.length+' counsel';
+    document.getElementById('empty').style.display=l2.length?'none':'block';
+    document.getElementById('empty').textContent='No counsel match.';
+    document.getElementById('tbl').style.display=l2.length?'':'none';
+  }
+}
+document.getElementById('q').addEventListener('input',render);
+
+fetch('data/sicc-bar.json').then(function(r){return r.json();}).then(function(d){
+  D.firms=d.firms; D.counsel=d.counsel;
+  document.getElementById('caveat').innerHTML=esc(d._meta.note)+
+    ' Counsel are listed by name as they appear on the record, so the same person under two spellings will appear twice; unlike the bench, counsel names have not been canonicalised.';
+  document.getElementById('foot').innerHTML=
+    'LEGAL ALPHA · SICC bar · '+d._meta.firms+' firms, '+d._meta.counsel+' counsel · updated '+esc(d._meta.updated)+
+    '<br>No win rates are shown. That would need per-appearance outcomes tied to which side each counsel acted for, and the outcome extraction is still marked provisional.';
+  render();
+}).catch(function(e){
+  document.getElementById('tbl').style.display='none';
+  document.getElementById('empty').style.display='block';
+  document.getElementById('empty').textContent='Could not load data/sicc-bar.json — '+e;
+});
+</script>
+</body>
+</html>
