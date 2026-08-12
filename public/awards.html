@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Alpha — SICC money awards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-dark:#050608;--bg-panel:#0A0C10;--bg-rail:#070809;--border:rgba(255,255,255,0.10);
+--gold:#C4A25C;--gold-dim:rgba(196,162,92,0.20);--text-main:#EAEAEA;--text-muted:#8B8D91;
+--red:#D24A4A;--green:#4AD295;--blue:#6AA9E0;--ff:"Inter",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--r:10px;}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg-dark);color:var(--text-main);font-family:var(--ff);font-weight:300;font-size:14px}
+.app{display:grid;grid-template-columns:212px 1fr;grid-template-rows:52px 1fr;height:100vh}
+.topbar{grid-column:1/3;display:flex;align-items:center;gap:16px;padding:0 18px;border-bottom:1px solid var(--border);background:var(--bg-rail)}
+.logo{font-family:var(--mono);font-weight:500;letter-spacing:.12em;color:var(--gold);font-size:14px;display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo .dot{width:8px;height:8px;background:var(--gold);border-radius:2px;transform:rotate(45deg)}
+.logo b{color:#fff;font-weight:600}
+.search{flex:1;max-width:440px;margin-left:8px}
+.search input{width:100%;background:var(--bg-panel);border:1px solid var(--border);color:var(--text-main);border-radius:8px;padding:7px 12px;font-family:var(--ff);font-size:13px}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:14px;color:var(--text-muted);font-family:var(--mono);font-size:11px}
+.avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#C4A25C,#7a6534);display:flex;align-items:center;justify-content:center;color:#050608;font-weight:600;font-family:var(--ff);font-size:12px}
+.nav{border-right:1px solid var(--border);background:var(--bg-rail);padding:14px 10px;overflow:auto}
+.nav .grp{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin:14px 10px 6px}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:13px;cursor:pointer}
+.nav a .ic{width:16px;text-align:center;opacity:.85}
+.nav a.active{background:rgba(196,162,92,0.10);color:var(--gold);border:1px solid var(--gold-dim)}
+.nav a:hover:not(.active){color:var(--text-main);background:rgba(255,255,255,0.03)}
+.main{overflow:auto;padding:24px 26px 60px}
+.crumb{font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+.crumb a{color:var(--text-muted);text-decoration:none}.crumb b{color:var(--gold)}
+h1{font-family:var(--ff);font-weight:700;font-size:24px;margin:8px 0 2px;letter-spacing:-0.01em}
+.subline{color:var(--text-muted);font-size:13px;margin:0 0 6px;max-width:780px}
+.warn{margin:14px 0 4px;padding:10px 14px;border:1px solid rgba(210,74,74,.3);background:rgba(210,74,74,.05);border-radius:8px;color:var(--text-muted);font-size:12.5px}
+.warn b{color:var(--red);font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.stat{background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px}
+.stat .n{font-family:var(--mono);font-size:22px;color:var(--gold);font-weight:500}
+.stat .l{font-size:11.5px;color:var(--text-muted);margin-top:3px}
+.toolbar{display:flex;gap:10px;align-items:center;margin:14px 0 6px;flex-wrap:wrap}
+.toolbar input,.toolbar select{background:var(--bg-panel);border:1px solid var(--border);color:var(--text-main);border-radius:8px;padding:7px 11px;font-family:var(--ff);font-size:13px}
+.count{font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-left:auto}
+table{width:100%;border-collapse:collapse;margin-top:12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:11px 13px;border-bottom:1px solid var(--border);font-weight:400;white-space:nowrap}
+td{padding:12px 13px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top;font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.amt{font-family:var(--mono);color:var(--gold);font-weight:500;white-space:nowrap}
+.cur{font-family:var(--mono);font-size:10px;color:var(--text-muted);display:block}
+.cse{color:#fff;font-weight:500;line-height:1.35}
+.cite{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);display:block;margin-top:3px}
+.b{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:999px;border:1px solid var(--gold-dim);color:var(--gold);background:rgba(196,162,92,.05);white-space:nowrap}
+.b.costs{color:var(--blue);border-color:rgba(106,169,224,.4);background:rgba(106,169,224,.08)}
+a.jl{color:var(--text-main);text-decoration:none;border-bottom:1px dotted var(--gold-dim)}
+a.jl:hover{color:var(--gold)}
+.empty{color:var(--text-muted);font-family:var(--mono);font-size:12px;padding:30px;text-align:center;border:1px dashed var(--border);border-radius:var(--r);margin-top:14px}
+.foot{color:var(--text-muted);font-family:var(--mono);font-size:10.5px;margin-top:26px;border-top:1px solid var(--border);padding-top:12px;line-height:1.6}
+@media(max-width:1000px){.app{grid-template-columns:170px 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <a href="/" class="logo"><span class="dot"></span> LEGAL&nbsp;<b>ALPHA</b></a>
+    <div class="search"><input id="q" placeholder="Filter by case, judge, beneficiary…"></div>
+    <div class="top-right"><span>SG · SICC</span><span>● figures verbatim</span><div class="avatar">AZ</div></div>
+  </div>
+  <div class="nav">
+    <div class="grp">Workspace</div>
+    <a href="case-analysis.html"><span class="ic">▣</span> Alpha Extraction</a>
+    <a href="judges.html"><span class="ic">⚖</span> Judge profiles</a>
+    <a class="active"><span class="ic">§</span> Money awards</a>
+    <a href="/"><span class="ic">⧉</span> Authorities citator</a>
+    <div class="grp">Extraction</div>
+    <a href="data/awards.json"><span class="ic">▤</span> awards.json</a>
+    <a href="data/legal-regimes.json"><span class="ic">◷</span> Temporal graph</a>
+  </div>
+  <div class="main">
+    <div class="crumb"><a href="/">Seeking Alpha Legal</a> / <b>Money awards</b></div>
+    <h1>SICC court money awards</h1>
+    <p class="subline">Operative money awards read from the disposition and orders section of each shortlisted judgment: the sums the court actually ordered paid or entered judgment for. Figures are taken verbatim from the judgment text.</p>
+
+    <div class="warn"><b>CURRENCIES ARE NOT CONVERTED.</b> &nbsp;Amounts are per-currency and are not comparable across currencies. Ranking is by raw numeric value only, as a rough guide. An appeal affirming an award below is the <i>same money</i>, not a second award.</div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="toolbar">
+      <select id="cur"><option value="">All currencies</option></select>
+      <select id="cat"><option value="">All categories</option></select>
+      <span class="count" id="count"></span>
+    </div>
+    <table id="tbl">
+      <thead><tr><th>Amount</th><th>Case</th><th>Authoring judge</th><th>Beneficiary</th><th>Category</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">No awards match that filter.</div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+<script>
+var A=[],JIDX={};
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function num(n){return (n==null)?'—':n.toLocaleString('en-US',{minimumFractionDigits:(n%1?2:0),maximumFractionDigits:2});}
+function jlink(name){
+  var id=JIDX[name];
+  return id ? '<a class="jl" href="judge.html?id='+encodeURIComponent(id)+'">'+esc(name)+'</a>' : esc(name||'—');
+}
+function row(a){
+  var isCosts=/cost/i.test(a.category||'');
+  return '<tr><td class="amt">'+num(a.amount)+'<span class="cur">'+esc(a.currency||'')+'</span></td>'+
+    '<td><span class="cse">'+esc(a.case)+'</span><span class="cite">'+esc(a.citation)+'</span></td>'+
+    '<td>'+jlink(a.judge)+'</td>'+
+    '<td>'+esc(a.beneficiary||'—')+'</td>'+
+    '<td><span class="b'+(isCosts?' costs':'')+'">'+esc(a.category||'—')+'</span></td></tr>';
+}
+function render(){
+  var q=(document.getElementById('q').value||'').toLowerCase();
+  var cur=document.getElementById('cur').value, cat=document.getElementById('cat').value;
+  var list=A.filter(function(a){
+    if(cur&&a.currency!==cur)return false;
+    if(cat&&a.category!==cat)return false;
+    if(!q)return true;
+    return ((a.case||'')+' '+(a.judge||'')+' '+(a.beneficiary||'')+' '+(a.citation||'')).toLowerCase().indexOf(q)>=0;
+  }).sort(function(x,y){return (y.amount||0)-(x.amount||0);});
+  document.getElementById('rows').innerHTML=list.map(row).join('');
+  document.getElementById('empty').style.display=list.length?'none':'block';
+  document.getElementById('tbl').style.display=list.length?'':'none';
+  document.getElementById('count').textContent=list.length+' of '+A.length+' award rows';
+}
+['q','cur','cat'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+
+Promise.all([
+  fetch('data/awards.json').then(function(r){return r.json();}),
+  fetch('data/judges.json').then(function(r){return r.json();}).catch(function(){return {judges:[]};})
+]).then(function(res){
+  var d=res[0]; A=d.awards;
+  (res[1].judges||[]).forEach(function(j){JIDX[j.name]=j.id;});
+
+  var curs={},cats={};
+  A.forEach(function(a){ if(a.currency)curs[a.currency]=(curs[a.currency]||0)+1; if(a.category)cats[a.category]=(cats[a.category]||0)+1; });
+  Object.keys(curs).sort().forEach(function(c){ document.getElementById('cur').innerHTML+='<option value="'+esc(c)+'">'+esc(c)+' ('+curs[c]+')</option>'; });
+  Object.keys(cats).sort().forEach(function(c){ document.getElementById('cat').innerHTML+='<option value="'+esc(c)+'">'+esc(c)+' ('+cats[c]+')</option>'; });
+
+  var judges={}; A.forEach(function(a){ if(a.judge)judges[a.judge]=1; });
+  document.getElementById('stats').innerHTML=
+    '<div class="stat"><div class="n">'+d._meta.shortlisted+'</div><div class="l">judgments carrying a court money award</div></div>'+
+    '<div class="stat"><div class="n">'+A.length+'</div><div class="l">individual award rows extracted</div></div>'+
+    '<div class="stat"><div class="n">'+Object.keys(curs).length+'</div><div class="l">distinct currencies</div></div>'+
+    '<div class="stat"><div class="n">'+Object.keys(judges).length+'</div><div class="l">judges who made an award</div></div>';
+
+  document.getElementById('foot').innerHTML=
+    'LEGAL ALPHA · Money awards · shortlisted from the 252-judgment SICC corpus · updated '+esc(d._meta.updated)+
+    '<br>'+esc(d._meta.purpose);
+  render();
+}).catch(function(e){
+  document.getElementById('tbl').style.display='none';
+  document.getElementById('empty').style.display='block';
+  document.getElementById('empty').textContent='Could not load data/awards.json — '+e;
+});
+</script>
+</body>
+</html>
